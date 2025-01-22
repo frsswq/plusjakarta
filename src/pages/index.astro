@@ -1,7 +1,18 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/common/Navbar.astro";
 ---
 
 <Layout>
+  <Navbar />
   <main></main>
 </Layout>
+
+<style>
+  main {
+    max-width: 1440px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+</style>
