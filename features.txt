@@ -1,1 +1,5 @@
-- typewriter
+- hero?
+- typewriter / lab
+- weight showcase
+- glyph showcase
+- footer

@@ -2,29 +2,25 @@
 import FixedWidthContainer from "./FixedWidthContainer.astro";
 ---
 
-<nav>
+<footer>
   <FixedWidthContainer>
-    <p class="test">Test</p>
+    <p class="copyright_text">
+      Copyright © Tokotype Studio 2020. All rights reserved.
+    </p>
   </FixedWidthContainer>
-</nav>
+</footer>
 
 <style>
-  nav {
+  footer {
     background-color: black;
+    width: 100%;
+    height: auto;
     position: sticky;
-    top: 0;
-    height: 50px;
-    z-index: 100;
+    bottom: 0;
   }
 
-  p {
-    font-weight: 500;
-    font-size: 24px;
-  }
-
-  .test {
-    display: flex;
+  .copyright_text {
     text-align: left;
-    align-items: center;
+    color: white;
   }
 </style>
