@@ -1,5 +1,5 @@
 - hero?
-- typewriter / lab
+- typewriter / lab / typetester
 - weight showcase
 - glyph showcase
 - footer

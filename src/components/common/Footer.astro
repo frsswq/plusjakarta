@@ -1,26 +1,9 @@
 ---
-import FixedWidthContainer from "./FixedWidthContainer.astro";
+
 ---
 
-<footer>
-  <FixedWidthContainer>
-    <p class="copyright_text">
-      Copyright © Tokotype Studio 2020. All rights reserved.
-    </p>
-  </FixedWidthContainer>
+<footer class="fixed-container">
+  <p class="text-center mx-auto p-8 w-full">
+    Copyright © Tokotype Studio 2020. All rights reserved.
+  </p>
 </footer>
-
-<style>
-  footer {
-    background-color: black;
-    width: 100%;
-    height: auto;
-    position: sticky;
-    bottom: 0;
-  }
-
-  .copyright_text {
-    text-align: left;
-    color: white;
-  }
-</style>
