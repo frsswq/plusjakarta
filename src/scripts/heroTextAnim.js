@@ -2,33 +2,35 @@ import opentype from "opentype.js";
 import g from "g.js";
 
 export const sketch = (p) => {
-  const FONT_SIZE = 150;
   const PADDING = 0;
-  const CANVAS_WIDTH = 1440;
-  const CANVAS_HEIGHT = FONT_SIZE + PADDING * 2;
   const PLUS_MARGIN_BOTTOM = -20;
   const DURATION = 180;
   const LETTER_SPACING = -8;
   const RT_SPACING_ADJUSTMENT = 10;
+  const STROKE_WEIGHT = 1;
+  const MOBILE_BREAKPOINT = 768;
 
   let font;
+  let FONT_SIZE;
+  let CANVAS_HEIGHT;
   const textContent = "+Jakarta Sans";
   const easeInOutCubic = (t) =>
     t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
   let contourGroups = [];
   let animationDone = false;
 
-  p.setup = async () => {
-    const canvas = p.createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
-    canvas.elt.style.backgroundColor = "transparent";
+  const calculateSizes = () => {
+    const container = document.getElementById("p5-container");
+    FONT_SIZE = container.offsetWidth <= MOBILE_BREAKPOINT ? 60 : 120;
+    CANVAS_HEIGHT = FONT_SIZE + PADDING * 2;
+  };
 
-    const buffer = await fetch("/fonts/otf/PlusJakartaSans-Bold.otf").then(
-      (res) => res.arrayBuffer(),
-    );
+  const generateContourGroups = () => {
+    const scaleFactor = FONT_SIZE / 150;
+    const scaledLetterSpacing = LETTER_SPACING * scaleFactor;
+    const scaledRTAdjustment = RT_SPACING_ADJUSTMENT * scaleFactor;
+    const scaledPlusMargin = PLUS_MARGIN_BOTTOM * scaleFactor;
 
-    font = opentype.parse(buffer);
-
-    // Calculate total width for horizontal centering
     let totalWidth = 0;
     for (let i = 0; i < textContent.length; i++) {
       const char = textContent[i];
@@ -36,26 +38,25 @@ export const sketch = (p) => {
       if (i < textContent.length - 1) {
         const spacing =
           char === "r" && textContent[i + 1] === "t"
-            ? LETTER_SPACING + RT_SPACING_ADJUSTMENT
-            : LETTER_SPACING;
+            ? scaledLetterSpacing + scaledRTAdjustment
+            : scaledLetterSpacing;
         totalWidth += spacing;
       }
     }
 
-    // Vertical centering using font metrics
     const baselinePosition =
       CANVAS_HEIGHT / 2 +
       ((font.ascender / font.unitsPerEm) * FONT_SIZE) / 2 -
-      FONT_SIZE * 0.1; // Small adjustment for visual balance
+      FONT_SIZE * 0.1;
 
-    let currentX = (CANVAS_WIDTH - totalWidth) / 2; // Horizontal centering
+    let currentX = (p.width - totalWidth) / 2;
     let currentY = baselinePosition;
 
     const allContours = [];
 
     for (let i = 0; i < textContent.length; i++) {
       const char = textContent[i];
-      const yPos = char === "+" ? currentY + PLUS_MARGIN_BOTTOM : currentY;
+      const yPos = char === "+" ? currentY + scaledPlusMargin : currentY;
       const charPath = font.getPath(char, currentX, yPos, FONT_SIZE);
 
       let currentContour = [];
@@ -71,8 +72,8 @@ export const sketch = (p) => {
       const advance = font.getAdvanceWidth(char, FONT_SIZE);
       const spacing =
         char === "r" && textContent[i + 1] === "t"
-          ? LETTER_SPACING + RT_SPACING_ADJUSTMENT
-          : LETTER_SPACING;
+          ? scaledLetterSpacing + scaledRTAdjustment
+          : scaledLetterSpacing;
 
       currentX += advance + spacing;
     }
@@ -84,13 +85,33 @@ export const sketch = (p) => {
     });
   };
 
-  // The draw function remains unchanged
+  p.setup = async () => {
+    const container = document.getElementById("p5-container");
+    calculateSizes();
+    const canvas = p.createCanvas(container.offsetWidth, CANVAS_HEIGHT);
+    canvas.elt.style.backgroundColor = "transparent";
+
+    const buffer = await fetch("/fonts/otf/PlusJakartaSans-Bold.otf").then(
+      (res) => res.arrayBuffer(),
+    );
+
+    font = opentype.parse(buffer);
+    generateContourGroups();
+  };
+
+  p.windowResized = () => {
+    const container = document.getElementById("p5-container");
+    calculateSizes();
+    p.resizeCanvas(container.offsetWidth, CANVAS_HEIGHT);
+    generateContourGroups();
+  };
+
   p.draw = () => {
     p.clear();
     p.background(0, 0);
     p.stroke(0);
     p.noFill();
-    p.strokeWeight(0.5);
+    p.strokeWeight(STROKE_WEIGHT);
 
     const progress = Math.min(p.frameCount / DURATION, 1);
     const eased = easeInOutCubic(progress);
