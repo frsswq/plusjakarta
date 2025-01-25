@@ -1,5 +1,5 @@
-import { parse } from "opentype.js/dist/opentype.module.js";
-import { Path, resampleByLength } from "g.js";
+import opentype from "opentype.js";
+import g from "g.js";
 
 export const sketch = (p) => {
   const PADDING = 0;
@@ -17,6 +17,8 @@ export const sketch = (p) => {
   const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
   let contourGroups = [];
   let animationDone = false;
+  let resourcesLoaded = false;
+  let setupComplete = false;
 
   const calculateSizes = () => {
     const container = document.getElementById("p5-container");
@@ -25,6 +27,8 @@ export const sketch = (p) => {
   };
 
   const generateContourGroups = () => {
+    if (!font) return;
+
     const scaleFactor = FONT_SIZE / 150;
     const scaledLetterSpacing = LETTER_SPACING * scaleFactor;
     const scaledRTAdjustment = RT_SPACING_ADJUSTMENT * scaleFactor;
@@ -78,34 +82,59 @@ export const sketch = (p) => {
     }
 
     contourGroups = allContours.map((contour) => {
-      const gPath = new Path(contour);
-      const resampled = resampleByLength(gPath, 1);
+      const gPath = new g.Path(contour);
+      const resampled = g.resampleByLength(gPath, 1);
       return resampled.commands.map((c) => [c.x, c.y]);
     });
   };
 
   p.setup = async () => {
+    p.noLoop();
     const container = document.getElementById("p5-container");
-    calculateSizes();
-    const canvas = p.createCanvas(container.offsetWidth, CANVAS_HEIGHT);
-    canvas.elt.style.backgroundColor = "transparent";
 
-    const buffer = await fetch("/fonts/otf/PlusJakartaSans-Bold.otf").then(
-      (res) => res.arrayBuffer(),
-    );
+    try {
+      calculateSizes();
+      const canvas = p.createCanvas(container.offsetWidth, CANVAS_HEIGHT);
+      canvas.elt.style.backgroundColor = "transparent";
 
-    font = parse(buffer);
-    generateContourGroups();
+      const buffer = await fetch("/fonts/otf/PlusJakartaSans-Bold.otf").then(
+        (res) => {
+          if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+          return res.arrayBuffer();
+        },
+      );
+
+      font = opentype.parse(buffer);
+      resourcesLoaded = true;
+
+      generateContourGroups();
+      setupComplete = true;
+
+      p.loop();
+    } catch (error) {
+      console.error("Failed to initialize sketch:", error);
+    }
   };
 
   p.windowResized = () => {
+    if (!setupComplete) return;
+
     const container = document.getElementById("p5-container");
     calculateSizes();
     p.resizeCanvas(container.offsetWidth, CANVAS_HEIGHT);
     generateContourGroups();
+
+    animationDone = false;
+    window._animationFired = false;
+    p.redraw();
   };
 
   p.draw = () => {
+    if (!setupComplete || !resourcesLoaded) {
+      p.clear();
+      return;
+    }
+
     p.clear();
     p.background(0, 0);
     p.stroke(255);
