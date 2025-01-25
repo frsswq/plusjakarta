@@ -2,10 +2,21 @@
 - https://typelist.upstatement.com [ nice homepage ]
 - https://abcdinamo.com
 - https://www.fairetype.com [ generic ]
-- https://fraunces.undercase.xyz
 - https://tightype.com/ [ bento... ]
 - https://mass-driver.com/ [ pretty good ]
 - https://lineto.com/ [ cool features ]
 - https://www.grillitype.com/
-- https://rsms.me/inter/
 - https://www.creativeboom.com/resources/20-most-popular-independent-foundries-with-designers/
+- https://mbtype.com/
+- https://glyphsapp.com/
+
+collection
+- https://typespecimens.xyz/specimens/all/grid/
+
+mini-site
+- https://rsms.me/inter/ [ perfect? ]
+- https://io.mass-driver.com/
+- https://fraunces.undercase.xyz
+
+tutor
+- https://youtu.be/zemiN6Z8cNw?si=aMDa6seRW4jfAw1F
