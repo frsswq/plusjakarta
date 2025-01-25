@@ -22,9 +22,9 @@ export const sketch = (p) => {
     const canvas = p.createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
     canvas.elt.style.backgroundColor = "transparent";
 
-    const buffer = await fetch(
-      "/assets/fonts/otf/PlusJakartaSans-Bold.otf",
-    ).then((res) => res.arrayBuffer());
+    const buffer = await fetch("/fonts/otf/PlusJakartaSans-Bold.otf").then(
+      (res) => res.arrayBuffer(),
+    );
 
     font = opentype.parse(buffer);
 
