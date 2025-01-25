@@ -1,10 +1,10 @@
-import opentype from "opentype.js";
-import g from "g.js";
+import { parse } from "opentype.js/dist/opentype.module.js";
+import { Path, resampleByLength } from "g.js";
 
 export const sketch = (p) => {
   const PADDING = 0;
   const PLUS_MARGIN_BOTTOM = -20;
-  const DURATION = 180;
+  const DURATION = 90;
   const LETTER_SPACING = -8;
   const RT_SPACING_ADJUSTMENT = 10;
   const STROKE_WEIGHT = 1;
@@ -14,14 +14,13 @@ export const sketch = (p) => {
   let FONT_SIZE;
   let CANVAS_HEIGHT;
   const textContent = "+Jakarta Sans";
-  const easeInOutCubic = (t) =>
-    t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
   let contourGroups = [];
   let animationDone = false;
 
   const calculateSizes = () => {
     const container = document.getElementById("p5-container");
-    FONT_SIZE = container.offsetWidth <= MOBILE_BREAKPOINT ? 60 : 120;
+    FONT_SIZE = container.offsetWidth <= MOBILE_BREAKPOINT ? 50 : 120;
     CANVAS_HEIGHT = FONT_SIZE + PADDING * 2;
   };
 
@@ -79,8 +78,8 @@ export const sketch = (p) => {
     }
 
     contourGroups = allContours.map((contour) => {
-      const gPath = new g.Path(contour);
-      const resampled = g.resampleByLength(gPath, 1);
+      const gPath = new Path(contour);
+      const resampled = resampleByLength(gPath, 1);
       return resampled.commands.map((c) => [c.x, c.y]);
     });
   };
@@ -95,7 +94,7 @@ export const sketch = (p) => {
       (res) => res.arrayBuffer(),
     );
 
-    font = opentype.parse(buffer);
+    font = parse(buffer);
     generateContourGroups();
   };
 
@@ -109,12 +108,12 @@ export const sketch = (p) => {
   p.draw = () => {
     p.clear();
     p.background(0, 0);
-    p.stroke(0);
+    p.stroke(255);
     p.noFill();
     p.strokeWeight(STROKE_WEIGHT);
 
     const progress = Math.min(p.frameCount / DURATION, 1);
-    const eased = easeInOutCubic(progress);
+    const eased = easeOutCubic(progress);
     animationDone = progress >= 1;
 
     contourGroups.forEach((contour) => {
@@ -129,7 +128,12 @@ export const sketch = (p) => {
     });
 
     if (animationDone) {
-      p.drawingContext.fillStyle = "#000";
+      if (!window._animationFired) {
+        window.dispatchEvent(new Event("animationComplete"));
+        window._animationFired = true;
+      }
+
+      p.drawingContext.fillStyle = "#fff";
       p.drawingContext.beginPath();
 
       contourGroups.forEach((contour) => {

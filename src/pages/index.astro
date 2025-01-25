@@ -1,12 +1,30 @@
 ---
+// index.astro
 import Layout from "../layouts/Layout.astro";
 import HeroTextAnim from "../components/HeroTextAnim.astro";
 ---
 
 <Layout>
-  <main class="min-h-screen">
-    <div class="flex justify-center items-center min-h-[400px]">
+  <main>
+    <div
+      class="flex bg-black justify-center items-center flex-col h-screen space-y-2"
+    >
       <HeroTextAnim />
+      <p
+        id="subtitle"
+        class="text-white text-2xl opacity-0 transition-opacity duration-500 text-center pl-2"
+      >
+        Open-source Fonts for Jakarta City of Collaboration
+      </p>
     </div>
   </main>
 </Layout>
+
+<script>
+  window.addEventListener("animationComplete", () => {
+    const subtitle = document.getElementById("subtitle");
+    if (subtitle) {
+      subtitle.style.opacity = "1";
+    }
+  });
+</script>
