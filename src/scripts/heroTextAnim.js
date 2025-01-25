@@ -2,37 +2,45 @@ import opentype from "opentype.js";
 import g from "g.js";
 
 export const sketch = (p) => {
-  const PADDING = 0;
-  const PLUS_MARGIN_BOTTOM = -20;
   const DURATION = 90;
-  const LETTER_SPACING = -8;
-  const RT_SPACING_ADJUSTMENT = 10;
   const STROKE_WEIGHT = 1;
-  const MOBILE_BREAKPOINT = 768;
+  const BREAKPOINT = 1024;
+  const BASE_FONT_SIZE = 150;
+  const BASE_CANVAS_WIDTH = 930;
+  const BASE_CANVAS_HEIGHT = 150;
+  const LAPTOP_FONT_SIZE = 120;
+  const LAPTOP_CANVAS_WIDTH = 730;
+  const LAPTOP_CANVAS_HEIGHT = 120;
 
-  let font;
-  let FONT_SIZE;
-  let CANVAS_HEIGHT;
   const textContent = "+Jakarta Sans";
   const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+  let font;
   let contourGroups = [];
   let animationDone = false;
   let resourcesLoaded = false;
   let setupComplete = false;
+  let FONT_SIZE;
+  let CANVAS_WIDTH;
+  let CANVAS_HEIGHT;
+
+  const LETTER_SPACING_BASE = -8;
+  const RT_SPACING_ADJUSTMENT_BASE = 10;
+  const PLUS_MARGIN_BOTTOM_BASE = -20;
 
   const calculateSizes = () => {
-    const container = document.getElementById("p5-container");
-    FONT_SIZE = container.offsetWidth <= MOBILE_BREAKPOINT ? 50 : 120;
-    CANVAS_HEIGHT = FONT_SIZE + PADDING * 2;
+    const isDesktop = window.innerWidth >= BREAKPOINT;
+    FONT_SIZE = isDesktop ? BASE_FONT_SIZE : LAPTOP_FONT_SIZE;
+    CANVAS_WIDTH = isDesktop ? BASE_CANVAS_WIDTH : LAPTOP_CANVAS_WIDTH;
+    CANVAS_HEIGHT = isDesktop ? BASE_CANVAS_HEIGHT : LAPTOP_CANVAS_HEIGHT;
   };
 
   const generateContourGroups = () => {
     if (!font) return;
 
-    const scaleFactor = FONT_SIZE / 150;
-    const scaledLetterSpacing = LETTER_SPACING * scaleFactor;
-    const scaledRTAdjustment = RT_SPACING_ADJUSTMENT * scaleFactor;
-    const scaledPlusMargin = PLUS_MARGIN_BOTTOM * scaleFactor;
+    const scaleFactor = FONT_SIZE / BASE_FONT_SIZE;
+    const letterSpacing = LETTER_SPACING_BASE * scaleFactor;
+    const rtSpacingAdjustment = RT_SPACING_ADJUSTMENT_BASE * scaleFactor;
+    const plusMarginBottom = PLUS_MARGIN_BOTTOM_BASE * scaleFactor;
 
     let totalWidth = 0;
     for (let i = 0; i < textContent.length; i++) {
@@ -41,8 +49,8 @@ export const sketch = (p) => {
       if (i < textContent.length - 1) {
         const spacing =
           char === "r" && textContent[i + 1] === "t"
-            ? scaledLetterSpacing + scaledRTAdjustment
-            : scaledLetterSpacing;
+            ? letterSpacing + rtSpacingAdjustment
+            : letterSpacing;
         totalWidth += spacing;
       }
     }
@@ -52,14 +60,14 @@ export const sketch = (p) => {
       ((font.ascender / font.unitsPerEm) * FONT_SIZE) / 2 -
       FONT_SIZE * 0.1;
 
-    let currentX = (p.width - totalWidth) / 2;
+    let currentX = (CANVAS_WIDTH - totalWidth) / 2;
     let currentY = baselinePosition;
 
     const allContours = [];
 
     for (let i = 0; i < textContent.length; i++) {
       const char = textContent[i];
-      const yPos = char === "+" ? currentY + scaledPlusMargin : currentY;
+      const yPos = char === "+" ? currentY + plusMarginBottom : currentY;
       const charPath = font.getPath(char, currentX, yPos, FONT_SIZE);
 
       let currentContour = [];
@@ -75,8 +83,8 @@ export const sketch = (p) => {
       const advance = font.getAdvanceWidth(char, FONT_SIZE);
       const spacing =
         char === "r" && textContent[i + 1] === "t"
-          ? scaledLetterSpacing + scaledRTAdjustment
-          : scaledLetterSpacing;
+          ? letterSpacing + rtSpacingAdjustment
+          : letterSpacing;
 
       currentX += advance + spacing;
     }
@@ -90,13 +98,11 @@ export const sketch = (p) => {
 
   p.setup = async () => {
     p.noLoop();
-    const container = document.getElementById("p5-container");
+    calculateSizes();
+    const canvas = p.createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
+    canvas.style.backgroundColor = "transparent";
 
     try {
-      calculateSizes();
-      const canvas = p.createCanvas(container.offsetWidth, CANVAS_HEIGHT);
-      canvas.elt.style.backgroundColor = "transparent";
-
       const buffer = await fetch("/fonts/otf/PlusJakartaSans-Bold.otf").then(
         (res) => {
           if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
@@ -109,7 +115,6 @@ export const sketch = (p) => {
 
       generateContourGroups();
       setupComplete = true;
-
       p.loop();
     } catch (error) {
       console.error("Failed to initialize sketch:", error);
@@ -117,16 +122,23 @@ export const sketch = (p) => {
   };
 
   p.windowResized = () => {
-    if (!setupComplete) return;
+    const prevFont = FONT_SIZE;
+    const prevWidth = CANVAS_WIDTH;
+    const prevHeight = CANVAS_HEIGHT;
 
-    const container = document.getElementById("p5-container");
     calculateSizes();
-    p.resizeCanvas(container.offsetWidth, CANVAS_HEIGHT);
-    generateContourGroups();
 
-    animationDone = false;
-    window._animationFired = false;
-    p.redraw();
+    if (
+      prevFont !== FONT_SIZE ||
+      prevWidth !== CANVAS_WIDTH ||
+      prevHeight !== CANVAS_HEIGHT
+    ) {
+      p.resizeCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
+      generateContourGroups();
+      animationDone = false;
+      window._animationFired = false;
+      p.redraw();
+    }
   };
 
   p.draw = () => {
@@ -147,7 +159,6 @@ export const sketch = (p) => {
 
     contourGroups.forEach((contour) => {
       const limit = Math.floor(contour.length * eased);
-
       p.beginShape();
       for (let j = 0; j < limit; j++) {
         const [x, y] = contour[j];
@@ -162,17 +173,18 @@ export const sketch = (p) => {
         window._animationFired = true;
       }
 
-      p.drawingContext.fillStyle = "#fff";
-      p.drawingContext.beginPath();
+      const ctx = p.canvas.getContext("2d");
+      ctx.fillStyle = "#fff";
+      ctx.beginPath();
 
       contourGroups.forEach((contour) => {
         if (!contour.length) return;
-        p.drawingContext.moveTo(...contour[0]);
-        contour.forEach(([x, y]) => p.drawingContext.lineTo(x, y));
-        p.drawingContext.closePath();
+        ctx.moveTo(...contour[0]);
+        contour.forEach(([x, y]) => ctx.lineTo(x, y));
+        ctx.closePath();
       });
 
-      p.drawingContext.fill("evenodd");
+      ctx.fill("evenodd");
     }
   };
 };
