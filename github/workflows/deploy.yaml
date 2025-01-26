@@ -18,7 +18,7 @@ jobs:
   deploy:
     # Add this condition to check commit messages or allow manual triggers
     if: |
-      (github.event_name == 'push' && contains(join(' ', github.event.commits[*].message), '[deploy]')) ||
+      (github.event_name == 'push' && contains(join(' ', github.event.commits[*].message), 'deploy')) ||
       github.event_name == 'workflow_dispatch'
     environment:
       name: github-pages
