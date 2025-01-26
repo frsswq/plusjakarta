@@ -4,6 +4,9 @@ import tailwindcss from "@tailwindcss/vite";
 import { visualizer } from "rollup-plugin-visualizer";
 
 export default defineConfig({
+  site: "https://frsswq.github.io",
+  base: "plus-jakarta-site-redesign",
+
   vite: {
     plugins: [tailwindcss(), visualizer()],
     build: {
