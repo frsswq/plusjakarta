@@ -1,4 +1,4 @@
-import opentype from "opentype.js/dist/opentype.min.js";
+import opentype from "opentype.js";
 import g from "g.js";
 
 export const sketch = (p) => {
@@ -104,12 +104,12 @@ export const sketch = (p) => {
     p.background(0, 0);
 
     try {
-      const buffer = await fetch("/fonts/otf/PlusJakartaSans-Bold.otf").then(
-        (res) => {
-          if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-          return res.arrayBuffer();
-        },
-      );
+      const buffer = await fetch(
+        "/plus-jakarta-site-redesign/fonts/otf/PlusJakartaSans-Bold.otf",
+      ).then((res) => {
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        return res.arrayBuffer();
+      });
 
       font = opentype.parse(buffer);
       resourcesLoaded = true;
