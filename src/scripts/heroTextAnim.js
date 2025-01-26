@@ -1,9 +1,9 @@
-import opentype from "opentype.js";
+import opentype from "opentype.js/dist/opentype.min.js";
 import g from "g.js";
 
 export const sketch = (p) => {
   const DURATION = 90;
-  const STROKE_WEIGHT = 1;
+  const STROKE_WEIGHT = 1.5;
   const BREAKPOINT = 1024;
   const BASE_FONT_SIZE = 150;
   const BASE_CANVAS_WIDTH = 930;

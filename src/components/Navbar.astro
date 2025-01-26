@@ -2,17 +2,32 @@
 
 ---
 
-<nav class="fixed-container flex flex-row justify-between bg-black p-8">
-  <img
-    src="assets/j-logo.svg"
-    width="20"
-    height="20"
-    class="flex items-center justify-center"
-  />
+<nav
+  class="fixed top-0 hidden max-h-[50px] w-full flex-row justify-between bg-black p-6"
+>
+  <p class="text-md bold flex items-center font-bold text-white">
+    <span class="relative -top-[2px]">+</span>Jakarta Sans
+  </p>
   <ul class="flex items-center space-x-4 text-white">
-    <p>About Fonts</p>
-    <p>Type Tester</p>
-    <p>Characters</p>
-    <p>Download</p>
+    <li class="text-sm">Features</li>
+    <li class="text-sm">Glyphs</li>
+    <li class="text-sm">FAQ</li>
+    <li class="text-sm">Lab</li>
+    <li class="text-sm">Download</li>
   </ul>
 </nav>
+
+<script>
+  window.addEventListener("scroll", () => {
+    const nav = document.querySelector("nav");
+    if (nav) {
+      if (window.scrollY > 0) {
+        nav.classList.remove("hidden");
+        nav.classList.add("flex");
+      } else {
+        nav.classList.remove("flex");
+        nav.classList.add("hidden");
+      }
+    }
+  });
+</script>
