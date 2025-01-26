@@ -101,6 +101,7 @@ export const sketch = (p) => {
     calculateSizes();
     const canvas = p.createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
     canvas.style.backgroundColor = "transparent";
+    p.background(0, 0);
 
     try {
       const buffer = await fetch("/fonts/otf/PlusJakartaSans-Bold.otf").then(
@@ -143,7 +144,6 @@ export const sketch = (p) => {
 
   p.draw = () => {
     if (!setupComplete || !resourcesLoaded) {
-      p.clear();
       return;
     }
 
@@ -173,7 +173,7 @@ export const sketch = (p) => {
         window._animationFired = true;
       }
 
-      const ctx = p.canvas.getContext("2d");
+      const ctx = p.canvas.getContext("2d", { willReadFrequently: true });
       ctx.fillStyle = "#fff";
       ctx.beginPath();
 

@@ -1,4 +1,4 @@
-import p5 from "p5";
+import q5 from "q5";
 import opentype from "opentype.js";
 import g from "g.js";
 
