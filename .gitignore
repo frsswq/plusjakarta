@@ -1,6 +1,8 @@
 # generated types
 .astro/
+
 dist/
+src/scripts/original.js
 
 # dependencies
 node_modules/

@@ -33,47 +33,110 @@ export const sketch = (p) => {
     CANVAS_HEIGHT = isDesktop ? BASE_CANVAS_HEIGHT : LAPTOP_CANVAS_HEIGHT;
   };
 
-  const resampleContour = (contour) => {
-    let pathString = "";
+  const resampleContour = (contour, resolution = 1) => {
+    const resampledPoints = [];
+    let prevPoint = null;
+
+    const lerp = (p1, p2, t) => [
+      p1[0] + t * (p2[0] - p1[0]),
+      p1[1] + t * (p2[1] - p1[1]),
+    ];
+
+    const calculateDistance = (p1, p2) =>
+      Math.hypot(p2[0] - p1[0], p2[1] - p1[1]);
+
+    const resampleLine = (p1, p2) => {
+      const distance = calculateDistance(p1, p2);
+      const steps = Math.ceil(distance / resolution);
+      const points = [];
+      for (let i = 1; i <= steps; i++) {
+        points.push(lerp(p1, p2, i / steps));
+      }
+      return points;
+    };
+
+    const resampleQuadraticBezier = (p1, cp, p2) => {
+      const points = [];
+      const steps = Math.ceil(calculateDistance(p1, p2) / resolution);
+      for (let i = 1; i <= steps; i++) {
+        const t = i / steps;
+        const x =
+          (1 - t) ** 2 * p1[0] + 2 * (1 - t) * t * cp[0] + t ** 2 * p2[0];
+        const y =
+          (1 - t) ** 2 * p1[1] + 2 * (1 - t) * t * cp[1] + t ** 2 * p2[1];
+        points.push([x, y]);
+      }
+      return points;
+    };
+
+    const resampleCubicBezier = (p1, cp1, cp2, p2) => {
+      const points = [];
+      const steps = Math.ceil(calculateDistance(p1, p2) / resolution);
+      for (let i = 1; i <= steps; i++) {
+        const t = i / steps;
+        const x =
+          (1 - t) ** 3 * p1[0] +
+          3 * (1 - t) ** 2 * t * cp1[0] +
+          3 * (1 - t) * t ** 2 * cp2[0] +
+          t ** 3 * p2[0];
+        const y =
+          (1 - t) ** 3 * p1[1] +
+          3 * (1 - t) ** 2 * t * cp1[1] +
+          3 * (1 - t) * t ** 2 * cp2[1] +
+          t ** 3 * p2[1];
+        points.push([x, y]);
+      }
+      return points;
+    };
+
     for (const cmd of contour) {
       switch (cmd.type) {
         case "M":
-          pathString += `M ${cmd.x} ${cmd.y} `;
+          prevPoint = [cmd.x, cmd.y];
+          resampledPoints.push(prevPoint);
           break;
         case "L":
-          pathString += `L ${cmd.x} ${cmd.y} `;
-          break;
-        case "C":
-          pathString += `C ${cmd.x1} ${cmd.y1} ${cmd.x2} ${cmd.y2} ${cmd.x} ${cmd.y} `;
+          if (prevPoint) {
+            const linePoints = resampleLine(prevPoint, [cmd.x, cmd.y]);
+            resampledPoints.push(...linePoints);
+            prevPoint = [cmd.x, cmd.y];
+          }
           break;
         case "Q":
-          pathString += `Q ${cmd.x1} ${cmd.y1} ${cmd.x} ${cmd.y} `;
+          if (prevPoint) {
+            const quadraticPoints = resampleQuadraticBezier(
+              prevPoint,
+              [cmd.x1, cmd.y1],
+              [cmd.x, cmd.y],
+            );
+            resampledPoints.push(...quadraticPoints);
+            prevPoint = [cmd.x, cmd.y];
+          }
+          break;
+        case "C":
+          if (prevPoint) {
+            const cubicPoints = resampleCubicBezier(
+              prevPoint,
+              [cmd.x1, cmd.y1],
+              [cmd.x2, cmd.y2],
+              [cmd.x, cmd.y],
+            );
+            resampledPoints.push(...cubicPoints);
+            prevPoint = [cmd.x, cmd.y];
+          }
           break;
         case "Z":
-          pathString += "Z ";
+          if (prevPoint && resampledPoints.length > 0) {
+            const startPoint = resampledPoints[0];
+            const closingPoints = resampleLine(prevPoint, startPoint);
+            resampledPoints.push(...closingPoints);
+            prevPoint = startPoint;
+          }
           break;
         default:
           console.warn(`Unhandled command type: ${cmd.type}`);
           break;
       }
-    }
-
-    const svgNS = "http://www.w3.org/2000/svg";
-    const path = document.createElementNS(svgNS, "path");
-    path.setAttribute("d", pathString);
-    const totalLength = path.getTotalLength();
-    const resampledPoints = [];
-
-    if (totalLength === 0) return [];
-
-    for (let len = 0; len <= totalLength; len += 1) {
-      const point = path.getPointAtLength(len);
-      resampledPoints.push([point.x, point.y]);
-    }
-
-    if (pathString.includes("Z")) {
-      const startPoint = path.getPointAtLength(0);
-      resampledPoints.push([startPoint.x, startPoint.y]);
     }
 
     return resampledPoints;
