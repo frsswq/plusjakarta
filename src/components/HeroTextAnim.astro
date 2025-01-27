@@ -2,7 +2,7 @@
 
 ---
 
-<div id="p5-container" class="mx-auto hidden md:flex"></div>
+<div id="p5-container" class="mx-auto hidden"></div>
 
 <script>
   // @ts-ignore
@@ -10,4 +10,14 @@
   import { sketch } from "../scripts/heroTextAnim";
 
   new q5(sketch, document.getElementById("p5-container"));
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const p5Container = document.getElementById("p5-container");
+    window.addEventListener("animationStart", () => {
+      if (p5Container && window.innerWidth > 768) {
+        p5Container.classList.remove("hidden");
+        p5Container.classList.add("block");
+      }
+    });
+  });
 </script>

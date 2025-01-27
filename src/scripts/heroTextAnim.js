@@ -116,6 +116,7 @@ export const sketch = (p) => {
 
       generateContourGroups();
       setupComplete = true;
+      window.dispatchEvent(new Event("animationStart"));
       p.loop();
     } catch (error) {
       console.error("Failed to initialize sketch:", error);
@@ -138,6 +139,7 @@ export const sketch = (p) => {
       generateContourGroups();
       animationDone = false;
       window._animationFired = false;
+      window.dispatchEvent(new Event("animationStart"));
       p.redraw();
     }
   };

@@ -7,18 +7,31 @@ import Footer from "../components/Footer.astro";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="no-scroll">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/assets/jfavico.png" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/plus-jakarta-site-redesign/assets/jfavico.png"
+    />
     <meta name="generator" content={Astro.generator} />
     <title>
       +Jakarta Sans Typeface - Open-source fonts for Jakarta City of
       Collaboration
     </title>
+    <style>
+      .no-scroll {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .no-scroll::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
   </head>
-  <body>
+  <body class="no-scroll">
     <Navbar />
     <slot />
     <Footer />
@@ -34,7 +47,8 @@ import Footer from "../components/Footer.astro";
 
   html,
   body {
+    height: 100%;
+    width: 100%;
     font-family: "Plus Jakarta Sans Variable", sans-serif;
-    background-color: white;
   }
 </style>

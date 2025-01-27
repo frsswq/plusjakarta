@@ -1,10 +1,12 @@
 ---
 import HeroTextAnim from "../components/HeroTextAnim.astro";
+import HeroTextSpinner from "./HeroTextSpinner.astro";
 ---
 
 <section
-  class="hidden h-screen flex-col items-center justify-center space-y-2 bg-black pb-2 md:flex"
+  class="hidden h-dvh flex-col items-center justify-center space-y-0 bg-black pb-2 md:flex"
 >
+  <HeroTextSpinner />
   <HeroTextAnim />
   <p
     id="subtitle"
@@ -15,10 +17,12 @@ import HeroTextAnim from "../components/HeroTextAnim.astro";
 </section>
 
 <script>
-  window.addEventListener("animationComplete", () => {
-    const subtitle = document.getElementById("subtitle");
-    if (subtitle) {
-      subtitle.style.opacity = "1";
-    }
+  window.addEventListener("DOMContentLoaded", () => {
+    window.addEventListener("animationComplete", () => {
+      const subtitle = document.getElementById("subtitle");
+      if (subtitle) {
+        subtitle.style.opacity = "1";
+      }
+    });
   });
 </script>
