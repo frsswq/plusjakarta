@@ -1,9 +1,8 @@
 import opentype from "opentype.js";
-import g from "g.js";
 
 export const sketch = (p) => {
   const DURATION = 90;
-  const STROKE_WEIGHT = 1.5;
+  const STROKE_WEIGHT = 1;
   const BREAKPOINT = 1024;
   const BASE_FONT_SIZE = 150;
   const BASE_CANVAS_WIDTH = 930;
@@ -32,6 +31,52 @@ export const sketch = (p) => {
     FONT_SIZE = isDesktop ? BASE_FONT_SIZE : LAPTOP_FONT_SIZE;
     CANVAS_WIDTH = isDesktop ? BASE_CANVAS_WIDTH : LAPTOP_CANVAS_WIDTH;
     CANVAS_HEIGHT = isDesktop ? BASE_CANVAS_HEIGHT : LAPTOP_CANVAS_HEIGHT;
+  };
+
+  const resampleContour = (contour) => {
+    let pathString = "";
+    for (const cmd of contour) {
+      switch (cmd.type) {
+        case "M":
+          pathString += `M ${cmd.x} ${cmd.y} `;
+          break;
+        case "L":
+          pathString += `L ${cmd.x} ${cmd.y} `;
+          break;
+        case "C":
+          pathString += `C ${cmd.x1} ${cmd.y1} ${cmd.x2} ${cmd.y2} ${cmd.x} ${cmd.y} `;
+          break;
+        case "Q":
+          pathString += `Q ${cmd.x1} ${cmd.y1} ${cmd.x} ${cmd.y} `;
+          break;
+        case "Z":
+          pathString += "Z ";
+          break;
+        default:
+          console.warn(`Unhandled command type: ${cmd.type}`);
+          break;
+      }
+    }
+
+    const svgNS = "http://www.w3.org/2000/svg";
+    const path = document.createElementNS(svgNS, "path");
+    path.setAttribute("d", pathString);
+    const totalLength = path.getTotalLength();
+    const resampledPoints = [];
+
+    if (totalLength === 0) return [];
+
+    for (let len = 0; len <= totalLength; len += 1) {
+      const point = path.getPointAtLength(len);
+      resampledPoints.push([point.x, point.y]);
+    }
+
+    if (pathString.includes("Z")) {
+      const startPoint = path.getPointAtLength(0);
+      resampledPoints.push([startPoint.x, startPoint.y]);
+    }
+
+    return resampledPoints;
   };
 
   const generateContourGroups = () => {
@@ -89,11 +134,7 @@ export const sketch = (p) => {
       currentX += advance + spacing;
     }
 
-    contourGroups = allContours.map((contour) => {
-      const gPath = new g.Path(contour);
-      const resampled = g.resampleByLength(gPath, 1);
-      return resampled.commands.map((c) => [c.x, c.y]);
-    });
+    contourGroups = allContours.map((contour) => resampleContour(contour));
   };
 
   p.setup = async () => {
