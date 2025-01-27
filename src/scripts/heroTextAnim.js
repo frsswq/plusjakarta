@@ -209,7 +209,7 @@ export const sketch = (p) => {
 
     try {
       const buffer = await fetch(
-        "/plus-jakarta-site-redesign/fonts/otf/PlusJakartaSans-Bold.otf",
+        "/plus-jakarta-site-redesign/fonts/subset/PlusJakartaSans-Bold-Subset.otf",
       ).then((res) => {
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         return res.arrayBuffer();
