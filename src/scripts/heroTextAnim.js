@@ -3,13 +3,32 @@ import opentype from "opentype.js";
 export const sketch = (p) => {
   const DURATION = 90;
   const STROKE_WEIGHT = 1;
-  const BREAKPOINT = 1024;
-  const BASE_FONT_SIZE = 150;
-  const BASE_CANVAS_WIDTH = 930;
-  const BASE_CANVAS_HEIGHT = 150;
+  const BREAKPOINT_DESKTOP = 1024;
+  const BREAKPOINT_LAPTOP = 768;
+
+  // Desktop constants
+  const DESKTOP_FONT_SIZE = 150;
+  const DESKTOP_CANVAS_WIDTH = 930;
+  const DESKTOP_CANVAS_HEIGHT = 150;
+  const DESKTOP_LETTER_SPACING = -8;
+  const DESKTOP_RT_SPACING = 10;
+  const DESKTOP_PLUS_MARGIN = -20;
+
+  // Laptop constants
   const LAPTOP_FONT_SIZE = 120;
   const LAPTOP_CANVAS_WIDTH = 730;
   const LAPTOP_CANVAS_HEIGHT = 120;
+  const LAPTOP_LETTER_SPACING = -6;
+  const LAPTOP_RT_SPACING = 8;
+  const LAPTOP_PLUS_MARGIN = -15;
+
+  // Mobile constants
+  const MOBILE_FONT_SIZE = 50;
+  const MOBILE_CANVAS_WIDTH = 315;
+  const MOBILE_CANVAS_HEIGHT = 50;
+  const MOBILE_LETTER_SPACING = -2;
+  const MOBILE_RT_SPACING = 4;
+  const MOBILE_PLUS_MARGIN = -5;
 
   const textContent = "+Jakarta Sans";
   const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
@@ -18,19 +37,33 @@ export const sketch = (p) => {
   let animationDone = false;
   let resourcesLoaded = false;
   let setupComplete = false;
-  let FONT_SIZE;
-  let CANVAS_WIDTH;
-  let CANVAS_HEIGHT;
-
-  const LETTER_SPACING_BASE = -8;
-  const RT_SPACING_ADJUSTMENT_BASE = 10;
-  const PLUS_MARGIN_BOTTOM_BASE = -20;
+  let FONT_SIZE, CANVAS_WIDTH, CANVAS_HEIGHT;
+  let LETTER_SPACING, RT_SPACING_ADJUSTMENT, PLUS_MARGIN_BOTTOM;
 
   const calculateSizes = () => {
-    const isDesktop = window.innerWidth >= BREAKPOINT;
-    FONT_SIZE = isDesktop ? BASE_FONT_SIZE : LAPTOP_FONT_SIZE;
-    CANVAS_WIDTH = isDesktop ? BASE_CANVAS_WIDTH : LAPTOP_CANVAS_WIDTH;
-    CANVAS_HEIGHT = isDesktop ? BASE_CANVAS_HEIGHT : LAPTOP_CANVAS_HEIGHT;
+    const width = window.innerWidth;
+    if (width >= BREAKPOINT_DESKTOP) {
+      FONT_SIZE = DESKTOP_FONT_SIZE;
+      CANVAS_WIDTH = DESKTOP_CANVAS_WIDTH;
+      CANVAS_HEIGHT = DESKTOP_CANVAS_HEIGHT;
+      LETTER_SPACING = DESKTOP_LETTER_SPACING;
+      RT_SPACING_ADJUSTMENT = DESKTOP_RT_SPACING;
+      PLUS_MARGIN_BOTTOM = DESKTOP_PLUS_MARGIN;
+    } else if (width >= BREAKPOINT_LAPTOP) {
+      FONT_SIZE = LAPTOP_FONT_SIZE;
+      CANVAS_WIDTH = LAPTOP_CANVAS_WIDTH;
+      CANVAS_HEIGHT = LAPTOP_CANVAS_HEIGHT;
+      LETTER_SPACING = LAPTOP_LETTER_SPACING;
+      RT_SPACING_ADJUSTMENT = LAPTOP_RT_SPACING;
+      PLUS_MARGIN_BOTTOM = LAPTOP_PLUS_MARGIN;
+    } else {
+      FONT_SIZE = MOBILE_FONT_SIZE;
+      CANVAS_WIDTH = MOBILE_CANVAS_WIDTH;
+      CANVAS_HEIGHT = MOBILE_CANVAS_HEIGHT;
+      LETTER_SPACING = MOBILE_LETTER_SPACING;
+      RT_SPACING_ADJUSTMENT = MOBILE_RT_SPACING;
+      PLUS_MARGIN_BOTTOM = MOBILE_PLUS_MARGIN;
+    }
   };
 
   const resampleContour = (contour, resolution = 1) => {
@@ -145,10 +178,10 @@ export const sketch = (p) => {
   const generateContourGroups = () => {
     if (!font) return;
 
-    const scaleFactor = FONT_SIZE / BASE_FONT_SIZE;
-    const letterSpacing = LETTER_SPACING_BASE * scaleFactor;
-    const rtSpacingAdjustment = RT_SPACING_ADJUSTMENT_BASE * scaleFactor;
-    const plusMarginBottom = PLUS_MARGIN_BOTTOM_BASE * scaleFactor;
+    const baselinePosition =
+      CANVAS_HEIGHT / 2 +
+      ((font.ascender / font.unitsPerEm) * FONT_SIZE) / 2 -
+      FONT_SIZE * 0.1;
 
     let totalWidth = 0;
     for (let i = 0; i < textContent.length; i++) {
@@ -157,16 +190,11 @@ export const sketch = (p) => {
       if (i < textContent.length - 1) {
         const spacing =
           char === "r" && textContent[i + 1] === "t"
-            ? letterSpacing + rtSpacingAdjustment
-            : letterSpacing;
+            ? LETTER_SPACING + RT_SPACING_ADJUSTMENT
+            : LETTER_SPACING;
         totalWidth += spacing;
       }
     }
-
-    const baselinePosition =
-      CANVAS_HEIGHT / 2 +
-      ((font.ascender / font.unitsPerEm) * FONT_SIZE) / 2 -
-      FONT_SIZE * 0.1;
 
     let currentX = (CANVAS_WIDTH - totalWidth) / 2;
     let currentY = baselinePosition;
@@ -175,7 +203,7 @@ export const sketch = (p) => {
 
     for (let i = 0; i < textContent.length; i++) {
       const char = textContent[i];
-      const yPos = char === "+" ? currentY + plusMarginBottom : currentY;
+      const yPos = char === "+" ? currentY + PLUS_MARGIN_BOTTOM : currentY;
       const charPath = font.getPath(char, currentX, yPos, FONT_SIZE);
 
       let currentContour = [];
@@ -191,8 +219,8 @@ export const sketch = (p) => {
       const advance = font.getAdvanceWidth(char, FONT_SIZE);
       const spacing =
         char === "r" && textContent[i + 1] === "t"
-          ? letterSpacing + rtSpacingAdjustment
-          : letterSpacing;
+          ? LETTER_SPACING + RT_SPACING_ADJUSTMENT
+          : LETTER_SPACING;
 
       currentX += advance + spacing;
     }

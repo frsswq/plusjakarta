@@ -1,4 +1,3 @@
-- hero?
 - typewriter / lab / typetester
 - weight showcase
 - glyph showcase
