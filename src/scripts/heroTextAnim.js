@@ -2,7 +2,7 @@ import opentype from "opentype.js";
 
 export const sketch = (p) => {
   const DURATION = 90;
-  const STROKE_WEIGHT = 1;
+  const STROKE_WEIGHT = 1.5;
   const BREAKPOINT_DESKTOP = 1024;
   const BREAKPOINT_LAPTOP = 768;
 
