@@ -1,4 +1,11 @@
 - typewriter / lab / typetester
-- weight showcase
-- glyph showcase
-- footer
+
+STRUCTURE
+- Header
+- About
+- Style Showcase
+- Glyph Showcase
+- Unique Features
+- Supported Language
+- CTA & Credit
+- Footer
