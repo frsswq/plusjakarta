@@ -12,12 +12,12 @@
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/frsswq/deskreview-react
+$ git clone https://github.com/frsswq/plus-jakarta-site-redesign
 ```
 
 ```bash
 # Go into the repository
-$ cd deskreview-react
+$ cd plus-jakarta-site-redesign
 ```
 
 ```bash
