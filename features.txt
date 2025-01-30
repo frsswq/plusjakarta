@@ -1,11 +1,11 @@
 - typewriter / lab / typetester
 
 STRUCTURE
-- Header
+- Header [✓]
 - About
 - Style Showcase
 - Glyph Showcase
 - Unique Features
 - Supported Language
 - CTA & Credit
-- Footer
+- Footer [✓]
