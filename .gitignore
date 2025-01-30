@@ -2,6 +2,7 @@
 .astro/
 
 dist/
+textAnimRecord/
 src/scripts/original.js
 
 # dependencies

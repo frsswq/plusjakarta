@@ -6,7 +6,6 @@ export const sketch = (p) => {
   const BREAKPOINT_DESKTOP = 1024;
   const BREAKPOINT_LAPTOP = 768;
 
-  // Desktop constants
   const DESKTOP_FONT_SIZE = 150;
   const DESKTOP_CANVAS_WIDTH = 930;
   const DESKTOP_CANVAS_HEIGHT = 150;
@@ -14,7 +13,6 @@ export const sketch = (p) => {
   const DESKTOP_RT_SPACING = 10;
   const DESKTOP_PLUS_MARGIN = -20;
 
-  // Laptop constants
   const LAPTOP_FONT_SIZE = 120;
   const LAPTOP_CANVAS_WIDTH = 730;
   const LAPTOP_CANVAS_HEIGHT = 120;
@@ -22,7 +20,6 @@ export const sketch = (p) => {
   const LAPTOP_RT_SPACING = 8;
   const LAPTOP_PLUS_MARGIN = -15;
 
-  // Mobile constants
   const MOBILE_FONT_SIZE = 50;
   const MOBILE_CANVAS_WIDTH = 315;
   const MOBILE_CANVAS_HEIGHT = 50;
@@ -30,8 +27,23 @@ export const sketch = (p) => {
   const MOBILE_RT_SPACING = 4;
   const MOBILE_PLUS_MARGIN = -5;
 
+  const SAVE_FRAMES = false;
+
   const textContent = "+Jakarta Sans";
   const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+  const easeOutQuint = (t) => 1 - Math.pow(1 - t, 5);
+  const easeOutExpo = (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t));
+  const easeOutSine = (t) => Math.sin((t * Math.PI) / 2);
+  const easeInOutSine = (t) => -(Math.cos(Math.PI * t) - 1) / 2;
+  const easeInOutExpo = (t) =>
+    t === 0
+      ? 0
+      : t === 1
+        ? 1
+        : t < 0.5
+          ? Math.pow(2, 20 * t - 10) / 2
+          : (2 - Math.pow(2, -20 * t + 10)) / 2;
+  const easing = easeOutCubic;
   let font;
   let contourGroups = [];
   let animationDone = false;
@@ -39,6 +51,7 @@ export const sketch = (p) => {
   let setupComplete = false;
   let FONT_SIZE, CANVAS_WIDTH, CANVAS_HEIGHT;
   let LETTER_SPACING, RT_SPACING_ADJUSTMENT, PLUS_MARGIN_BOTTOM;
+  let frameNumber = 0;
 
   const calculateSizes = () => {
     const width = window.innerWidth;
@@ -234,6 +247,9 @@ export const sketch = (p) => {
     const canvas = p.createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
     canvas.style.backgroundColor = "transparent";
     p.background(0, 0);
+    if (SAVE_FRAMES) {
+      p.frameRate(5);
+    }
 
     try {
       const buffer = await fetch(
@@ -288,7 +304,7 @@ export const sketch = (p) => {
     p.strokeWeight(STROKE_WEIGHT);
 
     const progress = Math.min(p.frameCount / DURATION, 1);
-    const eased = easeOutCubic(progress);
+    const eased = easing(progress);
     animationDone = progress >= 1;
 
     contourGroups.forEach((contour) => {
@@ -319,6 +335,11 @@ export const sketch = (p) => {
       });
 
       ctx.fill("evenodd");
+    }
+
+    if (SAVE_FRAMES && frameNumber <= DURATION + 5) {
+      p.saveCanvas(`frame-${frameNumber.toString().padStart(4, "0")}`, "png");
+      frameNumber++;
     }
   };
 };
