@@ -23,13 +23,9 @@ $ cd plus-jakarta-site-redesign
 ```bash
 # Install dependencies
 $ npm install
-or
-$ pnpm install
 ```
 
 ```bash
 # Start the project in development
 $ npm run dev
-or
-$ pnpm run dev
 ```

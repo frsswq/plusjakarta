@@ -11,16 +11,18 @@
 
 @font-face {
   font-family: "Plus Jakarta Sans Variable";
-  src: url("/plus-jakarta-site-redesign/fonts/variable/PlusJakartaSans[wght].ttf")
-    format("truetype");
+  src: url("/plus-jakarta-site-redesign/fonts/webfonts/PlusJakartaSans[wght].woff2")
+    format("woff2");
   font-weight: 100 900;
+  font-display: swap;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Plus Jakarta Sans Variable";
-  src: url("/plus-jakarta-site-redesign/fonts/variable/PlusJakartaSans-Italic[wght].ttf")
-    format("truetype");
+  src: url("/plus-jakarta-site-redesign/fonts/webfonts/PlusJakartaSans-Italic[wght].woff2")
+    format("woff2");
   font-weight: 100 900;
+  font-display: swap;
   font-style: italic;
 }
