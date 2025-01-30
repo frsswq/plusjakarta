@@ -1,8 +1,7 @@
 import opentype from "opentype.js";
 
 export const sketch = (p) => {
-  const DURATION = 90;
-  const STROKE_WEIGHT = 1.5;
+  const DURATION = 120;
   const BREAKPOINT_DESKTOP = 1024;
   const BREAKPOINT_LAPTOP = 768;
 
@@ -12,6 +11,7 @@ export const sketch = (p) => {
   const DESKTOP_LETTER_SPACING = -8;
   const DESKTOP_RT_SPACING = 10;
   const DESKTOP_PLUS_MARGIN = -20;
+  const DESKTOP_STROKE_WEIGHT = 1.5;
 
   const LAPTOP_FONT_SIZE = 120;
   const LAPTOP_CANVAS_WIDTH = 730;
@@ -19,13 +19,15 @@ export const sketch = (p) => {
   const LAPTOP_LETTER_SPACING = -6;
   const LAPTOP_RT_SPACING = 8;
   const LAPTOP_PLUS_MARGIN = -15;
+  const LAPTOP_STROKE_WEIGHT = 1;
 
   const MOBILE_FONT_SIZE = 50;
   const MOBILE_CANVAS_WIDTH = 315;
   const MOBILE_CANVAS_HEIGHT = 50;
   const MOBILE_LETTER_SPACING = -2;
   const MOBILE_RT_SPACING = 4;
-  const MOBILE_PLUS_MARGIN = -5;
+  const MOBILE_PLUS_MARGIN = -7.5;
+  const MOBILE_STROKE_WEIGHT = 0.5;
 
   const SAVE_FRAMES = false;
 
@@ -33,7 +35,10 @@ export const sketch = (p) => {
   const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
   const easeOutQuint = (t) => 1 - Math.pow(1 - t, 5);
   const easeOutExpo = (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t));
-  const easeOutSine = (t) => Math.sin((t * Math.PI) / 2);
+  const easeInOutCubic = (t) =>
+    t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  const easeInOutQuint = (t) =>
+    t < 0.5 ? 16 * t * t * t * t * t : 1 - Math.pow(-2 * t + 2, 5) / 2;
   const easeInOutSine = (t) => -(Math.cos(Math.PI * t) - 1) / 2;
   const easeInOutExpo = (t) =>
     t === 0
@@ -43,14 +48,14 @@ export const sketch = (p) => {
         : t < 0.5
           ? Math.pow(2, 20 * t - 10) / 2
           : (2 - Math.pow(2, -20 * t + 10)) / 2;
-  const easing = easeOutCubic;
+  const easing = easeInOutQuint;
   let font;
   let contourGroups = [];
   let animationDone = false;
   let resourcesLoaded = false;
   let setupComplete = false;
   let FONT_SIZE, CANVAS_WIDTH, CANVAS_HEIGHT;
-  let LETTER_SPACING, RT_SPACING_ADJUSTMENT, PLUS_MARGIN_BOTTOM;
+  let LETTER_SPACING, RT_SPACING_ADJUSTMENT, PLUS_MARGIN_BOTTOM, STROKE_WEIGHT;
   let frameNumber = 0;
 
   const calculateSizes = () => {
@@ -62,6 +67,7 @@ export const sketch = (p) => {
       LETTER_SPACING = DESKTOP_LETTER_SPACING;
       RT_SPACING_ADJUSTMENT = DESKTOP_RT_SPACING;
       PLUS_MARGIN_BOTTOM = DESKTOP_PLUS_MARGIN;
+      STROKE_WEIGHT = DESKTOP_STROKE_WEIGHT;
     } else if (width >= BREAKPOINT_LAPTOP) {
       FONT_SIZE = LAPTOP_FONT_SIZE;
       CANVAS_WIDTH = LAPTOP_CANVAS_WIDTH;
@@ -69,6 +75,7 @@ export const sketch = (p) => {
       LETTER_SPACING = LAPTOP_LETTER_SPACING;
       RT_SPACING_ADJUSTMENT = LAPTOP_RT_SPACING;
       PLUS_MARGIN_BOTTOM = LAPTOP_PLUS_MARGIN;
+      STROKE_WEIGHT = LAPTOP_STROKE_WEIGHT;
     } else {
       FONT_SIZE = MOBILE_FONT_SIZE;
       CANVAS_WIDTH = MOBILE_CANVAS_WIDTH;
@@ -76,6 +83,7 @@ export const sketch = (p) => {
       LETTER_SPACING = MOBILE_LETTER_SPACING;
       RT_SPACING_ADJUSTMENT = MOBILE_RT_SPACING;
       PLUS_MARGIN_BOTTOM = MOBILE_PLUS_MARGIN;
+      STROKE_WEIGHT = MOBILE_STROKE_WEIGHT;
     }
   };
 
