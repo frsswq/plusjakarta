@@ -1,4 +1,4 @@
-# Plus Jakarta Sans Redesign
+# Plus Jakarta Sans - Mini Site Redesign
 
 ![/public/documentation/img/heroTextAnim.gif](/public/documentation/img/heroTextAnim.gif)
 
