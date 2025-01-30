@@ -8,3 +8,19 @@
     max-width: 1440px;
   }
 }
+
+@font-face {
+  font-family: "Plus Jakarta Sans Variable";
+  src: url("/plus-jakarta-site-redesign/fonts/variable/PlusJakartaSans[wght].ttf")
+    format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans Variable";
+  src: url("/plus-jakarta-site-redesign/fonts/variable/PlusJakartaSans-Italic[wght].ttf")
+    format("truetype");
+  font-weight: 100 900;
+  font-style: italic;
+}

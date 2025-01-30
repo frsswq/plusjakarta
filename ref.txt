@@ -6,7 +6,6 @@
 - https://mass-driver.com/ [ pretty good ]
 - https://lineto.com/ [ cool features ]
 - https://www.grillitype.com/
-- https://www.creativeboom.com/resources/20-most-popular-independent-foundries-with-designers/
 - https://mbtype.com/
 - https://glyphsapp.com/
 
@@ -20,3 +19,10 @@ mini-site
 
 tutor
 - https://youtu.be/zemiN6Z8cNw?si=aMDa6seRW4jfAw1F
+
+article
+- https://www.creativeboom.com/resources/20-most-popular-independent-foundries-with-designers/
+
+github
+- https://github.com/undercasetype/fraunces-minisite
+- https://github.com/rsms/inter/
