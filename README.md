@@ -1,6 +1,6 @@
 # Plus Jakarta Sans - Mini Site Redesign
 
-![/public/documentation/img/heroAnim.gif](/public/documentation/img/heroAnim.gif)
+![/public/documentation/img/heroTextAnim.gif](/public/documentation/img/heroTextAnim.gif)
 
 ## Stack
 
