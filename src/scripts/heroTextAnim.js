@@ -7,7 +7,7 @@ export const sketch = (p) => {
 
   const DESKTOP_FONT_SIZE = 150;
   const DESKTOP_CANVAS_WIDTH = 930;
-  const DESKTOP_CANVAS_HEIGHT = 150;
+  const DESKTOP_CANVAS_HEIGHT = 122;
   const DESKTOP_LETTER_SPACING = -8;
   const DESKTOP_RT_SPACING = 10;
   const DESKTOP_PLUS_MARGIN = -20;
@@ -15,7 +15,7 @@ export const sketch = (p) => {
 
   const LAPTOP_FONT_SIZE = 120;
   const LAPTOP_CANVAS_WIDTH = 730;
-  const LAPTOP_CANVAS_HEIGHT = 120;
+  const LAPTOP_CANVAS_HEIGHT = 100;
   const LAPTOP_LETTER_SPACING = -6;
   const LAPTOP_RT_SPACING = 8;
   const LAPTOP_PLUS_MARGIN = -15;
@@ -23,7 +23,7 @@ export const sketch = (p) => {
 
   const MOBILE_FONT_SIZE = 50;
   const MOBILE_CANVAS_WIDTH = 315;
-  const MOBILE_CANVAS_HEIGHT = 50;
+  const MOBILE_CANVAS_HEIGHT = 45;
   const MOBILE_LETTER_SPACING = -2;
   const MOBILE_RT_SPACING = 4;
   const MOBILE_PLUS_MARGIN = -7.5;
@@ -202,7 +202,8 @@ export const sketch = (p) => {
     const baselinePosition =
       CANVAS_HEIGHT / 2 +
       ((font.ascender / font.unitsPerEm) * FONT_SIZE) / 2 -
-      FONT_SIZE * 0.1;
+      FONT_SIZE * 0.1 -
+      5;
 
     let totalWidth = 0;
     for (let i = 0; i < textContent.length; i++) {

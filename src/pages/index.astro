@@ -1,18 +1,13 @@
 ---
 // index.astro
+import AboutFont from "../components/AboutFont.astro";
 import HeroText from "../components/HeroText.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-  <main>
+  <main class="flex-1">
     <HeroText />
-    <section class="h-screen"></section>
+    <AboutFont />
   </main>
 </Layout>
-
-<style>
-  main {
-    flex: 1;
-  }
-</style>

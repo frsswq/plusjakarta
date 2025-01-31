@@ -1,28 +1,23 @@
-- https://fictional-typeface.com [ playful features ]
-- https://typelist.upstatement.com [ nice homepage ]
-- https://abcdinamo.com
-- https://www.fairetype.com [ generic ]
-- https://tightype.com/ [ bento... ]
-- https://mass-driver.com/ [ pretty good ]
-- https://lineto.com/ [ cool features ]
-- https://www.grillitype.com/
-- https://mbtype.com/
-- https://glyphsapp.com/
+FOCUSED
+- https://mbtype.com/fonts/heliotrope/ [ page separated showcase ]
+- https://typeverything.com/ [ good type tester and interlinking fonts ]
+- https://fortfoundry.com/fonts/alkaline [ solid type showcase ]
+- https://lettermatic.com/fonts/really-sans [ solid type showcase ]
+- https://www.arrowtype.com/name-sans [ adjustable ux ]
+- https://mass-driver.com/typefaces/md-nichrome/ [ straightforward & clean ]
+- https://io.mass-driver.com/ [ complete & detailed ]
+- https://lineto.com/typefaces/circular/technical [ good glyphs showcase ]
+- https://displaay.net/typeface/jokker/ [ super customizable type tester ]
+- https://fontwerk.com/en/fonts/case-collection [ great weight showcase ]
+- https://pangrampangram.com/products/neue-montreal [ good weight showcase ]
+- https://rsms.me/inter/ [ for benchmarking ]
+
+- https://abcdinamo.com/typefaces/diatype [ interactive & responsive]
 
 collection
-- https://typespecimens.xyz/specimens/all/grid/
-
-mini-site
-- https://rsms.me/inter/ [ perfect? ]
-- https://io.mass-driver.com/
-- https://fraunces.undercase.xyz
-
-tutor
-- https://youtu.be/zemiN6Z8cNw?si=aMDa6seRW4jfAw1F
-
-article
-- https://www.creativeboom.com/resources/20-most-popular-independent-foundries-with-designers/
+- https://typespecimens.xyz/specimens/all/grid/36/
 
 github
 - https://github.com/undercasetype/fraunces-minisite
 - https://github.com/rsms/inter/
+

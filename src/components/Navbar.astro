@@ -3,7 +3,7 @@
 ---
 
 <nav
-  class="fixed top-0 hidden h-[50px] w-full flex-row items-center justify-between bg-black p-6"
+  class="fixed top-0 flex h-[50px] w-full flex-row items-center justify-between bg-black p-6"
 >
   <!-- <p class="bold flex items-center text-sm font-bold text-white md:text-base">
     <span class="relative -top-[2px]">+</span>Jakarta Sans
@@ -14,10 +14,10 @@
     class="flex h-5 w-auto items-center justify-center"
   />
   <ul class="flex items-center space-x-4 text-xs text-white md:text-sm">
-    <li>Features</li>
-    <li>Glyphs</li>
-    <li>FAQ</li>
-    <li>Lab</li>
+    <li class="hidden md:block">Features</li>
+    <li class="hidden md:block">Glyphs</li>
+    <li class="hidden md:block">FAQ</li>
+    <li class="hidden md:block">Lab</li>
     <li>
       <a
         href="https://fonts.google.com/specimen/Plus+Jakarta+Sans"
@@ -27,18 +27,3 @@
     </li>
   </ul>
 </nav>
-
-<script>
-  window.addEventListener("scroll", () => {
-    const nav = document.querySelector("nav");
-    if (nav) {
-      if (window.scrollY > 0) {
-        nav.classList.remove("hidden");
-        nav.classList.add("flex");
-      } else {
-        nav.classList.remove("flex");
-        nav.classList.add("hidden");
-      }
-    }
-  });
-</script>
