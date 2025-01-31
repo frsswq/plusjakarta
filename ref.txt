@@ -13,6 +13,7 @@ FOCUSED
 - https://rsms.me/inter/ [ for benchmarking ]
 
 - https://abcdinamo.com/typefaces/diatype [ interactive & responsive]
+- https://www.sharptype.co/typefaces/carta-nueva [ about ]
 
 collection
 - https://typespecimens.xyz/specimens/all/grid/36/
