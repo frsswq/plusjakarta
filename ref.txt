@@ -11,9 +11,13 @@ FOCUSED
 - https://fontwerk.com/en/fonts/case-collection [ great weight showcase ]
 - https://pangrampangram.com/products/neue-montreal [ good weight showcase ]
 - https://rsms.me/inter/ [ for benchmarking ]
+- https://fonts.studiofeixen.ch/noi-grotesk/ [ wow ]
 
 - https://abcdinamo.com/typefaces/diatype [ interactive & responsive]
+- https://klim.co.nz/retail-fonts/american-grotesk/ [ whitespace ]
 - https://www.sharptype.co/typefaces/carta-nueva [ about ]
+- https://www.allcapstype.com/typefaces/youth [ nice layout ]
+- https://www.tokotype.com/retail-fonts/fonetika [ ... ]
 
 collection
 - https://typespecimens.xyz/specimens/all/grid/36/
