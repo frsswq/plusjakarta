@@ -1,30 +1,38 @@
 ---
-
+// TODO: FIX ITALIC INDENT
 ---
 
-<section class="fixed-container px-4 md:px-8">
-  <div class="text-lg font-bold">Styles</div>
-  <div class="flex flex-wrap gap-x-2 gap-y-2 text-4xl tracking-tight">
-    <p class="font-extrabold">ExtraBold,</p>
-    <p class="font-extrabold italic">ExtraBold Italic,</p>
-    <p class="font-bold">Bold,</p>
-    <p class="font-bold italic">Bold Italic,</p>
-    <p class="font-semibold">SemiBold,</p>
-    <p class="font-semibold italic">SemiBold Italic,</p>
-    <p class="font-medium">Medium,</p>
-    <p class="font-medium italic">Medium Italic,</p>
-    <p class="font-base">Regular,</p>
-    <p class="font-base italic">Regular Italic,</p>
-    <p class="font-light">Light,</p>
-    <p class="font-light italic">Light Italic,</p>
-    <p class="font-extralight">ExtraLight,</p>
-    <p class="font-extralight italic">ExtraLight Italic,</p>
+<section class="fixed-container grid px-4 md:grid-cols-[0.15fr_0.85fr] md:px-8">
+  <div class="block h-fit text-lg font-semibold tracking-tight">Styles</div>
+  <div
+    class="grid w-full grid-cols-2 justify-between overflow-x-auto overflow-y-hidden pt-4
+      text-7xl whitespace-nowrap md:pt-0"
+  >
+    <div class="flex flex-col -indent-1 tracking-tighter text-red-500 *:block">
+      <p
+        class="pb-2 indent-0 text-lg tracking-tight text-black md:pt-0 md:pb-4"
+      >
+        Roman
+      </p>
+      <span class="font-extralight">ExtraLight</span>
+      <span class="font-light">Light</span>
+      <span class="font-base">Regular</span>
+      <span class="font-medium">Medium</span>
+      <span class="font-semibold">SemiBold</span>
+      <span class="font-bold">Bold</span>
+      <span class="font-extrabold">ExtraBold</span>
+    </div>
+    <div class="flex flex-col tracking-tighter text-red-500 *:block">
+      <p class="pb-2 text-lg tracking-tight text-black md:pt-0 md:pb-4">
+        Italic
+      </p>
+      <span class="font-extralight italic">ExtraLight Italic</span>
+      <span class="font-light italic">Light Italic</span>
+      <span class="font-base italic">Regular Italic</span>
+      <span class="font-medium italic">Medium Italic</span>
+      <span class="font-semibold italic">SemiBold Italic</span>
+      <span class="font-bold italic">Bold Italic</span>
+      <span class="font-extrabold italic">ExtraBold Italic</span>
+    </div>
   </div>
 </section>
-
-<style>
-  section {
-    display: grid;
-    grid-template-columns: 2fr 8fr;
-  }
-</style>
