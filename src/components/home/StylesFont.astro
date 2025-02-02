@@ -1,5 +1,5 @@
 ---
-// TODO: FIX ITALIC INDENT
+// MESSY
 ---
 
 <section
@@ -7,36 +7,81 @@
 >
   <div class="block h-fit text-lg font-semibold tracking-tight">Styles</div>
   <div
-    class="grid w-full grid-cols-2 justify-between overflow-x-auto overflow-y-hidden pt-4
-      pb-4 text-6xl whitespace-nowrap md:pt-0"
+    class="flex w-full grid-cols-2 overflow-x-auto overflow-y-hidden pt-4 pb-4 text-6xl
+      whitespace-nowrap md:pt-0"
   >
     <div
-      class="flex min-w-full flex-col -indent-1 tracking-tighter text-red-500 *:block"
+      class="flex w-full flex-col -indent-1 tracking-tighter text-red-500 *:block"
     >
       <p
-        class="pb-2 indent-0 text-lg tracking-tight text-black md:pt-0 md:pb-4"
+        class="pb-0 indent-0 text-lg tracking-tight text-black md:pt-0 md:pb-4"
       >
         Roman
       </p>
-      <span class="font-extralight">ExtraLight</span>
-      <span class="font-light">Light</span>
-      <span class="font-base">Regular</span>
-      <span class="font-medium">Medium</span>
-      <span class="font-semibold">SemiBold</span>
-      <span class="font-bold">Bold</span>
-      <span class="font-extrabold">ExtraBold</span>
+      <span class="font-extralight"
+        >ExtraLight<span class="font-weight-number">200</span></span
+      >
+      <span class="font-light"
+        >Light<span class="font-weight-number">300</span></span
+      >
+      <span class="font-base"
+        >Regular<span class="font-weight-number">400</span></span
+      >
+      <span class="font-medium"
+        >Medium<span class="font-weight-number">500</span></span
+      >
+      <span class="font-semibold"
+        >SemiBold<span class="font-weight-number">600</span></span
+      >
+      <span class="font-bold"
+        >Bold<span class="font-weight-number">700</span></span
+      >
+      <span class="font-extrabold"
+        >ExtraBold<span class="font-weight-number">800</span></span
+      >
     </div>
-    <div class="flex min-w-full flex-col tracking-tighter text-red-500 *:block">
-      <p class="pb-2 text-lg tracking-tight text-black md:pt-0 md:pb-4">
+    <div class="flex w-full flex-col tracking-tighter text-red-500 *:block">
+      <p class="pb-0 text-lg tracking-tight text-black md:pt-0 md:pb-4">
         Italic
       </p>
-      <span class="font-extralight italic">ExtraLight Italic</span>
-      <span class="font-light italic">Light Italic</span>
-      <span class="font-base italic">Regular Italic</span>
-      <span class="font-medium italic">Medium Italic</span>
-      <span class="font-semibold italic">SemiBold Italic</span>
-      <span class="font-bold italic">Bold Italic</span>
-      <span class="font-extrabold italic">ExtraBold Italic</span>
+      <span class="font-extralight italic"
+        >ExtraLight Italic<span class="font-weight-number">200</span>
+      </span>
+      <span class="font-light italic"
+        >Light Italic<span class="font-weight-number">300</span></span
+      >
+      <span class="font-base italic"
+        >Regular Italic<span class="font-weight-number">400</span></span
+      >
+      <span class="font-medium italic"
+        >Medium Italic<span class="font-weight-number">500</span></span
+      >
+      <span class="font-semibold italic"
+        >SemiBold Italic<span class="font-weight-number">600</span></span
+      >
+      <span class="font-bold italic"
+        >Bold Italic<span class="font-weight-number">700</span></span
+      >
+      <span class="font-extrabold italic"
+        >ExtraBold Italic<span class="font-weight-number">800</span>
+      </span>
     </div>
   </div>
 </section>
+
+<style>
+  .font-weight-number {
+    font-size: 0.75rem;
+    opacity: 0.8;
+    font-weight: 400;
+    vertical-align: text-top;
+    letter-spacing: -0em;
+    font-variation-settings: "tnum";
+    line-height: 1;
+    display: inline-block;
+    position: relative;
+    left: 1rem;
+    top: 1rem;
+    padding: 0;
+  }
+</style>
