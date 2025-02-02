@@ -6,26 +6,34 @@
   <div
     class="fixed-container *:*:hover:gb-zinc-700 flex h-8 flex-row justify-between text-sm
       text-white *:*:cursor-pointer *:*:border-1 *:*:border-zinc-700/50
-      *:*:bg-zinc-800 *:*:px-2 *:*:py-2 *:*:hover:border-zinc-700
+      *:*:bg-zinc-800 *:*:px-2 *:*:pt-1.75 *:*:pb-2.25 *:*:hover:border-zinc-700
       *:*:hover:bg-zinc-700/75"
   >
     <div class="flex">
       <img
         src="/plus-jakarta-site-redesign/assets/j-logo.svg"
-        class="flex h-full w-auto items-stretch"
+        class="flex h-full w-auto items-stretch !p-2"
       />
-      <p class="flex items-center font-bold">Plus Jakarta Sans</p>
+      <p class="hidden items-center font-bold md:flex">Plus Jakarta Sans</p>
     </div>
-    <div class="flex">
-      <p class="hidden items-center md:flex">Features</p>
-      <p class="hidden items-center md:flex">Glyphs</p>
-      <p class="hidden items-center md:flex">FAQ</p>
-      <p class="hidden items-center md:flex">Lab</p>
+    <div class="flex *:hidden *:items-center *:md:flex">
+      <p>Features</p>
+      <p>Glyphs</p>
+      <p>FAQ</p>
+      <p>Lab</p>
       <a
         href="https://fonts.google.com/specimen/Plus+Jakarta+Sans"
         target="_blank"
-        class="flex items-center">Download</a
+        class="!flex"
+        >Download<span class="relative -top-[1px] text-base">&nbsp;↓</span></a
       >
     </div>
   </div>
 </nav>
+
+<style>
+  p,
+  a {
+    line-height: 1;
+  }
+</style>

@@ -26,3 +26,4 @@ github
 - https://github.com/undercasetype/fraunces-minisite
 - https://github.com/rsms/inter/
 
+- https://github.com/foliojs/fontkit
