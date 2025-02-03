@@ -1,5 +1,8 @@
 ---
+import { Image } from "astro:assets";
 
+import tokoLogo from "../../assets/tokologo.png";
+import sixLogo from "../../assets/6616logo.png";
 ---
 
 <footer class="h-full w-full bg-black p-4 md:px-6">
@@ -9,8 +12,8 @@
       <span class="font-light"> All rights reserved.</span>
     </p>
     <div class="my-auto flex h-8 flex-row gap-x-2 md:h-10 md:gap-x-4">
-      <img src="/plus-jakarta-site-redesign/assets/tokologo.png" alt="logo" />
-      <img src="/plus-jakarta-site-redesign/assets/6616logo.png" alt="logo" />
+      <Image src={tokoLogo} alt="Tokotype Logo" class="h-8 w-auto md:h-10" />
+      <Image src={sixLogo} alt="6166 Logo" class="h-8 w-auto md:h-10" />
     </div>
   </div>
 </footer>
