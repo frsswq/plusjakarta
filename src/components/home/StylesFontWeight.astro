@@ -1,0 +1,35 @@
+---
+const fontWeights = [
+  { label: "ExtraLight", class: "font-extralight", value: 200 },
+  { label: "Light", class: "font-light", value: 300 },
+  { label: "Regular", class: "font-base", value: 400 },
+  { label: "Medium", class: "font-medium", value: 500 },
+  { label: "SemiBold", class: "font-semibold", value: 600 },
+  { label: "Bold", class: "font-bold", value: 700 },
+  { label: "ExtraBold", class: "font-extrabold", value: 800 },
+];
+
+const { italic = false, title } = Astro.props;
+---
+
+<div class="mr-10 flex w-full flex-col tracking-tighter">
+  <p class="pb-0 text-base tracking-tight md:pt-0 md:pb-2">{title}</p>
+  <ul>
+    {
+      fontWeights.map((weight) => (
+        <li
+          class={`${weight.class} ${italic ? "italic" : ""} block -indent-1 leading-[0.8]
+            text-red-500`}
+        >
+          {weight.label}
+          <span
+            class="relative top-4 ml-1 inline-block indent-0 align-text-top text-xs font-normal
+              tracking-wide tabular-nums"
+          >
+            {weight.value}
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+</div>
