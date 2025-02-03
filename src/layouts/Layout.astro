@@ -2,6 +2,8 @@
 import "../styles/global.css";
 import Navbar from "../components/common/Navbar.astro";
 import Footer from "../components/common/Footer.astro";
+
+const { showFooter = true, stickyNavbar = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -41,9 +43,9 @@ import Footer from "../components/common/Footer.astro";
     </style>
   </head>
   <body class="no-scroll bg-white">
-    <Navbar />
+    <Navbar stickyNavbar={stickyNavbar} />
     <slot />
-    <Footer />
+    {showFooter && <Footer />}
   </body>
 </html>
 

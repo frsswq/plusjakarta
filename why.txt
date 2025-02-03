@@ -1,0 +1,4 @@
+- I want to try build mini-site on my own
+
+What makes this different than just go to gfont?
+- Gfont lack features showcase

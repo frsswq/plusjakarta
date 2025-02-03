@@ -18,7 +18,9 @@ FOCUSED
 - https://www.sharptype.co/typefaces/carta-nueva [ about ]
 - https://www.allcapstype.com/typefaces/youth [ nice layout ]
 - https://www.tokotype.com/retail-fonts/fonetika [ ... ]
-- https://tokotype.github.io/plusjakarta-sans
+- https://tokotype.github.io/plusjakarta-sans [ ... ]
+
+https://unforma.club/font/nouva [ idk ]
 
 collection
 - https://typespecimens.xyz/specimens/all/grid/36/

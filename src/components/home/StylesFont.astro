@@ -1,20 +1,20 @@
 ---
-// MESSY
+// Spaghetti code
 ---
 
 <section
-  class="fixed-container grid px-4 md:grid-cols-[0.175fr_0.825fr] md:px-8"
+  class="fixed-container grid px-4 md:grid-cols-[0.175fr_0.825fr] md:px-6"
 >
-  <div class="block h-fit text-lg font-semibold tracking-tight">Styles</div>
+  <div class="block h-fit text-base font-semibold tracking-tight">Styles</div>
   <div
     class="flex w-full grid-cols-2 overflow-x-auto overflow-y-hidden pt-4 pb-4 text-6xl
       whitespace-nowrap md:pt-0"
   >
     <div
-      class="flex w-full flex-col -indent-1 tracking-tighter text-red-500 *:block"
+      class="mr-10 flex w-full flex-col -indent-1 tracking-tighter text-red-500 *:block"
     >
       <p
-        class="pb-0 indent-0 text-lg tracking-tight text-black md:pt-0 md:pb-4"
+        class="pb-0 indent-0 text-base tracking-tight text-black md:pt-0 md:pb-2"
       >
         Roman
       </p>
@@ -41,7 +41,7 @@
       >
     </div>
     <div class="flex w-full flex-col tracking-tighter text-red-500 *:block">
-      <p class="pb-0 text-lg tracking-tight text-black md:pt-0 md:pb-4">
+      <p class="pb-0 text-base tracking-tight text-black md:pt-0 md:pb-2">
         Italic
       </p>
       <span class="font-extralight italic"
@@ -75,8 +75,8 @@
     opacity: 0.8;
     font-weight: 400;
     vertical-align: text-top;
-    letter-spacing: -0em;
-    font-variation-settings: "tnum";
+    letter-spacing: 0.025em;
+    font-feature-settings: "tnum";
     line-height: 1;
     display: inline-block;
     position: relative;

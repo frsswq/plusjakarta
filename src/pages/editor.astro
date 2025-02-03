@@ -1,0 +1,12 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const showFooter = false;
+const stickyNavbar = true;
+---
+
+<Layout showFooter={showFooter} stickyNavbar={stickyNavbar}>
+  <span contenteditable="true" class="mx-6">
+    AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZzabcdefghijklmnopqrstuvwxyzÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöùúûüýþÿ1234567890
+  </span>
+</Layout>

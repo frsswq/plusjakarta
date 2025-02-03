@@ -1,8 +1,10 @@
 ---
-
+const { stickyNavbar = false } = Astro.props;
 ---
 
-<nav class="fixed top-0 w-full p-4">
+<nav
+  class={`${stickyNavbar ? "sticky" : "fixed"} fixed top-0 w-full px-6 py-4`}
+>
   <div
     class="fixed-container *:*:hover:gb-zinc-700 flex h-8 flex-row justify-between text-sm
       text-white *:*:cursor-pointer *:*:border-1 *:*:border-zinc-700/50
@@ -20,7 +22,7 @@
       <p>Features</p>
       <p>Glyphs</p>
       <a
-        href="https://fonts.google.com/specimen/Plus+Jakarta+Sans"
+        href="https://github.com/tokotype/plusjakartasans/releases/latest"
         target="_blank"
         class="!flex"
         >Download<span class="relative -top-0.25 text-base">&nbsp;↓</span></a
