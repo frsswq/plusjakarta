@@ -3,7 +3,7 @@ const { stickyNavbar = false } = Astro.props;
 ---
 
 <nav
-  class={`${stickyNavbar ? "sticky" : "fixed"} fixed top-0 w-full px-6 py-4`}
+  class={`${stickyNavbar ? "sticky" : "fixed"} fixed top-0 w-full px-4 md:px-6 py-4 z-10`}
 >
   <div
     class="fixed-container *:*:hover:gb-zinc-700 flex h-8 flex-row justify-between text-sm

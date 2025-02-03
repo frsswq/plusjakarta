@@ -12,22 +12,17 @@ const fontWeights = [
 const { italic = false, title } = Astro.props;
 ---
 
-<div class="mr-10 flex w-full flex-col tracking-tighter">
-  <p class="pb-0 text-base tracking-tight md:pt-0 md:pb-2">{title}</p>
+<div class="mr-20 flex flex-col tracking-tighter md:mr-30">
+  <p class="racking-tight pb-0 md:pt-0 md:pb-2">{title}</p>
   <ul>
     {
       fontWeights.map((weight) => (
         <li
-          class={`${weight.class} ${italic ? "italic" : ""} block -indent-1 leading-[0.8]
-            text-red-500`}
+          class={`${weight.class} ${italic ? "italic" : ""} block -indent-1 text-6xl leading-[0.9]
+            whitespace-nowrap text-red-500`}
         >
           {weight.label}
-          <span
-            class="relative top-4 ml-1 inline-block indent-0 align-text-top text-xs font-normal
-              tracking-wide tabular-nums"
-          >
-            {weight.value}
-          </span>
+          {italic ? "Italic" : ""}
         </li>
       ))
     }
