@@ -2,7 +2,7 @@
 const { stickyNavbar = false } = Astro.props;
 
 const navbarButtonStyle =
-  "bg-zinc-800 px-2 pt-1.75 pb-2.25 hover:bg-zinc-700 hover:border-zinc-700/80 border-1 border-zinc-700 cursor-pointer";
+  "cursor-pointer border-1 border-zinc-700 bg-zinc-800 px-2 pt-1.75 pb-2.25 hover:border-zinc-700/80 hover:bg-zinc-700";
 ---
 
 <nav
@@ -24,7 +24,7 @@ const navbarButtonStyle =
     <div class="flex">
       <a
         href="/plus-jakarta-site-redesign/editor"
-        class={`${navbarButtonStyle} hidden items-center md:flex`}>Editor</a
+        class={`${navbarButtonStyle} flex items-center`}>Editor</a
       >
       <a
         href="https://github.com/tokotype/plusjakartasans/releases/latest"

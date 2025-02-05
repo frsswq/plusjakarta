@@ -1,0 +1,39 @@
+---
+const fontWeights = [
+  { label: "ExtraLight", class: "font-extralight", value: 200 },
+  { label: "Light", class: "font-light", value: 300 },
+  { label: "Regular", class: "font-base", value: 400 },
+  { label: "Medium", class: "font-medium", value: 500 },
+  { label: "SemiBold", class: "font-semibold", value: 600 },
+  { label: "Bold", class: "font-bold", value: 700 },
+  { label: "ExtraBold", class: "font-extrabold", value: 800 },
+];
+---
+
+<section class="fixed-container px-6">
+  <div
+    class="styles-showcase grid grid-cols-2 justify-items-center gap-6 text-center
+      md:grid-cols-4"
+  >
+    {
+      fontWeights.map((weight, index) => (
+        <>
+          <span
+            class={`${weight.class} ${index === fontWeights.length - 1 ? "md:col-start-2" : ""} flex
+              aspect-square w-full items-center justify-center rounded-sm bg-zinc-200 p-4
+              text-6xl`}
+          >
+            Aa
+          </span>
+          <span
+            class={`${weight.class} ${index === fontWeights.length - 1 ? "md:col-start-3" : ""} flex
+              aspect-square w-full items-center justify-center rounded-sm bg-zinc-200 p-4
+              text-6xl italic`}
+          >
+            Aa
+          </span>
+        </>
+      ))
+    }
+  </div>
+</section>

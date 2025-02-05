@@ -20,7 +20,12 @@ FOCUSED
 - https://www.tokotype.com/retail-fonts/fonetika [ ... ]
 - https://tokotype.github.io/plusjakarta-sans [ ... ]
 
-https://unforma.club/font/nouva [ idk ]
+- https://unforma.club/font/nouva [ idk ]
+
+BARU
+- https://optimo.ch/typefaces/basel
+- https://hex.xyz/Marionette/ [ editor page ]
+
 
 collection
 - https://typespecimens.xyz/specimens/all/grid/36/

@@ -1,14 +1,31 @@
 ---
 import "../styles/global.css";
+import { SEO } from "astro-seo";
 import Navbar from "../components/common/Navbar.astro";
 import Footer from "../components/common/Footer.astro";
+
+export interface Props {
+  title?: string;
+  showFooter?: boolean;
+  stickyNavbar?: boolean;
+}
+
+const { title } = Astro.props;
 
 const { showFooter = true, stickyNavbar = false } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" class="no-scroll">
+<html lang="en">
   <head>
+    <SEO
+      title={title}
+      titleDefault="+Jakarta Sans | Open-source fonts for Jakarta City of Collaboration"
+      description=`+Jakarta Sans is a open-source fonts. Designed for Jakarta "City of collaboration" program in 2020.`
+      twitter={{
+        creator: "@frsswq",
+      }}
+    />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link
@@ -17,10 +34,6 @@ const { showFooter = true, stickyNavbar = false } = Astro.props;
       href="/plus-jakarta-site-redesign/assets/jfavico.png"
     />
     <meta name="generator" content={Astro.generator} />
-    <title>
-      +Jakarta Sans Typeface - Open-source fonts for Jakarta City of
-      Collaboration
-    </title>
     <link
       rel="preload"
       href="/plus-jakarta-site-redesign/fonts/subset/PlusJakartaSans-Bold-Subset.otf"
@@ -32,17 +45,8 @@ const { showFooter = true, stickyNavbar = false } = Astro.props;
       http-equiv="Cache-Control"
       content="public, max-age=31536000, immutable"
     />
-    <style>
-      .no-scroll {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-      }
-      .no-scroll::-webkit-scrollbar {
-        display: none;
-      }
-    </style>
   </head>
-  <body class="no-scroll bg-white">
+  <body class="bg-white">
     <Navbar stickyNavbar={stickyNavbar} />
     <slot />
     {showFooter && <Footer />}
