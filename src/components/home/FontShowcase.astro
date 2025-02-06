@@ -1,25 +1,26 @@
 ---
 const fontWeights = [
-  { label: "ExtraLight", class: "font-extralight", value: 200 },
-  { label: "Light", class: "font-light", value: 300 },
-  { label: "Regular", class: "font-base", value: 400 },
-  { label: "Medium", class: "font-medium", value: 500 },
-  { label: "SemiBold", class: "font-semibold", value: 600 },
-  { label: "Bold", class: "font-bold", value: 700 },
-  { label: "ExtraBold", class: "font-extrabold", value: 800 },
+  { label: "ExtraLight", value: 200 },
+  { label: "Light", value: 300 },
+  { label: "Regular", value: 400 },
+  { label: "Medium", value: 500 },
+  { label: "SemiBold", value: 600 },
+  { label: "Bold", value: 700 },
+  { label: "ExtraBold", value: 800 },
 ];
 
-const toolkitStyle =
-  "flex flex-row items-center justify-center gap-x-2 rounded-sm border-1 px-3 py-2";
+const stylisticSets = [1, 2, 3];
+const toolkitStyle = "flex items-center gap-2 rounded-sm border-1 px-3 py-2";
 ---
 
 <section class="fixed-container flex flex-col px-6">
   <div class="rounded-lg border-1 border-zinc-800 p-4">
     <div class="flex flex-col gap-y-4">
-      <div class="flex items-center justify-start gap-x-4">
+      <!-- Font Weight Controls -->
+      <div class="flex flex-wrap items-center gap-4">
         <select
           id="weight-selector"
-          class="appearance-none rounded-sm border-1 px-3 py-2 font-bold focus:outline-none"
+          class={`${toolkitStyle} appearance-none font-bold focus:outline-none`}
         >
           {
             fontWeights.map((weight) => (
@@ -29,6 +30,7 @@ const toolkitStyle =
             ))
           }
         </select>
+
         <div class={toolkitStyle}>
           <label for="font-weight-slider" class="font-bold">Weight</label>
           <input
@@ -39,23 +41,24 @@ const toolkitStyle =
             step="1"
             value="800"
           />
-          <output
-            id="font-weight-value"
-            for="font-weight-slider"
-            class="tabular-nums">800</output
-          >
+          <output id="font-weight-value" class="tabular-nums">800</output>
         </div>
+
         <div class={toolkitStyle}>
-          <label for="font-italic-checkbox" class="font-bold">Italic</label>
-          <input
-            id="font-italic-checkbox"
-            type="checkbox"
-            class="h-3 w-3 appearance-none rounded-full border-1 border-zinc-500
-              checked:bg-zinc-500"
-          />
+          <label class="cursor-pointer font-bold select-none">
+            <input
+              id="font-italic-checkbox"
+              type="checkbox"
+              class="h-3 w-3 cursor-pointer appearance-none rounded-full border-1 border-zinc-500
+                select-none checked:bg-zinc-500"
+            />
+            Italic
+          </label>
         </div>
       </div>
-      <div class="flex gap-x-4">
+
+      <!-- Size & Spacing Controls -->
+      <div class="flex flex-wrap gap-4">
         <div class={toolkitStyle}>
           <label for="font-size-slider" class="font-bold">Size</label>
           <input
@@ -66,50 +69,60 @@ const toolkitStyle =
             step="1"
             value="96"
           />
-          <output
-            id="font-size-value"
-            for="font-size-slider"
-            class="tabular-nums">96</output
-          >
+          <output id="font-size-value" class="tabular-nums">96</output>
         </div>
+
         <div class={toolkitStyle}>
           <label for="font-leading-slider" class="font-bold">Leading</label>
-          <input id="font-leading-slider" />
+          <input
+            id="font-leading-slider"
+            type="range"
+            min="0.5"
+            max="3"
+            step="0.1"
+            value="1"
+          />
+          <output id="font-leading-value" class="tabular-nums">1</output>
         </div>
+
         <div class={toolkitStyle}>
           <label for="font-spacing-slider" class="font-bold">Spacing</label>
-          <input id="font-spacing-slider" />
+          <input
+            id="font-spacing-slider"
+            type="range"
+            min="-5"
+            max="20"
+            step="1"
+            value="0"
+          />
+          <output id="font-spacing-value" class="tabular-nums">0</output>
         </div>
       </div>
-      <div class="flex gap-x-4">
+
+      <!-- Stylistic Sets -->
+      <div class="flex flex-wrap gap-4">
         <div class={toolkitStyle}>
-          <label for="font-alternates-checkbox" class="font-bold"
-            >Stylistic Sets</label
-          >
-          <input
-            type="checkbox"
-            class="font-alternates-checkbox h-3 w-3 appearance-none rounded-full border-1
-              border-zinc-500 tabular-nums checked:bg-zinc-500"
-            data-feature="ss01"
-          />
-          <p>01</p>
-          <input
-            type="checkbox"
-            class="font-alternates-checkbox h-3 w-3 appearance-none rounded-full border-1
-              border-zinc-500 tabular-nums checked:bg-zinc-500"
-            data-feature="ss02"
-          />
-          <p>02</p>
-          <input
-            type="checkbox"
-            class="font-alternates-checkbox h-3 w-3 appearance-none rounded-full border-1
-              border-zinc-500 tabular-nums checked:bg-zinc-500"
-            data-feature="ss03"
-          />
-          <p>03</p>
+          <span class="font-bold">Stylistic Sets</span>
+          {
+            stylisticSets.map((num) => (
+              <label class="flex items-center gap-1">
+                <input
+                  type="checkbox"
+                  class="font-alternates-checkbox h-3 w-3 cursor-pointer appearance-none rounded-full
+                    border-1 border-zinc-500 checked:bg-zinc-500"
+                  data-feature={`ss0${num}`}
+                />
+                <span class="cursor-pointer tabular-nums select-none">
+                  {num.toString().padStart(2, "0")}
+                </span>
+              </label>
+            ))
+          }
         </div>
       </div>
     </div>
+
+    <!-- Preview Text -->
     <p
       id="weight-showcase"
       class="h-fit w-full px-4 py-12 text-center text-8xl font-extrabold whitespace-normal
@@ -122,53 +135,71 @@ const toolkitStyle =
 </section>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    // get element
-    // first line
+  function getElement(id: string) {
+    const el = document.getElementById(id);
+    if (!el) console.error(`Element #${id} not found`);
+    return el;
+  }
 
-    const weightShowcase = document.getElementById(
+  document.addEventListener("DOMContentLoaded", () => {
+    // Elements
+    const weightShowcase = getElement(
       "weight-showcase",
     ) as HTMLParagraphElement;
-    const selectElement = document.getElementById(
-      "weight-selector",
-    ) as HTMLSelectElement;
-    const fontWeightSlider = document.getElementById(
+    const selectElement = getElement("weight-selector") as HTMLSelectElement;
+    const fontWeightSlider = getElement(
       "font-weight-slider",
     ) as HTMLInputElement;
-    const fontWeightValue = document.getElementById(
+    const fontWeightValue = getElement(
       "font-weight-value",
     ) as HTMLOutputElement;
-    const fontItalicCheckbox = document.getElementById(
+    const fontItalicCheckbox = getElement(
       "font-italic-checkbox",
     ) as HTMLInputElement;
-
-    // second line
-
-    const fontSizeSlider = document.getElementById(
-      "font-size-slider",
+    const fontSizeSlider = getElement("font-size-slider") as HTMLInputElement;
+    const fontSizeValue = getElement("font-size-value") as HTMLOutputElement;
+    const fontLeadingSlider = getElement(
+      "font-leading-slider",
     ) as HTMLInputElement;
-    const fontSizeValue = document.getElementById(
-      "font-size-value",
+    const fontLeadingValue = getElement(
+      "font-leading-value",
     ) as HTMLOutputElement;
-
-    // third line
-
-    const fontAlternatesCheckbox = document.querySelectorAll(
+    const fontSpacingSlider = getElement(
+      "font-spacing-slider",
+    ) as HTMLInputElement;
+    const fontSpacingValue = getElement(
+      "font-spacing-value",
+    ) as HTMLOutputElement;
+    const fontAlternatesCheckboxes = document.querySelectorAll(
       ".font-alternates-checkbox",
     ) as NodeListOf<HTMLInputElement>;
 
-    // event listener
-    // first line
+    // Event Handlers
+    const updateFontFeatureSettings = () => {
+      const activeFeatures = Array.from(
+        document.querySelectorAll(".font-alternates-checkbox:checked"),
+      ).map(
+        (checkbox) => `"${(checkbox as HTMLInputElement).dataset.feature}"`,
+      );
 
+      weightShowcase.style.fontFeatureSettings = activeFeatures.length
+        ? activeFeatures.join(", ")
+        : "normal";
+    };
+
+    // Event Listeners
     selectElement.addEventListener("change", () => {
-      weightShowcase.style.fontWeight = selectElement.value;
-      fontWeightSlider.value = selectElement.value;
-      fontWeightValue.textContent = selectElement.value;
+      const value = selectElement.value;
+      weightShowcase.style.fontWeight = value;
+      fontWeightSlider.value = value;
+      fontWeightValue.textContent = value;
     });
 
     fontWeightSlider.addEventListener("input", () => {
-      weightShowcase.style.fontWeight = fontWeightSlider.value;
-      fontWeightValue.textContent = fontWeightSlider.value;
+      const value = fontWeightSlider.value;
+      weightShowcase.style.fontWeight = value;
+      fontWeightValue.textContent = value;
+      selectElement.value = value;
     });
 
     fontItalicCheckbox.addEventListener("change", () => {
@@ -177,28 +208,26 @@ const toolkitStyle =
         : "normal";
     });
 
-    fontAlternatesCheckbox.forEach((checkbox) => {
-      checkbox.addEventListener("change", () => {
-        let activeFeatures: string[] = [];
-
-        document
-          .querySelectorAll(".font-alternates-checkbox:checked")
-          .forEach((checkedBox) => {
-            const checkbox = checkedBox as HTMLInputElement;
-            activeFeatures.push(`"${checkbox.dataset.feature}"`);
-          });
-
-        weightShowcase.style.fontFeatureSettings = activeFeatures.length
-          ? activeFeatures.join(", ")
-          : "normal";
-      });
+    fontSizeSlider.addEventListener("input", () => {
+      const value = fontSizeSlider.value;
+      weightShowcase.style.fontSize = `${value}px`;
+      fontSizeValue.textContent = value;
     });
 
-    // second line
+    fontLeadingSlider.addEventListener("input", () => {
+      const value = fontLeadingSlider.value;
+      weightShowcase.style.lineHeight = value;
+      fontLeadingValue.textContent = value;
+    });
 
-    fontSizeSlider.addEventListener("input", () => {
-      weightShowcase.style.fontSize = `${fontSizeSlider.value}px`;
-      fontSizeValue.textContent = fontSizeSlider.value;
+    fontSpacingSlider.addEventListener("input", () => {
+      const value = fontSpacingSlider.value;
+      weightShowcase.style.letterSpacing = `${value}px`;
+      fontSpacingValue.textContent = value;
+    });
+
+    fontAlternatesCheckboxes.forEach((checkbox) => {
+      checkbox.addEventListener("change", updateFontFeatureSettings);
     });
   });
 </script>
