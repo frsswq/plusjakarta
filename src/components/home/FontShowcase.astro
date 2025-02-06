@@ -10,14 +10,14 @@ const fontWeights = [
 ];
 
 const stylisticSets = [1, 2, 3];
-const toolkitStyle = "flex items-center gap-2 rounded-sm border-1 px-3 py-2";
+const toolkitStyle = "flex items-center gap-2 rounded-md border-1 px-3 py-2";
 ---
 
 <section class="fixed-container flex flex-col px-6">
   <div class="rounded-lg border-1 border-zinc-800 p-4">
-    <div class="flex flex-col gap-y-4">
+    <div class="flex flex-col gap-y-2">
       <!-- Font Weight Controls -->
-      <div class="flex flex-wrap items-center gap-4">
+      <div class="flex flex-wrap items-center gap-x-2">
         <select
           id="weight-selector"
           class={`${toolkitStyle} appearance-none font-bold focus:outline-none`}
@@ -52,13 +52,13 @@ const toolkitStyle = "flex items-center gap-2 rounded-sm border-1 px-3 py-2";
               class="h-3 w-3 cursor-pointer appearance-none rounded-full border-1 border-zinc-500
                 select-none checked:bg-zinc-500"
             />
-            Italic
+            <span class="pl-1">Italic</span>
           </label>
         </div>
       </div>
 
       <!-- Size & Spacing Controls -->
-      <div class="flex flex-wrap gap-4">
+      <div class="flex flex-wrap gap-x-2">
         <div class={toolkitStyle}>
           <label for="font-size-slider" class="font-bold">Size</label>
           <input
@@ -100,7 +100,7 @@ const toolkitStyle = "flex items-center gap-2 rounded-sm border-1 px-3 py-2";
       </div>
 
       <!-- Stylistic Sets -->
-      <div class="flex flex-wrap gap-4">
+      <div class="flex flex-wrap gap-x-2">
         <div class={toolkitStyle}>
           <span class="font-bold">Stylistic Sets</span>
           {
@@ -199,7 +199,6 @@ const toolkitStyle = "flex items-center gap-2 rounded-sm border-1 px-3 py-2";
       const value = fontWeightSlider.value;
       weightShowcase.style.fontWeight = value;
       fontWeightValue.textContent = value;
-      selectElement.value = value;
     });
 
     fontItalicCheckbox.addEventListener("change", () => {
