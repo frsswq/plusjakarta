@@ -8,53 +8,197 @@ const fontWeights = [
   { label: "Bold", class: "font-bold", value: 700 },
   { label: "ExtraBold", class: "font-extrabold", value: 800 },
 ];
+
+const toolkitStyle =
+  "flex flex-row items-center justify-center gap-x-2 rounded-sm border-1 px-3 py-2";
 ---
 
 <section class="fixed-container flex flex-col px-6">
   <div class="rounded-lg border-1 border-zinc-800 p-4">
-    <div id="weight-toolkit" class="flex text-2xl">
-      <select
-        id="weight-selector"
-        class="rounded-sm border-1 border-gray-300 p-2"
-      >
-        {
-          fontWeights.map((weight) => (
-            <option value={weight.value} selected={weight.value === 800}>
-              {weight.label}
-            </option>
-          ))
-        }
-      </select>
+    <div class="flex flex-col gap-y-4">
+      <div class="flex items-center justify-start gap-x-4">
+        <select
+          id="weight-selector"
+          class="appearance-none rounded-sm border-1 px-3 py-2 font-bold focus:outline-none"
+        >
+          {
+            fontWeights.map((weight) => (
+              <option value={weight.value} selected={weight.value === 800}>
+                {weight.label}
+              </option>
+            ))
+          }
+        </select>
+        <div class={toolkitStyle}>
+          <label for="font-weight-slider" class="font-bold">Weight</label>
+          <input
+            id="font-weight-slider"
+            type="range"
+            min="200"
+            max="800"
+            step="1"
+            value="800"
+          />
+          <output
+            id="font-weight-value"
+            for="font-weight-slider"
+            class="tabular-nums">800</output
+          >
+        </div>
+        <div class={toolkitStyle}>
+          <label for="font-italic-checkbox" class="font-bold">Italic</label>
+          <input
+            id="font-italic-checkbox"
+            type="checkbox"
+            class="h-3 w-3 appearance-none rounded-full border-1 border-zinc-500
+              checked:bg-zinc-500"
+          />
+        </div>
+      </div>
+      <div class="flex gap-x-4">
+        <div class={toolkitStyle}>
+          <label for="font-size-slider" class="font-bold">Size</label>
+          <input
+            id="font-size-slider"
+            type="range"
+            min="10"
+            max="300"
+            step="1"
+            value="96"
+          />
+          <output
+            id="font-size-value"
+            for="font-size-slider"
+            class="tabular-nums">96</output
+          >
+        </div>
+        <div class={toolkitStyle}>
+          <label for="font-leading-slider" class="font-bold">Leading</label>
+          <input id="font-leading-slider" />
+        </div>
+        <div class={toolkitStyle}>
+          <label for="font-spacing-slider" class="font-bold">Spacing</label>
+          <input id="font-spacing-slider" />
+        </div>
+      </div>
+      <div class="flex gap-x-4">
+        <div class={toolkitStyle}>
+          <label for="font-alternates-checkbox" class="font-bold"
+            >Stylistic Sets</label
+          >
+          <input
+            type="checkbox"
+            class="font-alternates-checkbox h-3 w-3 appearance-none rounded-full border-1
+              border-zinc-500 tabular-nums checked:bg-zinc-500"
+            data-feature="ss01"
+          />
+          <p>01</p>
+          <input
+            type="checkbox"
+            class="font-alternates-checkbox h-3 w-3 appearance-none rounded-full border-1
+              border-zinc-500 tabular-nums checked:bg-zinc-500"
+            data-feature="ss02"
+          />
+          <p>02</p>
+          <input
+            type="checkbox"
+            class="font-alternates-checkbox h-3 w-3 appearance-none rounded-full border-1
+              border-zinc-500 tabular-nums checked:bg-zinc-500"
+            data-feature="ss03"
+          />
+          <p>03</p>
+        </div>
+      </div>
     </div>
     <p
       id="weight-showcase"
-      class="flex w-full items-center justify-center rounded-lg p-4 text-center text-8xl
-        font-extrabold break-all text-red-500 transition-all duration-300
-        focus:outline-none"
+      class="h-fit w-full px-4 py-12 text-center text-8xl font-extrabold whitespace-normal
+        text-red-500 focus:outline-none"
       contenteditable="true"
     >
-      AaBbCcDdEeFf<br />GgHhIiJjKkLlMm<br />NnOoPpQqRrSs<br />TtUuVvWwXxYyZz<br
-      />0123456789 &→!
+      AaBbCcDdEeFf GgHhIiJjKkLlMm NnOoPpQqRrSs TtUuVvWwXxYyZz 0123456789 &→!
     </p>
   </div>
 </section>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const selectElement = document.getElementById(
-      "weight-selector",
-    ) as HTMLSelectElement;
+    // get element
+    // first line
+
     const weightShowcase = document.getElementById(
       "weight-showcase",
     ) as HTMLParagraphElement;
+    const selectElement = document.getElementById(
+      "weight-selector",
+    ) as HTMLSelectElement;
+    const fontWeightSlider = document.getElementById(
+      "font-weight-slider",
+    ) as HTMLInputElement;
+    const fontWeightValue = document.getElementById(
+      "font-weight-value",
+    ) as HTMLOutputElement;
+    const fontItalicCheckbox = document.getElementById(
+      "font-italic-checkbox",
+    ) as HTMLInputElement;
 
-    weightShowcase.style.fontWeight = selectElement.value;
+    // second line
 
-    selectElement?.addEventListener("change", () => {
-      const currVal = selectElement.value;
-      if (weightShowcase) {
-        weightShowcase.style.fontWeight = currVal;
-      }
+    const fontSizeSlider = document.getElementById(
+      "font-size-slider",
+    ) as HTMLInputElement;
+    const fontSizeValue = document.getElementById(
+      "font-size-value",
+    ) as HTMLOutputElement;
+
+    // third line
+
+    const fontAlternatesCheckbox = document.querySelectorAll(
+      ".font-alternates-checkbox",
+    ) as NodeListOf<HTMLInputElement>;
+
+    // event listener
+    // first line
+
+    selectElement.addEventListener("change", () => {
+      weightShowcase.style.fontWeight = selectElement.value;
+      fontWeightSlider.value = selectElement.value;
+      fontWeightValue.textContent = selectElement.value;
+    });
+
+    fontWeightSlider.addEventListener("input", () => {
+      weightShowcase.style.fontWeight = fontWeightSlider.value;
+      fontWeightValue.textContent = fontWeightSlider.value;
+    });
+
+    fontItalicCheckbox.addEventListener("change", () => {
+      weightShowcase.style.fontStyle = fontItalicCheckbox.checked
+        ? "italic"
+        : "normal";
+    });
+
+    fontAlternatesCheckbox.forEach((checkbox) => {
+      checkbox.addEventListener("change", () => {
+        let activeFeatures: string[] = [];
+
+        document
+          .querySelectorAll(".font-alternates-checkbox:checked")
+          .forEach((checkedBox) => {
+            const checkbox = checkedBox as HTMLInputElement;
+            activeFeatures.push(`"${checkbox.dataset.feature}"`);
+          });
+
+        weightShowcase.style.fontFeatureSettings = activeFeatures.length
+          ? activeFeatures.join(", ")
+          : "normal";
+      });
+    });
+
+    // second line
+
+    fontSizeSlider.addEventListener("input", () => {
+      weightShowcase.style.fontSize = `${fontSizeSlider.value}px`;
+      fontSizeValue.textContent = fontSizeSlider.value;
     });
   });
 </script>
