@@ -1,4 +1,6 @@
 ---
+import HomeSideTitle from "./HomeSideTitle.astro";
+
 const fontWeights = [
   { label: "ExtraLight", class: "font-extralight", value: 200 },
   { label: "Light", class: "font-light", value: 300 },
@@ -10,25 +12,24 @@ const fontWeights = [
 ];
 ---
 
-<section class="fixed-container px-6">
+<section class="grid px-4 md:grid-cols-[0.175fr_0.825fr] md:px-6">
+  <HomeSideTitle>14 Styles</HomeSideTitle>
   <div
     class="styles-showcase grid grid-cols-2 justify-items-center gap-6 text-center
       md:grid-cols-4"
   >
     {
-      fontWeights.map((weight, index) => (
+      fontWeights.map((weight) => (
         <>
           <span
-            class={`${weight.class} ${index === fontWeights.length - 1 ? "md:col-start-2" : ""} flex
-              aspect-square w-full items-center justify-center rounded-sm bg-zinc-200 p-4
-              text-6xl`}
+            class={`${weight.class} flex aspect-square w-full items-center justify-center rounded-lg
+              bg-zinc-200 p-4 text-6xl`}
           >
             Aa
           </span>
           <span
-            class={`${weight.class} ${index === fontWeights.length - 1 ? "md:col-start-3" : ""} flex
-              aspect-square w-full items-center justify-center rounded-sm bg-zinc-200 p-4
-              text-6xl italic`}
+            class={`${weight.class} flex aspect-square w-full items-center justify-center rounded-lg
+              bg-zinc-200 p-4 text-6xl italic`}
           >
             Aa
           </span>

@@ -1,0 +1,60 @@
+---
+const fontWeights = [
+  { label: "ExtraLight", class: "font-extralight", value: 200 },
+  { label: "Light", class: "font-light", value: 300 },
+  { label: "Regular", class: "font-base", value: 400 },
+  { label: "Medium", class: "font-medium", value: 500 },
+  { label: "SemiBold", class: "font-semibold", value: 600 },
+  { label: "Bold", class: "font-bold", value: 700 },
+  { label: "ExtraBold", class: "font-extrabold", value: 800 },
+];
+---
+
+<section class="fixed-container flex flex-col px-6">
+  <div class="rounded-lg border-1 border-zinc-800 p-4">
+    <div id="weight-toolkit" class="flex text-2xl">
+      <select
+        id="weight-selector"
+        class="rounded-sm border-1 border-gray-300 p-2"
+      >
+        {
+          fontWeights.map((weight) => (
+            <option value={weight.value} selected={weight.value === 800}>
+              {weight.label}
+            </option>
+          ))
+        }
+      </select>
+    </div>
+    <p
+      id="weight-showcase"
+      class="flex w-full items-center justify-center rounded-lg p-4 text-center text-8xl
+        font-extrabold break-all text-red-500 transition-all duration-300
+        focus:outline-none"
+      contenteditable="true"
+    >
+      AaBbCcDdEeFf<br />GgHhIiJjKkLlMm<br />NnOoPpQqRrSs<br />TtUuVvWwXxYyZz<br
+      />0123456789 &→!
+    </p>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const selectElement = document.getElementById(
+      "weight-selector",
+    ) as HTMLSelectElement;
+    const weightShowcase = document.getElementById(
+      "weight-showcase",
+    ) as HTMLParagraphElement;
+
+    weightShowcase.style.fontWeight = selectElement.value;
+
+    selectElement?.addEventListener("change", () => {
+      const currVal = selectElement.value;
+      if (weightShowcase) {
+        weightShowcase.style.fontWeight = currVal;
+      }
+    });
+  });
+</script>
