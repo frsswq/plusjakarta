@@ -1,11 +1,11 @@
 ---
+import FontShowcase from "./FontShowcase";
 import AboutFont from "./AboutFont.astro";
-import FontShowcase from "./FontShowcase.astro";
 import HeroText from "./HeroText.astro";
 ---
 
 <main class="mb-12 flex flex-col">
   <HeroText />
   <AboutFont />
-  <FontShowcase />
+  <FontShowcase client:visible />
 </main>

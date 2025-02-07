@@ -1,0 +1,198 @@
+---
+const fontWeights = [
+  { label: "ExtraLight", value: 200 },
+  { label: "Light", value: 300 },
+  { label: "Regular", value: 400 },
+  { label: "Medium", value: 500 },
+  { label: "SemiBold", value: 600 },
+  { label: "Bold", value: 700 },
+  { label: "ExtraBold", value: 800 },
+];
+
+const stylisticSets = [1, 2, 3];
+const alternatesName = ["Lurus", "Lancip", "Lingkar"];
+const toolkitStyle = "flex items-center gap-2 rounded-md border-1 px-3 py-2";
+---
+
+<div class="flex flex-col gap-y-2 p-4">
+  <!-- Font Weight Controls -->
+  <div class="flex flex-wrap items-center gap-x-2">
+    <select
+      id="weight-selector"
+      class={`${toolkitStyle} appearance-none font-bold focus:outline-none`}
+    >
+      {
+        fontWeights.map((weight) => (
+          <option value={weight.value} selected={weight.value === 800}>
+            {weight.label}
+          </option>
+        ))
+      }
+    </select>
+
+    <div class={toolkitStyle}>
+      <label for="font-weight-slider" class="font-bold">Weight</label>
+      <input
+        id="font-weight-slider"
+        type="range"
+        min="200"
+        max="800"
+        step="1"
+        value="800"
+      />
+      <output id="font-weight-value" class="tabular-nums">800</output>
+    </div>
+
+    <div class={toolkitStyle}>
+      <label class="cursor-pointer font-bold select-none">
+        <input
+          id="font-italic-checkbox"
+          type="checkbox"
+          class="h-3 w-3 cursor-pointer appearance-none rounded-full border-1 border-zinc-500
+            select-none checked:bg-zinc-500"
+        />
+        <span class="pl-1">Italic</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Size & Spacing Controls -->
+  <div class="flex flex-wrap gap-x-2">
+    <div class={toolkitStyle}>
+      <label for="font-size-slider" class="font-bold">Size</label>
+      <input
+        id="font-size-slider"
+        type="range"
+        min="10"
+        max="300"
+        step="1"
+        value="96"
+      />
+      <output id="font-size-value" class="tabular-nums">96</output>
+    </div>
+
+    <div class={toolkitStyle}>
+      <label for="font-leading-slider" class="font-bold">Leading</label>
+      <input
+        id="font-leading-slider"
+        type="range"
+        min="0.5"
+        max="3"
+        step="0.1"
+        value="1"
+      />
+      <output id="font-leading-value" class="tabular-nums">1</output>
+    </div>
+
+    <div class={toolkitStyle}>
+      <label for="font-spacing-slider" class="font-bold">Spacing</label>
+      <input
+        id="font-spacing-slider"
+        type="range"
+        min="-5"
+        max="20"
+        step="1"
+        value="0"
+      />
+      <output id="font-spacing-value" class="tabular-nums">0</output>
+    </div>
+  </div>
+
+  <!-- Stylistic Sets -->
+  <div class="flex flex-wrap gap-x-2">
+    <div class={toolkitStyle}>
+      {
+        stylisticSets.map((num, index) => (
+          <label class="flex items-center gap-1">
+            <input
+              type="checkbox"
+              class="font-alternates-checkbox peer cursor-pointer appearance-none"
+              data-feature={`ss0${num}`}
+            />
+            <span
+              class="flex cursor-pointer items-center text-sm text-gray-500 select-none
+                peer-checked:text-black"
+            >
+              {alternatesName[index]}
+            </span>
+          </label>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<style>
+  /* slider thumb */
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    background: var(--color-gray-500);
+    cursor: pointer;
+    margin-top: -4px;
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    background: var(--color-gray-500);
+    cursor: pointer;
+  }
+
+  /* All the same stuff for IE */
+  input[type="range"]::-ms-thumb {
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    background: var(--color-gray-500);
+    cursor: pointer;
+  }
+
+  /* slider track */
+  input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    background: var(--color-gray-100);
+    border-radius: 4px;
+  }
+
+  input[type="range"]:focus::-webkit-slider-runnable-track {
+    background: var(--color-gray-100);
+  }
+
+  input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    background: var(--color-gray-100);
+    border-radius: 4px;
+  }
+
+  input[type="range"]::-ms-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+  }
+
+  input[type="range"]::-ms-fill-lower {
+    background: var(--color-gray-100);
+    border-radius: 4px;
+  }
+  input[type="range"]:focus::-ms-fill-lower {
+    background: var(--color-gray-100);
+  }
+  input[type="range"]::-ms-fill-upper {
+    background: var(--color-gray-100);
+    border-radius: 4px;
+  }
+  input[type="range"]:focus::-ms-fill-upper {
+    background: var(--color-gray-100);
+  }
+</style>
