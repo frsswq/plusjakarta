@@ -18,7 +18,7 @@ export default function InputSelect({
 }: InputSelectProps) {
   return (
     <label className="flex items-center">
-      <span className="sr-">{label}</span>
+      <span className="sr-only">{label}</span>
       <select
         className={"appearance-none text-xs focus:outline-none"}
         onChange={handleChange}
