@@ -47,6 +47,7 @@ const { showFooter = true, stickyNavbar = false } = Astro.props;
     />
   </head>
   <body class="bg-white">
+    <!-- <script src="https://unpkg.com/react-scan/dist/auto.global.js"></script> -->
     <Navbar stickyNavbar={stickyNavbar} />
     <slot />
     {showFooter && <Footer />}
@@ -54,11 +55,11 @@ const { showFooter = true, stickyNavbar = false } = Astro.props;
 </html>
 
 <style>
-  * {
+  /* * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-  }
+  } */
 
   html,
   body {
@@ -71,29 +72,5 @@ const { showFooter = true, stickyNavbar = false } = Astro.props;
     flex-direction: column;
     margin: 0;
     padding: 0;
-  }
-</style>
-
-<style is:global>
-  input[type="range"] {
-    -webkit-appearance: none;
-    width: 100%;
-    background: transparent;
-  }
-
-  input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-  }
-
-  input[type="range"]:focus {
-    outline: none;
-  }
-
-  input[type="range"]::-ms-track {
-    width: 100%;
-    cursor: pointer;
-    background: transparent;
-    border-color: transparent;
-    color: transparent;
   }
 </style>

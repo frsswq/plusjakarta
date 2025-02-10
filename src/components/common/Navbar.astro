@@ -1,4 +1,6 @@
 ---
+import { Icon } from "astro-icon/components";
+
 const { stickyNavbar = false } = Astro.props;
 
 const navbarButtonStyle =
@@ -6,16 +8,15 @@ const navbarButtonStyle =
 ---
 
 <nav
-  class={`${stickyNavbar ? "sticky" : "fixed"} fixed top-0 w-full px-4 md:px-6 py-4 z-10`}
+  class={`${stickyNavbar ? "sticky" : "fixed"} fixed top-0 w-full px-4 py-4 z-10`}
 >
   <div
     class="fixed-container flex h-8 flex-row justify-between text-sm text-white"
   >
     <a class="flex" href="/plus-jakarta-site-redesign/">
-      <img
-        src="/plus-jakarta-site-redesign/assets/j-logo.svg"
+      <Icon
+        name="j-logo"
         class={`${navbarButtonStyle} flex h-full w-auto items-stretch p-2`}
-        alt="Plus Jakarta Logo"
       />
       <p class={`${navbarButtonStyle} hidden items-center font-bold md:flex`}>
         Plus Jakarta Sans

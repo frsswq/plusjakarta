@@ -1,5 +1,4 @@
-import React from "react";
-import "../../styles/rangeSlider.css";
+import React, { useId } from "react";
 
 interface InputSliderProps {
   label: string;
@@ -20,10 +19,18 @@ export default function InputSlider({
   detail,
   handleChange,
 }: InputSliderProps) {
+  const inputSliderID = useId();
+
   return (
-    <div className="flex w-fit items-center gap-x-2 rounded-md">
-      <label className="align-middle text-xs whitespace-nowrap">{label}</label>
+    <div className="flex w-fit items-center gap-x-2">
+      <label
+        htmlFor={inputSliderID}
+        className="align-middle text-xs whitespace-nowrap"
+      >
+        {label}
+      </label>
       <input
+        id={inputSliderID}
         type="range"
         min={min}
         max={max}

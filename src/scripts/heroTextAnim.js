@@ -32,22 +32,8 @@ export const sketch = (p) => {
   const SAVE_FRAMES = false;
 
   const textContent = "+Jakarta Sans";
-  const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
-  const easeOutQuint = (t) => 1 - Math.pow(1 - t, 5);
-  const easeOutExpo = (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t));
-  const easeInOutCubic = (t) =>
-    t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
   const easeInOutQuint = (t) =>
     t < 0.5 ? 16 * t * t * t * t * t : 1 - Math.pow(-2 * t + 2, 5) / 2;
-  const easeInOutSine = (t) => -(Math.cos(Math.PI * t) - 1) / 2;
-  const easeInOutExpo = (t) =>
-    t === 0
-      ? 0
-      : t === 1
-        ? 1
-        : t < 0.5
-          ? Math.pow(2, 20 * t - 10) / 2
-          : (2 - Math.pow(2, -20 * t + 10)) / 2;
   const easing = easeInOutQuint;
   let font;
   let contourGroups = [];

@@ -1,10 +1,17 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import InputSlider from "../common/InputSlider";
 import InputSelect from "../common/InputSelect";
+import InputCheckbox from "../common/InputCheckbox";
+import {
+  fontWeightsLabel,
+  fontFeaturesLabel,
+} from "../../data/fontShowcaseData";
+import "../../styles/rangeSlider.css";
 
 export default function FontShowcase() {
   const [fontSize, setFontSize] = useState<number>(96);
-  const [selectWeight, setSelectWeight] = useState<number>(800);
+  const [fontWeight, setFontWeight] = useState<number>(800);
+  const [fontFeatures, toggleFontFeatures] = useState<string[]>([]);
   const paragraphRef = useRef<HTMLParagraphElement>(null);
 
   const changeFontSize = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -12,25 +19,24 @@ export default function FontShowcase() {
   };
 
   const changeFontWeight = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectWeight(parseInt(event.target.value));
+    setFontWeight(parseInt(event.target.value));
   };
 
-  const fontWeights = [
-    { label: "ExtraLight", value: 200 },
-    { label: "Light", value: 300 },
-    { label: "Regular", value: 400 },
-    { label: "Medium", value: 500 },
-    { label: "SemiBold", value: 600 },
-    { label: "Bold", value: 700 },
-    { label: "ExtraBold", value: 800 },
-  ];
+  const changeFontFeatures = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const feature = event.target.value;
+    toggleFontFeatures((prev) =>
+      event.target.checked
+        ? [...prev, feature]
+        : prev.filter((f) => f !== feature),
+    );
+  };
 
   return (
-    <div className="px-6">
+    <div className="flex flex-col gap-y-2 px-4">
       <div className="flex gap-x-2">
         <InputSelect handleChange={changeFontWeight} defaultValue={800}>
-          {fontWeights.map((weight, index) => (
-            <option value={weight.value} key={index}>
+          {fontWeightsLabel.map((weight) => (
+            <option value={weight.value} key={weight.value}>
               {weight.label}
             </option>
           ))}
@@ -44,13 +50,30 @@ export default function FontShowcase() {
           handleChange={changeFontSize}
         />
       </div>
+      <div className="flex gap-x-2">
+        {fontFeaturesLabel.map((feature) => (
+          <InputCheckbox
+            label={feature.label}
+            key={feature.value}
+            value={feature.value}
+            checked={fontFeatures.includes(feature.value)}
+            handleChange={changeFontFeatures}
+          />
+        ))}
+      </div>
       <p
         ref={paragraphRef}
         className="w-full py-4 -indent-1 leading-none font-extrabold tracking-tight text-red-500
           focus:outline-none"
         contentEditable
         suppressContentEditableWarning
-        style={{ fontSize: `${fontSize}px`, fontWeight: `${selectWeight}` }}
+        style={{
+          fontSize: `${fontSize}px`,
+          fontWeight: fontWeight,
+          fontFeatureSettings: fontFeatures.length
+            ? fontFeatures.map((f) => `"${f}"`).join(", ")
+            : "normal",
+        }}
       >
         Hijau Betawi / Jingga Bis Kota Kuning Gigi Balang / Biru Abang Pink None
         & City Collaboration.
