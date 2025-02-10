@@ -34,7 +34,11 @@ export default function FontShowcase() {
   return (
     <div className="flex flex-col gap-y-2 px-4">
       <div className="flex gap-x-2">
-        <InputSelect handleChange={changeFontWeight} defaultValue={800}>
+        <InputSelect
+          label={"Font Weight"}
+          handleChange={changeFontWeight}
+          defaultValue={800}
+        >
           {fontWeightsLabel.map((weight) => (
             <option value={weight.value} key={weight.value}>
               {weight.label}
