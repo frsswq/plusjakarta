@@ -1,5 +1,5 @@
 import { CaretDownIcon } from "@radix-ui/react-icons";
-import React, { type ReactNode } from "react";
+import React, { type ReactNode, useId } from "react";
 
 interface InputSelectProps {
   defaultValue?: number;
@@ -14,9 +14,12 @@ export default function InputSelect({
   handleChange,
   children,
 }: InputSelectProps) {
+  const inputSelectID = useId();
+
   return (
-    <label className="flex items-center">
+    <label htmlFor={inputSelectID} className="flex items-center">
       <select
+        id={inputSelectID}
         className={"appearance-none text-xs focus:outline-none"}
         onChange={handleChange}
         defaultValue={defaultValue}
