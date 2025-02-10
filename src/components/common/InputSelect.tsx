@@ -15,7 +15,7 @@ export default function InputSelect({
   children,
 }: InputSelectProps) {
   return (
-    <div className="flex items-center">
+    <label className="flex items-center">
       <select
         className={"appearance-none text-xs focus:outline-none"}
         onChange={handleChange}
@@ -24,6 +24,6 @@ export default function InputSelect({
         {children}
       </select>
       {arrowIndicator && <CaretDownIcon />}
-    </div>
+    </label>
   );
 }
