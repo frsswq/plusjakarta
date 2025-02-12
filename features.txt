@@ -1,3 +1,8 @@
+my main gripes with type foundry site:
+- i can barely read the text (too big / too small / not enought whitespace)
+- too much scrolling for similiar element
+- unclear what the button does
+
 - typewriter / lab / typetester
 
 STRUCTURE

@@ -1,18 +1,11 @@
-import React from "react";
-
-interface InputCheckboxProps {
-  label: string;
-  checked: boolean;
-  value: string;
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
+import { type FontInputCheckboxProps } from "../../types/commonProps";
 
 export default function InputCheckbox({
   label,
   checked,
   value,
   handleChange,
-}: InputCheckboxProps) {
+}: FontInputCheckboxProps) {
   return (
     <label className="flex h-fit w-fit items-center">
       <input
@@ -23,7 +16,7 @@ export default function InputCheckbox({
         onChange={handleChange}
       />
       <span
-        className="flex cursor-pointer items-center text-sm text-gray-500 select-none
+        className="flex cursor-pointer items-center text-sm font-medium text-gray-500 select-none
           peer-checked:text-black"
       >
         {label}
