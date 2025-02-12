@@ -2,7 +2,6 @@ import {
   TextAlignLeftIcon,
   TextAlignCenterIcon,
   TextAlignRightIcon,
-  TextAlignJustifyIcon,
 } from "@radix-ui/react-icons";
 
 interface fontLabelValueTypes {
@@ -30,5 +29,4 @@ export const textAlignIcons = [
   { Icon: TextAlignLeftIcon, value: "left" as const },
   { Icon: TextAlignCenterIcon, value: "center" as const },
   { Icon: TextAlignRightIcon, value: "right" as const },
-  { Icon: TextAlignJustifyIcon, value: "justify" as const },
 ];
