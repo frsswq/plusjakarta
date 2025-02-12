@@ -21,7 +21,7 @@ export default function InputSelect({
         </select>
         {arrowIndicator && (
           <CaretDownIcon
-            className="pointer-events-none absolute top-1/2 right-0 -translate-y-1/2"
+            className="pointer-events-none absolute top-55/100 right-0 h-[20px] w-auto -translate-y-1/2"
             aria-hidden
           />
         )}

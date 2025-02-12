@@ -12,7 +12,7 @@ export default function InputCheckbox({
         type="checkbox"
         className="peer cursor-pointer appearance-none"
         value={value}
-        defaultChecked={checked}
+        checked={checked}
         onChange={handleChange}
       />
       <span

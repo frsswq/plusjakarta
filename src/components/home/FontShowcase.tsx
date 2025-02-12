@@ -1,5 +1,11 @@
-import { useState, useRef } from "react";
-import { ReloadIcon } from "@radix-ui/react-icons";
+import { useState, useRef, useCallback } from "react";
+import {
+  ReloadIcon,
+  TextAlignLeftIcon,
+  TextAlignCenterIcon,
+  TextAlignRightIcon,
+  TextAlignJustifyIcon,
+} from "@radix-ui/react-icons";
 import FontInputSlider from "./FontInputSlider";
 import FontInputSelect from "./FontInputSelect";
 import FontInputCheckbox from "./FontInputCheckbox";
@@ -9,20 +15,51 @@ import {
 } from "../../data/fontShowcaseData";
 import "../../styles/rangeSlider.css";
 import { type FontShowcaseProps } from "../../types/commonProps";
+
 const editableText =
   "Hijau Betawi / Jingga Bis Kota Kuning Gigi Balang / Biru Abang Pink None & City Collaboration.";
+
+type TextAlign = "left" | "center" | "right" | "justify";
 
 export default function FontShowcase({
   defaultEditableText = editableText,
   defaultFontSize = 80,
   defaultFontWeight = 800,
+  defaultTextJustify = "left",
 }: FontShowcaseProps) {
   const [fontSize, setFontSize] = useState<number>(defaultFontSize);
   const [fontWeight, setFontWeight] = useState<number>(defaultFontWeight);
-  const fontTextRef = useRef<HTMLParagraphElement>(null);
   const [fontFeatures, toggleFontFeatures] = useState<string[]>([]);
+  const [textAlign, setTextAlign] = useState<string>(defaultTextJustify);
+  const fontTextRef = useRef<HTMLParagraphElement>(null);
 
-  const resetFont = () => {
+  const handleFontSizeChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFontSize(parseInt(e.target.value));
+    },
+    [],
+  );
+
+  const handleFontWeightChange = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setFontWeight(parseInt(e.target.value));
+    },
+    [],
+  );
+
+  const handleFontFeaturesChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const feature = e.target.value;
+      toggleFontFeatures((prev) =>
+        e.target.checked
+          ? [...prev, feature]
+          : prev.filter((f) => f !== feature),
+      );
+    },
+    [],
+  );
+
+  const resetFont = useCallback(() => {
     setFontSize(defaultFontSize);
     setFontWeight(defaultFontWeight);
     toggleFontFeatures([]);
@@ -30,31 +67,14 @@ export default function FontShowcase({
     if (fontTextRef.current) {
       fontTextRef.current.textContent = defaultEditableText;
     }
-  };
-
-  const changeFontSize = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFontSize(parseInt(event.target.value));
-  };
-
-  const changeFontWeight = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setFontWeight(parseInt(event.target.value));
-  };
-
-  const changeFontFeatures = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const feature = event.target.value;
-    toggleFontFeatures((prev) =>
-      event.target.checked
-        ? [...prev, feature]
-        : prev.filter((f) => f !== feature),
-    );
-  };
+  }, [defaultFontSize, defaultFontWeight, defaultEditableText]);
 
   return (
     <div className="flex flex-col gap-y-0 px-4">
       <div className="flex gap-x-2">
         <FontInputSelect
           label={"Font Weight"}
-          handleChange={changeFontWeight}
+          handleChange={handleFontWeightChange}
           defaultValue={800}
         >
           {fontWeightsLabel.map((weight) => (
@@ -69,14 +89,37 @@ export default function FontShowcase({
           max={300}
           step={1}
           value={fontSize}
-          handleChange={changeFontSize}
+          handleChange={handleFontSizeChange}
         />
-        <button
-          onClick={resetFont}
-          className="ml-auto flex cursor-pointer items-center"
-        >
-          <ReloadIcon />
-        </button>
+        <div className="ml-auto flex items-center gap-x-2">
+          <button
+            onClick={(e) => setTextAlign("left")}
+            className={`cursor-pointer ${textAlign === "left" ? "text-black" : "text-zinc-500"}`}
+          >
+            <TextAlignLeftIcon className="h-[20px] w-auto" />
+          </button>
+          <button
+            onClick={(e) => setTextAlign("center")}
+            className={`cursor-pointer ${textAlign === "center" ? "text-black" : "text-zinc-500"}`}
+          >
+            <TextAlignCenterIcon className="h-[20px] w-auto" />
+          </button>
+          <button
+            onClick={(e) => setTextAlign("right")}
+            className={`cursor-pointer ${textAlign === "right" ? "text-black" : "text-zinc-500"}`}
+          >
+            <TextAlignRightIcon className="h-[20px] w-auto" />
+          </button>
+          <button
+            onClick={(e) => setTextAlign("justify")}
+            className={`cursor-pointer ${textAlign === "justify" ? "text-black" : "text-zinc-500"}`}
+          >
+            <TextAlignJustifyIcon className="h-[20px] w-auto" />
+          </button>
+          <button onClick={resetFont} className="cursor-pointer">
+            <ReloadIcon />
+          </button>
+        </div>
       </div>
       <div className="flex gap-x-2">
         {fontFeaturesLabel.map((feature) => (
@@ -85,7 +128,7 @@ export default function FontShowcase({
             key={feature.value}
             value={feature.value}
             checked={fontFeatures.includes(feature.value)}
-            handleChange={changeFontFeatures}
+            handleChange={handleFontFeaturesChange}
           />
         ))}
       </div>
@@ -101,6 +144,7 @@ export default function FontShowcase({
           fontFeatureSettings: fontFeatures.length
             ? fontFeatures.map((f) => `"${f}"`).join(", ")
             : "normal",
+          textAlign: textAlign as TextAlign,
         }}
       >
         {defaultEditableText}

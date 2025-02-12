@@ -29,4 +29,5 @@ export interface FontShowcaseProps {
   defaultEditableText?: string;
   defaultFontSize?: number;
   defaultFontWeight?: number;
+  defaultTextJustify: "left" | "center" | "right" | "justify";
 }
