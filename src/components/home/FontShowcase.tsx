@@ -1,17 +1,12 @@
 import { useState, useRef, useCallback } from "react";
-import {
-  ReloadIcon,
-  TextAlignLeftIcon,
-  TextAlignCenterIcon,
-  TextAlignRightIcon,
-  TextAlignJustifyIcon,
-} from "@radix-ui/react-icons";
+import { ReloadIcon } from "@radix-ui/react-icons";
 import FontInputSlider from "./FontInputSlider";
 import FontInputSelect from "./FontInputSelect";
 import FontInputCheckbox from "./FontInputCheckbox";
 import {
   fontWeightsLabel,
   fontFeaturesLabel,
+  textAlignIcons,
 } from "../../data/fontShowcaseData";
 import "../../styles/rangeSlider.css";
 import { type FontShowcaseProps } from "../../types/commonProps";
@@ -62,12 +57,18 @@ export default function FontShowcase({
   const resetFont = useCallback(() => {
     setFontSize(defaultFontSize);
     setFontWeight(defaultFontWeight);
+    setTextAlign(defaultTextJustify);
     toggleFontFeatures([]);
 
     if (fontTextRef.current) {
       fontTextRef.current.textContent = defaultEditableText;
     }
-  }, [defaultFontSize, defaultFontWeight, defaultEditableText]);
+  }, [
+    defaultFontSize,
+    defaultFontWeight,
+    defaultEditableText,
+    defaultTextJustify,
+  ]);
 
   return (
     <div className="flex flex-col gap-y-0 px-4">
@@ -92,33 +93,18 @@ export default function FontShowcase({
           handleChange={handleFontSizeChange}
         />
         <div className="ml-auto flex items-center gap-x-2">
-          <button
-            onClick={(e) => setTextAlign("left")}
-            className={`cursor-pointer ${textAlign === "left" ? "text-black" : "text-zinc-500"}`}
-          >
-            <TextAlignLeftIcon className="h-[20px] w-auto" />
-          </button>
-          <button
-            onClick={(e) => setTextAlign("center")}
-            className={`cursor-pointer ${textAlign === "center" ? "text-black" : "text-zinc-500"}`}
-          >
-            <TextAlignCenterIcon className="h-[20px] w-auto" />
-          </button>
-          <button
-            onClick={(e) => setTextAlign("right")}
-            className={`cursor-pointer ${textAlign === "right" ? "text-black" : "text-zinc-500"}`}
-          >
-            <TextAlignRightIcon className="h-[20px] w-auto" />
-          </button>
-          <button
-            onClick={(e) => setTextAlign("justify")}
-            className={`cursor-pointer ${textAlign === "justify" ? "text-black" : "text-zinc-500"}`}
-          >
-            <TextAlignJustifyIcon className="h-[20px] w-auto" />
-          </button>
-          <button onClick={resetFont} className="cursor-pointer">
-            <ReloadIcon />
-          </button>
+          {textAlignIcons.map(({ value, Icon }) => (
+            <Icon
+              key={value}
+              onClick={() => setTextAlign(value)}
+              className={`h-[20px] w-auto cursor-pointer ${
+              textAlign === value ? "text-black" : "text-zinc-500" }`}
+            />
+          ))}
+          <ReloadIcon
+            onClick={resetFont}
+            className="h-[13px] w-auto cursor-pointer"
+          />
         </div>
       </div>
       <div className="flex gap-x-2">
