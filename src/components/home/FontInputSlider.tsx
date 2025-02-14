@@ -13,10 +13,10 @@ export default function FontInputSlider({
   const fontInputSliderID = useId();
 
   return (
-    <div className="flex w-fit items-center gap-x-2">
+    <div className="flex w-full max-w-[300px] items-center gap-x-2">
       <label
         htmlFor={fontInputSliderID}
-        className="align-middle text-sm font-medium whitespace-nowrap"
+        className="align-middle text-sm whitespace-nowrap"
       >
         {label}
       </label>
@@ -30,9 +30,8 @@ export default function FontInputSlider({
         onChange={handleChange}
         className="items-center focus:outline-none"
       />
-      <output className="text-sm font-medium tracking-tight tabular-nums">
-        {value}
-        {detail}
+      <output className="text-right text-sm text-zinc-500 tabular-nums">
+        {value}&nbsp;{detail}
       </output>
     </div>
   );

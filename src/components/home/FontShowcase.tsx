@@ -1,14 +1,14 @@
-import { useState, useRef } from "react";
-import { ReloadIcon } from "@radix-ui/react-icons";
+import React, { useState, useRef } from "react";
+import { ReloadIcon, FontSizeIcon } from "@radix-ui/react-icons";
 import FontInputSlider from "./FontInputSlider";
-import FontInputSelect from "./FontInputSelect";
-import FontInputCheckbox from "./FontInputCheckbox";
+import FontShowcaseSelectWeight from "./FontShowcaseSelectWeight";
+import FontShowcaseCheckboxFeatures from "./FontShowcaseCheckboxFeatures";
 import {
   fontWeightsLabel,
   fontFeaturesLabel,
   textAlignIcons,
 } from "../../data/fontShowcaseData";
-import "../../styles/rangeSlider.css";
+import "../../styles/rangeSliderBall.css";
 import { type FontShowcaseProps } from "../../types/commonProps";
 
 const editableText =
@@ -52,73 +52,55 @@ export default function FontShowcase({
     }
   };
 
-  const paragraphStyle = {
-    fontSize: `${fontSize}px`,
-    fontWeight: fontWeight,
-    fontFeaturesSettings: fontFeatures.length
-      ? fontFeatures.map((f) => `"${f}"`).join(", ")
-      : "normal",
-    textAlign: textAlign as React.CSSProperties["textAlign"],
-  };
-
   return (
-    <div className="flex flex-col gap-y-0 px-6 py-12">
-      <div className="flex gap-x-2">
-        <FontInputSelect
-          label={"Font Weight"}
-          handleChange={handleFontWeightChange}
-          defaultValue={800}
-        >
-          {fontWeightsLabel.map((weight) => (
-            <option value={weight.value} key={weight.value}>
-              {weight.label}
-            </option>
-          ))}
-        </FontInputSelect>
+    <div className="section-padding flex flex-col gap-y-1">
+      <div className="flex items-center gap-x-4">
+        <FontShowcaseSelectWeight />
         <FontInputSlider
-          label="Font Size"
+          label={<FontSizeIcon className="text-zinc-500" />}
           min={10}
           max={300}
           step={1}
           value={fontSize}
           handleChange={handleFontSizeChange}
+          detail="px"
         />
-        <div className="ml-auto flex items-center gap-x-2">
-          {textAlignIcons.map(({ Icon, value }) => (
-            <Icon
-              key={value}
-              onClick={() => setTextAlign(value)}
-              className={`h-[19px] w-auto cursor-pointer ${
-              textAlign === value ? "text-black" : "text-zinc-500" }`}
+        <ReloadIcon
+          onClick={resetFont}
+          className="cursor-pointer text-zinc-500"
+        />
+        <div className="ml-auto flex">
+          <FontShowcaseCheckboxFeatures />
+          {/* {fontFeaturesLabel.map((feature) => (
+            <FontInputCheckbox
+              label={feature.label}
+              key={feature.value}
+              value={feature.value}
+              checked={fontFeatures.includes(feature.value)}
+              handleChange={handleFontFeaturesChange}
             />
-          ))}
-          <ReloadIcon
-            onClick={resetFont}
-            className="h-[13px] w-auto cursor-pointer"
-          />
+          ))} */}
         </div>
       </div>
-      <div className="flex gap-x-2">
-        {fontFeaturesLabel.map((feature) => (
-          <FontInputCheckbox
-            label={feature.label}
-            key={feature.value}
-            value={feature.value}
-            checked={fontFeatures.includes(feature.value)}
-            handleChange={handleFontFeaturesChange}
-          />
-        ))}
+      <div>
+        <p
+          ref={fontTextRef}
+          className="w-full py-4 -indent-1 leading-none font-extrabold tracking-tight text-red-500
+            caret-black focus:outline-none"
+          contentEditable
+          suppressContentEditableWarning
+          style={{
+            fontSize: `${fontSize}px`,
+            fontWeight: fontWeight,
+            fontFeatureSettings: fontFeatures.length
+              ? fontFeatures.map((f) => `"${f}"`).join(", ")
+              : "normal",
+            textAlign: textAlign as React.CSSProperties["textAlign"],
+          }}
+        >
+          {defaultEditableText}
+        </p>
       </div>
-      <p
-        ref={fontTextRef}
-        className="w-full py-4 -indent-1 leading-none font-extrabold tracking-tight text-red-500
-          caret-black focus:outline-none"
-        contentEditable
-        suppressContentEditableWarning
-        style={paragraphStyle}
-      >
-        {defaultEditableText}
-      </p>
     </div>
   );
 }

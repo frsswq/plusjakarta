@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+
 import { SEO } from "astro-seo";
 import Navbar from "../components/common/Navbar.astro";
 import Footer from "../components/common/Footer.astro";
@@ -47,7 +48,6 @@ const { showFooter = true, stickyNavbar = false } = Astro.props;
     />
   </head>
   <body class="bg-white">
-    <!-- <script src="https://unpkg.com/react-scan/dist/auto.global.js"></script> -->
     <Navbar stickyNavbar={stickyNavbar} />
     <slot />
     {showFooter && <Footer />}
@@ -55,11 +55,15 @@ const { showFooter = true, stickyNavbar = false } = Astro.props;
 </html>
 
 <style>
-  /* * {
+  * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-  } */
+  }
+
+  .Root {
+    isolation: isolate;
+  }
 
   html,
   body {

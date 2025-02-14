@@ -16,7 +16,7 @@ export interface FontInputSelectProps {
 }
 
 export interface FontInputSliderProps {
-  label: string;
+  label: string | React.ReactNode;
   min: number;
   max: number;
   step: number;

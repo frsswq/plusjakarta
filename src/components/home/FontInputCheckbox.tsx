@@ -7,17 +7,17 @@ export default function InputCheckbox({
   handleChange,
 }: FontInputCheckboxProps) {
   return (
-    <label className="flex h-fit w-fit items-center">
+    <label className="flex items-center px-2 py-2">
       <input
         type="checkbox"
-        className="peer cursor-pointer appearance-none"
+        className="peer hidden cursor-pointer appearance-none"
         value={value}
         checked={checked}
         onChange={handleChange}
       />
       <span
-        className="flex cursor-pointer items-center text-sm font-medium text-gray-500 select-none
-          peer-checked:text-black"
+        className="flex cursor-pointer items-center text-sm text-zinc-500 select-none
+          peer-checked:text-zinc-800"
       >
         {label}
       </span>
