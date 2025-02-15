@@ -1,7 +1,6 @@
 import React, { useState, useRef } from "react";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import FontShowcaseSelectWeight from "./FontShowcaseSelectWeight";
-import FontShowcaseCheckboxFeatures from "./FontShowcaseCheckboxFeatures";
 import FontShowcaseSliderSize from "./FontShowcaseSliderSize";
 import { Button } from "@/components/ui/button";
 import "../../styles/rangeSliderBall.css";
@@ -51,11 +50,7 @@ export default function FontShowcase({
           className="ml-auto flex rounded-xs border border-zinc-200 bg-white shadow-none
             hover:border-zinc-300 hover:bg-zinc-50/10 hover:shadow-2xs"
         >
-          <FontShowcaseCheckboxFeatures />
-          <Button
-            onClick={resetFont}
-            className="group max-w-10 rounded-none bg-white hover:bg-white"
-          >
+          <Button onClick={resetFont} className="group max-w-10 bg-white">
             <ReloadIcon className="text-zinc-700 group-hover:text-black" />
           </Button>
           {/* {fontFeaturesLabel.map((feature) => (
