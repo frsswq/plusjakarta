@@ -41,8 +41,8 @@
   --secondary-foreground: hsl(240 5.9% 10%);
   --muted: var(--color-zinc-100);
   --muted-foreground: var(--color-zinc-500);
-  --accent: hsl(240 4.8% 95.9%);
-  --accent-foreground: hsl(240 5.9% 10%);
+  --accent: var(--color-zinc-100);
+  --accent-foreground: var(--color-black);
   --destructive: hsl(0 84.2% 60.2%);
   --destructive-foreground: hsl(0 0% 98%);
   --border: var(--color-zinc-200);

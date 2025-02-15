@@ -3,12 +3,8 @@ import { ReloadIcon, FontSizeIcon } from "@radix-ui/react-icons";
 import FontInputSlider from "./FontInputSlider";
 import FontShowcaseSelectWeight from "./FontShowcaseSelectWeight";
 import FontShowcaseCheckboxFeatures from "./FontShowcaseCheckboxFeatures";
-import {
-  fontWeightsLabel,
-  fontFeaturesLabel,
-  textAlignIcons,
-} from "../../data/fontShowcaseData";
 import "../../styles/rangeSliderBall.css";
+
 import { type FontShowcaseProps } from "../../types/commonProps";
 
 const editableText =
@@ -17,21 +13,15 @@ const editableText =
 export default function FontShowcase({
   defaultEditableText = editableText,
   defaultFontSize = 80,
-  defaultFontWeight = 800,
-  defaultTextJustify = "left",
+  defaultFontWeight = "800",
 }: FontShowcaseProps) {
   const [fontSize, setFontSize] = useState<number>(defaultFontSize);
-  const [fontWeight, setFontWeight] = useState<number>(defaultFontWeight);
+  const [fontWeight, setFontWeight] = useState<string>(defaultFontWeight);
   const [fontFeatures, toggleFontFeatures] = useState<string[]>([]);
-  const [textAlign, setTextAlign] = useState<string>(defaultTextJustify);
   const fontTextRef = useRef<HTMLParagraphElement>(null);
 
   const handleFontSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFontSize(parseInt(e.target.value));
-  };
-
-  const handleFontWeightChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFontWeight(parseInt(e.target.value));
   };
 
   const handleFontFeaturesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,7 +34,6 @@ export default function FontShowcase({
   const resetFont = () => {
     setFontSize(defaultFontSize);
     setFontWeight(defaultFontWeight);
-    setTextAlign(defaultTextJustify);
     toggleFontFeatures([]);
 
     if (fontTextRef.current) {
@@ -55,7 +44,10 @@ export default function FontShowcase({
   return (
     <div className="section-padding flex flex-col gap-y-1">
       <div className="flex items-center gap-x-4">
-        <FontShowcaseSelectWeight />
+        <FontShowcaseSelectWeight
+          value={fontWeight}
+          onValueChange={setFontWeight}
+        />
         <FontInputSlider
           label={<FontSizeIcon className="text-zinc-500" />}
           min={10}
@@ -95,7 +87,6 @@ export default function FontShowcase({
             fontFeatureSettings: fontFeatures.length
               ? fontFeatures.map((f) => `"${f}"`).join(", ")
               : "normal",
-            textAlign: textAlign as React.CSSProperties["textAlign"],
           }}
         >
           {defaultEditableText}

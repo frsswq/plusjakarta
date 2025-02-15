@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
-import { CaretDownIcon } from "@radix-ui/react-icons";
+import { CaretDownIcon, CaretUpIcon } from "@radix-ui/react-icons";
 
 import { cn } from "@/lib/utils";
 
@@ -45,7 +45,7 @@ const SelectScrollUpButton = React.forwardRef<
     )}
     {...props}
   >
-    {/* <ChevronUp className="h-4 w-4" /> */}
+    <CaretUpIcon className="size-4" />
   </SelectPrimitive.ScrollUpButton>
 ));
 SelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName;
@@ -62,7 +62,7 @@ const SelectScrollDownButton = React.forwardRef<
     )}
     {...props}
   >
-    {/* <ChevronDown className="h-4 w-4" /> */}
+    <CaretDownIcon className="size-4" />
   </SelectPrimitive.ScrollDownButton>
 ));
 SelectScrollDownButton.displayName =
@@ -76,8 +76,8 @@ const SelectContent = React.forwardRef<
     <SelectPrimitive.Content
       ref={ref}
       className={cn(
-        `bg-popover text-popover-foreground relative z-50 max-h-96 min-w-[8rem]
-        overflow-hidden border border-zinc-200`,
+        `bg-popover text-popover-foreground relative z-50 max-h-96 overflow-hidden border
+        border-zinc-200`,
         position === "popper" &&
           `data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1
           data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1`,
@@ -92,7 +92,7 @@ const SelectContent = React.forwardRef<
           "p-1",
           position === "popper" &&
             `h-[var(--radix-select-trigger-height)] w-full
-            min-w-[var(--radix-select-trigger-width)]`,
+            min-w-[calc(var(--radix-select-trigger-width)-1.5px)]`,
         )}
       >
         {children}
