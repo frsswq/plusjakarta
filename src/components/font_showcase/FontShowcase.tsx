@@ -53,22 +53,13 @@ export default function FontShowcase({
           <Button onClick={resetFont} className="group max-w-10 bg-white">
             <ReloadIcon className="text-zinc-700 group-hover:text-black" />
           </Button>
-          {/* {fontFeaturesLabel.map((feature) => (
-            <FontInputCheckbox
-              label={feature.label}
-              key={feature.value}
-              value={feature.value}
-              checked={fontFeatures.includes(feature.value)}
-              handleChange={handleFontFeaturesChange}
-            />
-          ))} */}
         </div>
       </div>
       <div>
         <p
           ref={fontTextRef}
           className="w-full py-4 -indent-1 leading-none font-extrabold tracking-tight text-red-500
-            caret-black focus:outline-none"
+            caret-black hover:cursor-text focus:outline-none"
           contentEditable
           suppressContentEditableWarning
           style={{
