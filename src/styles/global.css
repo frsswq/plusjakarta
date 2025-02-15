@@ -32,7 +32,7 @@
   --background: var(--color-white);
   --foreground: var(--color-black);
   --card: var(--color-white);
-  --card-foreground: hsl(240 10% 3.9%);
+  --card-foreground: var(--color-black);
   --popover: var(--color-white);
   --popover-foreground: hsl(240 10% 3.9%);
   --primary: hsl(240 5.9% 10%);

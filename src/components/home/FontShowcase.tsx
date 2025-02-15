@@ -1,8 +1,9 @@
 import React, { useState, useRef } from "react";
-import { ReloadIcon, FontSizeIcon } from "@radix-ui/react-icons";
-import FontInputSlider from "./FontInputSlider";
+import { ReloadIcon } from "@radix-ui/react-icons";
 import FontShowcaseSelectWeight from "./FontShowcaseSelectWeight";
 import FontShowcaseCheckboxFeatures from "./FontShowcaseCheckboxFeatures";
+import FontShowcaseSliderSize from "./FontShowcaseSliderSize";
+import { Button } from "@/components/ui/button";
 import "../../styles/rangeSliderBall.css";
 
 import { type FontShowcaseProps } from "../../types/commonProps";
@@ -19,10 +20,6 @@ export default function FontShowcase({
   const [fontWeight, setFontWeight] = useState<string>(defaultFontWeight);
   const [fontFeatures, toggleFontFeatures] = useState<string[]>([]);
   const fontTextRef = useRef<HTMLParagraphElement>(null);
-
-  const handleFontSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFontSize(parseInt(e.target.value));
-  };
 
   const handleFontFeaturesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const feature = e.target.value;
@@ -43,26 +40,24 @@ export default function FontShowcase({
 
   return (
     <div className="section-padding flex flex-col gap-y-1">
-      <div className="flex items-center gap-x-4">
+      <div className="flex items-center gap-x-2">
         <FontShowcaseSelectWeight
           value={fontWeight}
           onValueChange={setFontWeight}
         />
-        <FontInputSlider
-          label={<FontSizeIcon className="text-zinc-500" />}
-          min={10}
-          max={300}
-          step={1}
-          value={fontSize}
-          handleChange={handleFontSizeChange}
-          detail="px"
-        />
-        <ReloadIcon
-          onClick={resetFont}
-          className="cursor-pointer text-zinc-500"
-        />
-        <div className="ml-auto flex">
+        <FontShowcaseSliderSize value={fontSize} onValueChange={setFontSize} />
+
+        <div
+          className="ml-auto flex rounded-xs border border-zinc-200 bg-white shadow-none
+            hover:border-zinc-300 hover:bg-zinc-50/10 hover:shadow-2xs"
+        >
           <FontShowcaseCheckboxFeatures />
+          <Button
+            onClick={resetFont}
+            className="group max-w-10 rounded-none bg-white hover:bg-white"
+          >
+            <ReloadIcon className="text-zinc-700 group-hover:text-black" />
+          </Button>
           {/* {fontFeaturesLabel.map((feature) => (
             <FontInputCheckbox
               label={feature.label}

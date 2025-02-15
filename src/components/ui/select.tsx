@@ -18,7 +18,7 @@ const SelectTrigger = React.forwardRef<
     ref={ref}
     className={cn(
       `border-input ring-offset-background placeholder:text-muted-foreground
-      focus:ring-ring flex h-9 w-full items-center justify-between border
+      focus:ring-ring group flex h-9 w-full items-center justify-between border
       bg-transparent px-3 py-2 text-sm whitespace-nowrap focus:ring-0
       focus:outline-none [&>span]:line-clamp-1`,
       className,
@@ -27,7 +27,7 @@ const SelectTrigger = React.forwardRef<
   >
     {children}
     <SelectPrimitive.Icon asChild>
-      <CaretDownIcon className="size-4 text-zinc-500" />
+      <CaretDownIcon className="size-4 text-zinc-700 group-hover:text-black" />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 ));
