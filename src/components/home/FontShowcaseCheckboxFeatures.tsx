@@ -44,13 +44,12 @@ export default function FontShowcaseCheckboxFeatures({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full max-w-[100px] rounded-none border-zinc-200 font-normal shadow-none
-            focus-visible:ring-0"
+          className="max-w-[100px] rounded-none font-normal shadow-none"
         >
           OpenType
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[100px] rounded-none border-zinc-200 bg-white p-0 shadow-none">
+      <PopoverContent className="w-[100px] rounded-none bg-white p-0 shadow-none">
         <div className="space-y-2 p-2">
           {options.map((option) => (
             <div key={option.id} className="flex items-center space-x-2">
@@ -58,7 +57,7 @@ export default function FontShowcaseCheckboxFeatures({
                 id={option.id}
                 checked={selectedItems.includes(option.id)}
                 onCheckedChange={() => handleItemToggle(option.id)}
-                className="rounded-none border-zinc-200 shadow-none"
+                className="rounded-none shadow-none"
               />
               <label htmlFor={option.id} className="text-sm leading-none">
                 {option.label}
