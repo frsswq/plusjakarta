@@ -5,7 +5,7 @@ import {
   SelectValue,
   SelectItem,
 } from "@/components/ui/select";
-import { fontWeightsLabel } from "../../data/fontShowcaseData";
+import { fontWeightsLabel } from "@/data/fontShowcaseData";
 
 interface FontShowcaseSelectWeightProps {
   value: string;

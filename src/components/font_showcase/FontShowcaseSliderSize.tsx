@@ -1,5 +1,5 @@
 import { Slider } from "@/components/ui/slider";
-import ClarityFontSizeLine from "../icons/ClarityFontSizeLine";
+import { ClarityFontSizeLine } from "@/components/icons/ClarityFontSizeLine";
 
 interface FontShowcaseSliderSizeProps {
   value: number;

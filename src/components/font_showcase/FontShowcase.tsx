@@ -1,11 +1,11 @@
 import React, { useState, useRef } from "react";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import FontShowcaseSelectWeight from "./FontShowcaseSelectWeight";
-import FontShowcaseSliderSize from "./FontShowcaseSliderSize";
 import { Button } from "@/components/ui/button";
-import "../../styles/rangeSliderBall.css";
+import FontShowcaseSliderSize from "./FontShowcaseSliderSize";
+import FontShowcaseSelectWeight from "./FontShowcaseSelectWeight";
 
-import { type FontShowcaseProps } from "../../types/commonProps";
+import "@/styles/rangeSliderBall.css";
+import { type FontShowcaseProps } from "@/types/commonProps";
 
 const editableText =
   "Hijau Betawi / Jingga Bis Kota Kuning Gigi Balang / Biru Abang Pink None & City Collaboration.";
@@ -93,7 +93,7 @@ export default function FontShowcase({
       >
         <p
           ref={fontTextRef}
-          className="w-full px-2 py-8 leading-none font-extrabold tracking-tight text-red-500
+          className="w-full px-2 pt-8 pb-10 leading-none font-extrabold tracking-tight text-red-500
             caret-black hover:cursor-text focus:outline-none"
           contentEditable
           suppressContentEditableWarning

@@ -1,4 +1,4 @@
-import { type FontInputCheckboxProps } from "../../types/commonProps";
+import { type FontInputCheckboxProps } from "@/types/commonProps";
 
 export default function InputCheckbox({
   label,
