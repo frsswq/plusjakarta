@@ -1,6 +1,7 @@
 interface fontLabelValueTypes {
   label: string;
   value: string;
+  desc?: string;
 }
 
 export const fontWeightsLabel: fontLabelValueTypes[] = [
@@ -14,7 +15,7 @@ export const fontWeightsLabel: fontLabelValueTypes[] = [
 ];
 
 export const fontFeaturesLabel: fontLabelValueTypes[] = [
-  { label: "Lurus", value: "ss01" },
-  { label: "Lancip", value: "ss02" },
-  { label: "Lingkar", value: "ss03" },
+  { label: "Lancip", value: "ss01", desc: "Lancip alternates" },
+  { label: "Lurus", value: "ss02", desc: "Lurus alternates" },
+  { label: "Lingkar", value: "ss03", desc: "Lingkar alternates" },
 ];
