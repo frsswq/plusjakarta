@@ -12,9 +12,9 @@ export default function FontShowcaseSliderSize({
 }: FontShowcaseSliderSizeProps) {
   return (
     <div
-      className="group flex size-full max-w-[350px] items-center gap-2 rounded-xs border
-        border-zinc-200 px-3 whitespace-nowrap antialiased hover:border-zinc-300
-        hover:bg-zinc-50/10 hover:shadow-2xs"
+      className="group hidden h-9 items-center gap-2 rounded-xs border border-zinc-200 px-3
+        whitespace-nowrap antialiased hover:border-zinc-300 hover:bg-zinc-50/10
+        hover:shadow-2xs md:flex md:w-[350px]"
     >
       <ClarityFontSizeLine className="size-6 text-zinc-700 group-hover:text-black" />
       <Slider
