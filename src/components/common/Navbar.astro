@@ -1,5 +1,5 @@
 ---
-import { Icon } from "astro-icon/components";
+import { JLogo } from "@/components/icons/JLogo";
 
 const { stickyNavbar = false } = Astro.props;
 
@@ -16,9 +16,9 @@ const navbarButtonStyle =
       href="/plus-jakarta-site-redesign/"
       aria-label="Go to home page"
     >
-      <Icon
+      <JLogo
         name="j-logo"
-        class={`${navbarButtonStyle} flex h-full w-auto items-stretch p-2 rounded-l-[1px]`}
+        className={`${navbarButtonStyle} flex h-full w-auto items-stretch rounded-l-[1px] p-2`}
         aria-hidden="true"
       />
       <p

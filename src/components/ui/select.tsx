@@ -1,6 +1,7 @@
 import * as React from "react";
-import * as SelectPrimitive from "@radix-ui/react-select";
-import { CaretDownIcon, CaretUpIcon } from "@radix-ui/react-icons";
+import { Select as SelectPrimitive } from "radix-ui";
+import { RadixIconsCaretDown } from "@/components/icons/RadixIconsCaretDown";
+import { RadixIconsCaretUp } from "@/components/icons/RadixIconsCaretUp";
 
 import { cn } from "@/lib/utils";
 
@@ -27,7 +28,7 @@ const SelectTrigger = React.forwardRef<
   >
     {children}
     <SelectPrimitive.Icon asChild>
-      <CaretDownIcon className="size-4 text-zinc-700 group-hover:text-black" />
+      <RadixIconsCaretDown className="size-4 text-zinc-700 group-hover:text-black" />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 ));
@@ -45,7 +46,7 @@ const SelectScrollUpButton = React.forwardRef<
     )}
     {...props}
   >
-    <CaretUpIcon className="size-4" />
+    <RadixIconsCaretUp className="size-4" />
   </SelectPrimitive.ScrollUpButton>
 ));
 SelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName;
@@ -62,7 +63,7 @@ const SelectScrollDownButton = React.forwardRef<
     )}
     {...props}
   >
-    <CaretDownIcon className="size-4" />
+    <RadixIconsCaretDown className="size-4" />
   </SelectPrimitive.ScrollDownButton>
 ));
 SelectScrollDownButton.displayName =

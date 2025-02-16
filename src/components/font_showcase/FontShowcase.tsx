@@ -14,7 +14,6 @@ export default function FontShowcase({
   defaultFontSize = 80,
   defaultFontWeight = "800",
 }: FontShowcaseProps) {
-  // type tester
   const [fontSize, setFontSize] = useState<number>(defaultFontSize);
   const [fontWeight, setFontWeight] = useState<string>(defaultFontWeight);
   const [fontFeatures, toggleFontFeatures] = useState<string[]>([]);
@@ -28,45 +27,16 @@ export default function FontShowcase({
       fontTextRef.current.textContent = defaultEditableText;
   };
 
-  // tooltip
-  const [tooltipVisible, setTooltipVisible] = useState<string>("");
-  const [mousePosition, setMousePosition] = useState<{ x: number; y: number }>({
-    x: 0,
-    y: 0,
-  });
-
-  const handleMousePosition = (e: React.MouseEvent<HTMLElement>) => {
-    setMousePosition({ x: e.clientX + 15, y: e.clientY + 15 });
-  };
-
-  const showTooltip = (text: string) => {
-    setTooltipVisible("");
-    setTimeout(() => {
-      setTooltipVisible(text);
-    }, 500);
-  };
-
-  const hideTooltip = () => {
-    setTooltipVisible("");
-  };
-
   return (
-    <div
-      className="section-padding fixed-container flex flex-col gap-y-2"
-      onMouseMove={handleMousePosition}
-    >
+    <div className="section-padding fixed-container flex flex-col gap-y-2">
       <div className="flex items-center gap-x-2">
-        <FontShowcaseSelectWeight
-          value={fontWeight}
-          onValueChange={setFontWeight}
-          onTriggerMouseEnter={() => showTooltip("Font Weight")}
-          onTriggerMouseLeave={() => hideTooltip()}
-          onContentMouseEnter={() => hideTooltip()}
-        />
-        <div
-          onMouseEnter={() => showTooltip("Font Size")}
-          onMouseLeave={() => hideTooltip()}
-        >
+        <div title="Font Weight">
+          <FontShowcaseSelectWeight
+            value={fontWeight}
+            onValueChange={setFontWeight}
+          />
+        </div>
+        <div title="Font Size">
           <FontShowcaseSliderSize
             value={fontSize}
             onValueChange={setFontSize}
@@ -76,25 +46,11 @@ export default function FontShowcase({
           onClick={resetFont}
           className="group size-9 cursor-pointer rounded-xs border border-zinc-200 bg-white
             hover:border-zinc-300 hover:bg-zinc-50/10 hover:shadow-2xs"
-          onMouseEnter={() => showTooltip("Reset Editor")}
-          onMouseLeave={() => hideTooltip()}
           aria-label="Reset editor"
+          title="Reset Editor"
         >
           <SystemUiconsReset className="text-zinc-700 group-hover:text-black" />
         </Button>
-
-        {tooltipVisible && (
-          <div
-            className="pointer-events-none fixed z-50 rounded-xs border border-zinc-300 bg-white px-2
-              py-1 text-xs tracking-tight whitespace-nowrap shadow-2xs"
-            style={{
-              left: `${mousePosition.x}px`,
-              top: `${mousePosition.y}px`,
-            }}
-          >
-            {tooltipVisible}
-          </div>
-        )}
       </div>
       <div
         className="group rounded-xs border border-zinc-200 hover:border-zinc-300
