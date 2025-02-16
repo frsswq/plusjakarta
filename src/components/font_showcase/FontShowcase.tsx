@@ -1,6 +1,7 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { SystemUiconsReset } from "../icons/SystemUiconsReset";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import FontShowcaseSliderSize from "./FontShowcaseSliderSize";
 import FontShowcaseSelectWeight from "./FontShowcaseSelectWeight";
 
@@ -42,15 +43,17 @@ export default function FontShowcase({
             onValueChange={setFontSize}
           />
         </div>
-        <Button
-          onClick={resetFont}
-          className="group size-9 cursor-pointer rounded-xs border border-zinc-200 bg-white
-            hover:border-zinc-300 hover:bg-zinc-50/10 hover:shadow-2xs"
-          aria-label="Reset editor"
-          title="Reset Editor"
-        >
-          <SystemUiconsReset className="text-zinc-700 group-hover:text-black" />
-        </Button>
+        <div className="ml-auto flex h-9 gap-x-2">
+          <Button
+            onClick={resetFont}
+            className="group size-9 cursor-pointer rounded-xs border border-zinc-200 bg-white
+              hover:border-zinc-300 hover:bg-zinc-50/10 hover:shadow-2xs"
+            aria-label="Reset editor"
+            title="Reset editor"
+          >
+            <SystemUiconsReset className="text-zinc-700 group-hover:text-black" />
+          </Button>
+        </div>
       </div>
       <div
         className="group rounded-xs border border-zinc-200 hover:border-zinc-300

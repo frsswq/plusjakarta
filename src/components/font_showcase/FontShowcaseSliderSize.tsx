@@ -21,7 +21,7 @@ export default function FontShowcaseSliderSize({
         value={[value]}
         onValueChange={(e) => onValueChange(e[0])}
         min={1}
-        max={300}
+        max={200}
         step={1}
         ariaLabel="Font size"
       />
