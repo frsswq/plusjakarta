@@ -22,6 +22,7 @@ export default function FontShowcaseSelectWeight({
           hover:border-zinc-300 hover:bg-zinc-50/10 hover:font-[450] hover:text-black
           hover:shadow-2xs data-[state=open]:border-zinc-300 data-[state=open]:font-[450]
           data-[state=open]:text-black data-[state=open]:shadow-2xs md:w-[300px]"
+        aria-label="Select font weigth"
       >
         <SelectValue />
       </SelectTrigger>

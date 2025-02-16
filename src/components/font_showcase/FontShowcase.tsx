@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { ReloadIcon } from "@radix-ui/react-icons";
+import { SystemUiconsReset } from "../icons/SystemUiconsReset";
 import { Button } from "@/components/ui/button";
 import FontShowcaseSliderSize from "./FontShowcaseSliderSize";
 import FontShowcaseSelectWeight from "./FontShowcaseSelectWeight";
@@ -71,7 +71,7 @@ export default function FontShowcase({
           onMouseEnter={() => setTooltipVisible("Reset Editor")}
           onMouseLeave={() => setTooltipVisible("")}
         >
-          <ReloadIcon className="text-zinc-700 group-hover:text-black" />
+          <SystemUiconsReset className="text-zinc-700 group-hover:text-black" />
         </Button>
 
         {tooltipVisible && (
