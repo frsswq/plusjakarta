@@ -20,40 +20,65 @@ export default function FontShowcase({
   const [fontFeatures, toggleFontFeatures] = useState<string[]>([]);
   const fontTextRef = useRef<HTMLParagraphElement>(null);
 
-  const handleFontFeaturesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const feature = e.target.value;
-    toggleFontFeatures((prev) =>
-      e.target.checked ? [...prev, feature] : prev.filter((f) => f !== feature),
-    );
+  // Tooltip logic
+  const [tooltipVisible, setTooltipVisible] = useState<string>("");
+  const [mousePosition, setMousePosition] = useState<{ x: number; y: number }>({
+    x: 0,
+    y: 0,
+  });
+
+  const handleMousePosition = (e: React.MouseEvent<HTMLElement>) => {
+    setMousePosition({ x: e.clientX + 15, y: e.clientY + 15 });
   };
 
   const resetFont = () => {
     setFontSize(defaultFontSize);
     setFontWeight(defaultFontWeight);
     toggleFontFeatures([]);
-
-    if (fontTextRef.current) {
+    if (fontTextRef.current)
       fontTextRef.current.textContent = defaultEditableText;
-    }
   };
 
   return (
-    <div className="section-padding flex flex-col gap-y-1">
+    <div
+      className="section-padding flex flex-col gap-y-1"
+      onMouseMove={handleMousePosition}
+    >
       <div className="flex items-center gap-x-2">
         <FontShowcaseSelectWeight
           value={fontWeight}
           onValueChange={setFontWeight}
         />
-        <FontShowcaseSliderSize value={fontSize} onValueChange={setFontSize} />
-
         <div
-          className="ml-auto flex rounded-xs border border-zinc-200 bg-white shadow-none
-            hover:border-zinc-300 hover:bg-zinc-50/10 hover:shadow-2xs"
+          className="size-full"
+          onMouseEnter={() => setTooltipVisible("Font Size")}
+          onMouseLeave={() => setTooltipVisible("")}
+        >
+          <FontShowcaseSliderSize
+            value={fontSize}
+            onValueChange={setFontSize}
+          />
+        </div>
+        <div
+          className="ml-auto flex rounded-xs border border-zinc-200 bg-white hover:border-zinc-300
+            hover:bg-zinc-50/10"
         >
           <Button onClick={resetFont} className="group max-w-10 bg-white">
             <ReloadIcon className="text-zinc-700 group-hover:text-black" />
           </Button>
         </div>
+        {tooltipVisible && (
+          <div
+            className="pointer-events-none fixed z-50 rounded-xs border border-zinc-300 bg-white px-2
+              py-1 text-xs"
+            style={{
+              left: `${mousePosition.x}px`,
+              top: `${mousePosition.y}px`,
+            }}
+          >
+            {tooltipVisible}
+          </div>
+        )}
       </div>
       <div>
         <p
