@@ -52,6 +52,7 @@ export default function FontShowcase({
             key={value}
             title={value}
             aria-label={desc}
+            pressed={fontFeatures.includes(value)}
             onPressedChange={(p) =>
               setFontFeatures((prev) =>
                 p ? [...prev, value] : prev.filter((f) => f !== value),
@@ -72,13 +73,13 @@ export default function FontShowcase({
         </Button>
       </div>
       <div
-        className="group rounded-xs border border-zinc-200 hover:border-zinc-300
+        className="w-full rounded-xs border border-zinc-200 hover:border-zinc-300
           hover:bg-zinc-50/10 hover:shadow-2xs"
       >
         <p
           ref={fontTextRef}
-          className="w-full px-2 pt-8 pb-10 leading-none font-extrabold tracking-tight text-red-500
-            caret-black hover:cursor-text focus:outline-none"
+          className="w-full px-2 pt-8 pb-10 leading-none font-extrabold tracking-tight break-words
+            text-red-500 caret-black hover:cursor-text focus:outline-none"
           contentEditable
           suppressContentEditableWarning
           style={{
