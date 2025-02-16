@@ -23,7 +23,7 @@ export default function FontShowcaseSliderSize({
         min={1}
         max={300}
         step={1}
-        aria-label="Change font size"
+        ariaLabel="Font size"
       />
       <span
         className="text-sm font-normal tracking-tight text-zinc-700 tabular-nums

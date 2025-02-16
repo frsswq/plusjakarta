@@ -3,10 +3,15 @@ import * as SliderPrimitive from "@radix-ui/react-slider";
 
 import { cn } from "@/lib/utils";
 
+interface SliderProps
+  extends React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root> {
+  ariaLabel?: string;
+}
+
 const Slider = React.forwardRef<
   React.ElementRef<typeof SliderPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
->(({ className, ...props }, ref) => (
+  SliderProps
+>(({ ariaLabel, className, ...props }, ref) => (
   <SliderPrimitive.Root
     ref={ref}
     className={cn(
@@ -22,6 +27,7 @@ const Slider = React.forwardRef<
       <SliderPrimitive.Range className="absolute h-full bg-zinc-700" />
     </SliderPrimitive.Track>
     <SliderPrimitive.Thumb
+      aria-label={ariaLabel}
       className="bg-background focus-visible:ring-ring block h-5 w-2.5 rounded-xs border-[0.5px]
         border-zinc-700 transition-colors hover:cursor-grab hover:border-black
         focus-visible:ring-0 focus-visible:outline-none active:cursor-grabbing"

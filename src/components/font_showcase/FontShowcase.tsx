@@ -70,6 +70,7 @@ export default function FontShowcase({
             hover:bg-zinc-50/10 hover:shadow-2xs"
           onMouseEnter={() => setTooltipVisible("Reset Editor")}
           onMouseLeave={() => setTooltipVisible("")}
+          aria-label="Reset editor"
         >
           <SystemUiconsReset className="text-zinc-700 group-hover:text-black" />
         </Button>
