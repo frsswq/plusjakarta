@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import FontShowcaseSliderSize from "./FontShowcaseSliderSize";
 import FontShowcaseSelectWeight from "./FontShowcaseSelectWeight";
 
-import "@/styles/rangeSliderBall.css";
 import { type FontShowcaseProps } from "@/types/commonProps";
 
 const editableText =
@@ -40,24 +39,33 @@ export default function FontShowcase({
     setMousePosition({ x: e.clientX + 15, y: e.clientY + 15 });
   };
 
+  const showTooltip = (text: string) => {
+    setTooltipVisible("");
+    setTimeout(() => {
+      setTooltipVisible(text);
+    }, 500);
+  };
+
+  const hideTooltip = () => {
+    setTooltipVisible("");
+  };
+
   return (
     <div
-      className="section-padding flex flex-col gap-y-2"
+      className="section-padding fixed-container flex flex-col gap-y-2"
       onMouseMove={handleMousePosition}
     >
       <div className="flex items-center gap-x-2">
+        <FontShowcaseSelectWeight
+          value={fontWeight}
+          onValueChange={setFontWeight}
+          onTriggerMouseEnter={() => showTooltip("Font Weight")}
+          onTriggerMouseLeave={() => hideTooltip()}
+          onContentMouseEnter={() => hideTooltip()}
+        />
         <div
-          onMouseEnter={() => setTooltipVisible("Font Weight")}
-          onMouseLeave={() => setTooltipVisible("")}
-        >
-          <FontShowcaseSelectWeight
-            value={fontWeight}
-            onValueChange={setFontWeight}
-          />
-        </div>
-        <div
-          onMouseEnter={() => setTooltipVisible("Font Size")}
-          onMouseLeave={() => setTooltipVisible("")}
+          onMouseEnter={() => showTooltip("Font Size")}
+          onMouseLeave={() => hideTooltip()}
         >
           <FontShowcaseSliderSize
             value={fontSize}
@@ -66,10 +74,10 @@ export default function FontShowcase({
         </div>
         <Button
           onClick={resetFont}
-          className="group size-9 rounded-xs border border-zinc-200 bg-white hover:border-zinc-300
-            hover:bg-zinc-50/10 hover:shadow-2xs"
-          onMouseEnter={() => setTooltipVisible("Reset Editor")}
-          onMouseLeave={() => setTooltipVisible("")}
+          className="group size-9 cursor-pointer rounded-xs border border-zinc-200 bg-white
+            hover:border-zinc-300 hover:bg-zinc-50/10 hover:shadow-2xs"
+          onMouseEnter={() => showTooltip("Reset Editor")}
+          onMouseLeave={() => hideTooltip()}
           aria-label="Reset editor"
         >
           <SystemUiconsReset className="text-zinc-700 group-hover:text-black" />

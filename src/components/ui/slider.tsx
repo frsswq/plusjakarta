@@ -28,8 +28,8 @@ const Slider = React.forwardRef<
     </SliderPrimitive.Track>
     <SliderPrimitive.Thumb
       aria-label={ariaLabel}
-      className="bg-background focus-visible:ring-ring block h-5 w-2.5 rounded-xs border-[0.5px]
-        border-zinc-700 transition-colors hover:cursor-grab hover:border-black
+      className="focus-visible:ring-ring block h-5 w-2.5 rounded-xs border-[0.5px]
+        border-zinc-700 bg-white transition-colors hover:cursor-grab hover:border-black
         focus-visible:ring-0 focus-visible:outline-none active:cursor-grabbing"
     />
   </SliderPrimitive.Root>

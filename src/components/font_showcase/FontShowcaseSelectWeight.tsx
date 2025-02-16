@@ -10,23 +10,34 @@ import { fontWeightsLabel } from "@/data/fontShowcaseData";
 interface FontShowcaseSelectWeightProps {
   value: string;
   onValueChange: (fontWeight: string) => void;
+  onTriggerMouseEnter: () => void;
+  onTriggerMouseLeave: () => void;
+  onContentMouseEnter: () => void;
 }
 export default function FontShowcaseSelectWeight({
   value,
   onValueChange,
+  onTriggerMouseEnter,
+  onTriggerMouseLeave,
+  onContentMouseEnter,
 }: FontShowcaseSelectWeightProps) {
   return (
     <Select value={value} onValueChange={onValueChange}>
       <SelectTrigger
-        className="h-9 w-[150px] rounded-xs text-zinc-700 hover:cursor-pointer
+        className="h-9 w-[150px] rounded-xs border-zinc-200 text-zinc-700 hover:cursor-pointer
           hover:border-zinc-300 hover:bg-zinc-50/10 hover:font-[450] hover:text-black
           hover:shadow-2xs data-[state=open]:border-zinc-300 data-[state=open]:font-[450]
           data-[state=open]:text-black data-[state=open]:shadow-2xs md:w-[300px]"
         aria-label="Select font weight"
+        onMouseEnter={onTriggerMouseEnter}
+        onMouseLeave={onTriggerMouseLeave}
       >
         <SelectValue />
       </SelectTrigger>
-      <SelectContent className="rounded-xs border-zinc-300 shadow-2xs">
+      <SelectContent
+        className="rounded-xs border-zinc-300 shadow-2xs"
+        onMouseEnter={onContentMouseEnter}
+      >
         {fontWeightsLabel.map((weight) => (
           <SelectItem
             value={weight.value}
