@@ -117,10 +117,10 @@ export default function FontShowcase({
       </div>
 
       <div className="w-full">
-        <p
+        <span
           ref={fontTextRef}
           className={cn(
-            `w-full px-2 pt-2 pb-10 leading-none font-extrabold tracking-tighter antialiased
+            `inline-block w-full px-2 pt-2 pb-10 leading-none tracking-tighter
             hover:cursor-text focus:outline-none`,
             className,
           )}
@@ -131,10 +131,12 @@ export default function FontShowcase({
             fontWeight: fontWeight,
             textAlign: textAlign,
             fontFeatureSettings: addFontFeature,
+            fontFamily: "Plus Jakarta Sans",
+            textRendering: "geometricPrecision",
           }}
         >
           {defaultEditableText}
-        </p>
+        </span>
       </div>
     </div>
   );
