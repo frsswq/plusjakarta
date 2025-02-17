@@ -29,4 +29,7 @@ export interface FontShowcaseProps {
   defaultEditableText?: string;
   defaultFontSize?: number;
   defaultFontWeight?: string;
+  defaultTextAlign?: "left" | "center" | "right";
+  defaultFontFeatures?: string[];
+  className?: string;
 }

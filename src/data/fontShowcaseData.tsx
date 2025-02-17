@@ -1,10 +1,10 @@
-interface fontLabelValueTypes {
+interface LabelValueTypes {
   label: string;
   value: string;
   desc?: string;
 }
 
-export const fontWeightsLabel: fontLabelValueTypes[] = [
+export const fontWeightsLabel: LabelValueTypes[] = [
   { label: "ExtraLight", value: "200" },
   { label: "Light", value: "300" },
   { label: "Regular", value: "400" },
@@ -14,8 +14,15 @@ export const fontWeightsLabel: fontLabelValueTypes[] = [
   { label: "ExtraBold", value: "800" },
 ];
 
-export const fontFeaturesLabel: fontLabelValueTypes[] = [
+export const fontFeaturesLabel: LabelValueTypes[] = [
   { label: "Lancip", value: "ss01", desc: "Lancip alternates" },
   { label: "Lurus", value: "ss02", desc: "Lurus alternates" },
   { label: "Lingkar", value: "ss03", desc: "Lingkar alternates" },
+];
+
+export const textAlignLabel: LabelValueTypes[] = [
+  {
+    label: "left",
+    value: "",
+  },
 ];

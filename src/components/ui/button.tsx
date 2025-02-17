@@ -12,10 +12,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <Comp
         className={cn(
-          `border-input bg-background inline-flex h-9 w-9 items-center justify-center gap-2
-          text-sm whitespace-nowrap transition-colors focus-visible:ring-0
-          focus-visible:outline-none [&_svg]:pointer-events-none [&_svg]:size-4
-          [&_svg]:shrink-0`,
+          `border-input bg-background inline-flex size-8 items-center justify-center gap-2
+          text-sm whitespace-nowrap focus-visible:ring-0 focus-visible:outline-none
+          [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0`,
           className,
         )}
         ref={ref}
