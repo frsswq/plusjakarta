@@ -18,7 +18,7 @@ export default function FontShowcaseSelectWeight({
   return (
     <Select value={value} onValueChange={onValueChange}>
       <SelectTrigger
-        className="h-9 w-[350px] rounded-xs border-zinc-200 bg-white text-zinc-700
+        className="h-9 w-[250px] rounded-xs border-zinc-200 bg-white text-zinc-700
           hover:cursor-pointer hover:border-zinc-300 hover:bg-zinc-50/10 hover:font-[450]
           hover:text-black hover:shadow-2xs data-[state=open]:border-zinc-300
           data-[state=open]:font-[450] data-[state=open]:text-black
