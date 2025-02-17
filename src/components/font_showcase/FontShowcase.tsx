@@ -124,14 +124,17 @@ export default function FontShowcase({
             hover:cursor-text focus:outline-none`,
             className,
           )}
-          contentEditable
+          contentEditable="true"
+          autoCorrect="false"
+          autoCapitalize="false"
+          spellCheck="false"
           suppressContentEditableWarning
           style={{
             fontSize: `${fontSize}px`,
             fontWeight: fontWeight,
             textAlign: textAlign,
             fontFeatureSettings: addFontFeature,
-            fontFamily: "Plus Jakarta Sans",
+            fontFamily: `"Plus Jakarta Sans", "Plus Jakarta Sans Variable", sans-serif`,
             textRendering: "geometricPrecision",
           }}
         >
