@@ -2,20 +2,21 @@ import { useState, useRef, useEffect } from "react";
 import { SystemUiconsReset } from "@/components/icons/SystemUiconsReset";
 import { Button } from "@/components/ui/button";
 import { ToggleDefault } from "@/components/ui/toggleDefault";
-import FontShowcaseSliderSize from "./FontShowcaseSliderSize";
-import FontShowcaseSelectWeight from "./FontShowcaseSelectWeight";
-import { fontFeaturesLabel } from "@/data/fontShowcaseData";
-import { type FontShowcaseProps } from "@/types/commonProps";
-import { cn } from "@/lib/utils";
+
 import { MynauiTextAlignLeft } from "../icons/MynauiTextAlignLeft";
 import { MynauiTextAlignCenter } from "../icons/MynauiTextAlignCenter";
 
-const DEFAULT_EDITABLE_TEXT =
-  "Hijau Betawi / Jingga Bis Kota Kuning Gigi Balang / Biru Abang Pink None & City Collaboration.";
+import FontShowcaseSelectWeight from "./FontShowcaseSelectWeight";
+import FontShowcaseSliderSize from "./FontShowcaseSliderSize";
+
+import { cn } from "@/lib/utils";
+
+import { fontFeaturesLabel } from "@/data/fontShowcaseData";
+import { type FontShowcaseProps } from "@/types/commonProps";
 
 export default function FontShowcase({
-  defaultEditableText = DEFAULT_EDITABLE_TEXT,
-  defaultFontSize = 75,
+  defaultEditableText,
+  defaultFontSize = 0,
   defaultFontWeight = "800",
   defaultTextAlign = "center",
   defaultFontFeatures = [],
@@ -23,15 +24,44 @@ export default function FontShowcase({
 }: FontShowcaseProps) {
   const [fontSize, setFontSize] = useState<number>(defaultFontSize);
   const [fontWeight, setFontWeight] = useState<string>(defaultFontWeight);
-  const [textAlign, setTextAlign] = useState<"left" | "center" | "right">(
-    defaultTextAlign,
-  );
+  const [textAlign, setTextAlign] = useState<
+    "left" | "center" | "right" | "justify"
+  >(defaultTextAlign);
   const [fontFeatures, setFontFeatures] =
     useState<string[]>(defaultFontFeatures);
   const fontTextRef = useRef<HTMLParagraphElement>(null);
 
   const addFontFeature: string =
     fontFeatures.length > 0 ? `"${fontFeatures.join(`", "`)}"` : "normal";
+
+  useEffect(() => {
+    const resizeText = () => {
+      if (fontTextRef.current) {
+        const parentWidth = fontTextRef.current.parentElement?.offsetWidth || 0;
+        const cappedWidth = Math.min(parentWidth, 1440);
+        if (cappedWidth) {
+          const rawSize = Math.max(
+            Math.min(
+              ((cappedWidth * 0.8) / defaultEditableText.length) * 2,
+              300,
+            ),
+            10,
+          );
+
+          const roundedSize = Math.round(rawSize / 5) * 5;
+          setFontSize(roundedSize);
+        }
+      }
+    };
+
+    const observer = new ResizeObserver(resizeText);
+    if (fontTextRef.current)
+      observer.observe(fontTextRef.current.parentElement!);
+
+    resizeText();
+
+    return () => observer.disconnect();
+  }, []);
 
   const resetFont = () => {
     setFontSize(defaultFontSize);
@@ -44,7 +74,7 @@ export default function FontShowcase({
 
   return (
     <div className="fixed-container group/showcase flex flex-col gap-y-1.5 px-4 md:px-6">
-      <div className="z-10 flex h-9 flex-wrap items-center gap-1 md:gap-1.5">
+      <div className="z-10 flex h-8 flex-wrap items-center gap-1 md:h-9 md:gap-1.5">
         <div title="Font Weight">
           <FontShowcaseSelectWeight
             value={fontWeight}
@@ -85,7 +115,7 @@ export default function FontShowcase({
           </div>
 
           <div
-            className="hidden items-center gap-x-0.5 rounded-sm border border-zinc-200 p-0.5
+            className="hidden items-center gap-x-0.5 rounded-sm border border-zinc-200 bg-white p-0.5
               group-hover/showcase:flex hover:border-zinc-300 hover:shadow-2xs"
           >
             <ToggleDefault
@@ -104,7 +134,7 @@ export default function FontShowcase({
             </ToggleDefault>
           </div>
           <div
-            className="hidden items-center rounded-sm border border-zinc-200 p-0.5
+            className="hidden items-center rounded-sm border border-zinc-200 bg-white p-0.5
               group-hover/showcase:flex hover:border-zinc-300"
           >
             <Button
@@ -122,8 +152,8 @@ export default function FontShowcase({
       <span
         ref={fontTextRef}
         className={cn(
-          `inline-block w-full bg-white px-2 pt-2 pb-10 leading-none tracking-tighter
-          hover:cursor-text focus:outline-none`,
+          `font-tester inline-block w-full bg-white px-2 py-4 leading-none tracking-tighter
+          hover:cursor-text focus:outline-none md:pt-2 md:pb-10`,
           className,
         )}
         contentEditable="true"

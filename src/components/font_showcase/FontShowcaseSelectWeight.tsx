@@ -18,11 +18,11 @@ export default function FontShowcaseSelectWeight({
   return (
     <Select value={value} onValueChange={onValueChange}>
       <SelectTrigger
-        className="h-9 w-[250px] rounded-xs border-zinc-200 bg-white text-zinc-700
+        className="h-8 w-[125px] rounded-xs border-zinc-200 bg-white text-xs text-zinc-700
           hover:cursor-pointer hover:border-zinc-300 hover:bg-zinc-50/10 hover:font-[450]
           hover:text-black hover:shadow-2xs data-[state=open]:border-zinc-300
           data-[state=open]:font-[450] data-[state=open]:text-black
-          data-[state=open]:shadow-2xs"
+          data-[state=open]:shadow-2xs md:h-9 md:w-[250px] md:text-sm"
         aria-label="Select font weight"
       >
         <SelectValue aria-label={value} />
@@ -32,7 +32,8 @@ export default function FontShowcaseSelectWeight({
           <SelectItem
             value={weight.value}
             key={weight.value}
-            className="rounded-xs text-zinc-700 focus:cursor-pointer focus:font-[450] focus:text-black"
+            className="rounded-xs text-xs text-zinc-700 focus:cursor-pointer focus:bg-zinc-100
+              focus:font-[450] focus:text-black md:text-sm"
           >
             {weight.label}
           </SelectItem>

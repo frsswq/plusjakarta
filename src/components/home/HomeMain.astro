@@ -6,20 +6,15 @@ import HeroText from "./HeroText.astro";
 <main class="flex flex-col">
   <HeroText />
 
-  <hr class="my-4 h-px w-full text-zinc-200" />
-  <FontShowcase
-    defaultEditableText="Jatinegara"
-    defaultFontSize={200}
-    client:idle
-  />
-  <hr class="my-4 h-px w-full text-zinc-200" />
+  <hr class="my-2 h-px w-full text-zinc-200 md:my-4" />
+  <FontShowcase defaultEditableText="Jatinegara" client:idle />
+  <hr class="my-2 h-px w-full text-zinc-200 md:my-4" />
   <FontShowcase
     defaultEditableText="Kemayoran"
-    defaultFontSize={200}
     defaultFontWeight="200"
     defaultFontFeatures={["ss02"]}
     className="tracking-[-0.075em]"
     client:idle
   />
-  <hr class="my-4 h-px w-full text-zinc-200" />
+  <hr class="my-2 h-px w-full text-zinc-200 md:my-4" />
 </main>

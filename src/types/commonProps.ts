@@ -26,10 +26,10 @@ export interface FontInputSliderProps {
 }
 
 export interface FontShowcaseProps {
-  defaultEditableText?: string;
+  defaultEditableText: string;
   defaultFontSize?: number;
   defaultFontWeight?: string;
-  defaultTextAlign?: "left" | "center" | "right";
+  defaultTextAlign?: "left" | "center" | "right" | "justify";
   defaultFontFeatures?: string[];
   className?: string;
 }

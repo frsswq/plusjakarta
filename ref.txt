@@ -1,29 +1,30 @@
-FOCUSED
-- https://mbtype.com/fonts/heliotrope/ [ page separated showcase ]
-- https://typeverything.com/ [ good type tester and interlinking fonts ]
-- https://fortfoundry.com/fonts/alkaline [ solid type showcase ]
-- https://lettermatic.com/fonts/really-sans [ solid type showcase ]
-- https://www.arrowtype.com/name-sans [ adjustable ux ]
-- https://mass-driver.com/typefaces/md-nichrome/ [ straightforward & clean ]
-- https://io.mass-driver.com/ [ complete & detailed ]
-- https://lineto.com/typefaces/circular/technical [ good glyphs showcase ]
-- https://displaay.net/typeface/jokker/ [ super customizable type tester ]
-- https://fontwerk.com/en/fonts/case-collection [ great weight showcase ]
-- https://pangrampangram.com/products/neue-montreal [ good weight showcase ]
-- https://rsms.me/inter/ [ for benchmarking ]
-- https://fonts.studiofeixen.ch/noi-grotesk/ [ wow ]
-
-- https://abcdinamo.com/typefaces/diatype [ interactive & responsive]
-- https://klim.co.nz/retail-fonts/american-grotesk/ [ whitespace ]
-- https://www.sharptype.co/typefaces/carta-nueva [ about ]
-- https://www.allcapstype.com/typefaces/youth [ nice layout ]
-- https://www.tokotype.com/retail-fonts/fonetika [ ... ]
-- https://tokotype.github.io/plusjakarta-sans [ ... ]
-
-- https://unforma.club/font/nouva [ idk ]
+- https://mbtype.com/fonts/heliotrope/
+- https://typeverything.com/
+- https://fortfoundry.com/fonts/alkaline
+- https://lettermatic.com/fonts/really-sans
+- https://www.arrowtype.com/name-sans
+- https://mass-driver.com/typefaces/md-nichrome/
+- https://io.mass-driver.com/
+- https://lineto.com/typefaces/circular/technical
+- https://displaay.net/typeface/jokker/
+- https://fontwerk.com/en/fonts/case-collection
+- https://pangrampangram.com/products/neue-montreal
+- https://rsms.me/inter/
+- https://fonts.studiofeixen.ch/noi-grotesk/
+- https://abcdinamo.com/typefaces/diatype
+- https://klim.co.nz/retail-fonts/american-grotesk/
+- https://www.sharptype.co/typefaces/carta-nueva
+- https://www.allcapstype.com/typefaces/youth
+- https://www.tokotype.com/retail-fonts/fonetika
+- https://tokotype.github.io/plusjakarta-sans
+- https://unforma.club/font/nouva
 - https://optimo.ch/typefaces/basel
-- https://hex.xyz/Marionette/ [ editor page ]
-
+- https://hex.xyz/Marionette/
+- https://open-foundry.com/fonts
+- https://djr.com/gimlet-xray
+- https://www.typotheque.com/
+- https://www.daltonmaag.com/font-library/mendl-sans.html
+- https://floriankarsten.github.io/space-grotesk/
 
 collection
 - https://typespecimens.xyz/specimens/all/grid/36/
@@ -31,5 +32,4 @@ collection
 github
 - https://github.com/undercasetype/fraunces-minisite
 - https://github.com/rsms/inter/
-
 - https://github.com/foliojs/fontkit
