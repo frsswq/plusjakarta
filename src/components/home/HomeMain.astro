@@ -4,7 +4,7 @@ import HeroText from "./HeroText.astro";
 ---
 
 <main class="flex flex-col">
-  <HeroText />s
+  <HeroText />
   <hr class="my-2 h-px w-full text-zinc-200 md:my-4" />
   <FontShowcase
     defaultEditableText="Oceanography"
@@ -20,14 +20,28 @@ import HeroText from "./HeroText.astro";
   <FontShowcase
     defaultEditableText="Semiconductor"
     defaultFontWeight="400"
-    defaultFontFeatures={["ss02"]}
     client:idle
   />
-
   <FontShowcase
     defaultEditableText="Lexicographers"
     defaultFontWeight="500"
+    defaultFontFeatures={["ss02"]}
+    client:idle
+  />
+  <FontShowcase
+    defaultEditableText="Oceanography"
+    defaultFontWeight="600"
+    client:idle
+  />
+  <FontShowcase
+    defaultEditableText="Biotechnologist"
+    defaultFontWeight="700"
     defaultFontFeatures={["ss03"]}
+    client:idle
+  />
+  <FontShowcase
+    defaultEditableText="Semiconductor"
+    defaultFontWeight="800"
     client:idle
   />
 </main>
