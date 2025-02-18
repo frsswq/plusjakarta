@@ -16,6 +16,16 @@ import { cn } from "@/lib/utils";
 import { fontFeaturesLabel } from "@/data/fontShowcaseData";
 import { type FontShowcaseProps } from "@/types/commonProps";
 
+const TRACKING_MAP: Record<string, string> = {
+  "200": "tracking-[-0.1em]",
+  "300": "tracking-[-0.09375em]",
+  "400": "tracking-[-0.0875em]",
+  "500": "tracking-[-0.08125em]",
+  "600": "tracking-[-0.075em]",
+  "700": "tracking-[-0.06875em]",
+  "800": "tracking-[-0.0625em]",
+};
+
 export default function FontShowcase({
   defaultEditableText,
   defaultFontSize = 150,
@@ -62,16 +72,6 @@ export default function FontShowcase({
     setFontFeatures([]);
     if (fontTextRef.current)
       fontTextRef.current.textContent = defaultEditableText;
-  };
-
-  const TRACKING_MAP: Record<string, string> = {
-    "200": "tracking-[-0.1em]",
-    "300": "tracking-[-0.09375em]",
-    "400": "tracking-[-0.0875em]",
-    "500": "tracking-[-0.08125em]",
-    "600": "tracking-[-0.075em]",
-    "700": "tracking-[-0.06875em]",
-    "800": "tracking-[-0.0625em]",
   };
 
   const getTrackingClass = (weight: string): string =>
