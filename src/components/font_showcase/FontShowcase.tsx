@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button";
 import { ToggleDefault } from "@/components/ui/toggleDefault";
 import { Separator } from "@/components/ui/separator";
 
-import { MynauiTextAlignLeft } from "../icons/MynauiTextAlignLeft";
-import { MynauiTextAlignCenter } from "../icons/MynauiTextAlignCenter";
-import { TablerItalic } from "../icons/MaterialSymbolsLightFormatItalic";
+import { MynauiTextAlignLeft } from "@/components/icons/MynauiTextAlignLeft";
+import { MynauiTextAlignCenter } from "@/components/icons/MynauiTextAlignCenter";
+import { TablerItalic } from "@/components/icons/TablerItalic";
 
 import FontShowcaseSelectWeight from "./FontShowcaseSelectWeight";
 import FontShowcaseSliderSize from "./FontShowcaseSliderSize";
@@ -63,6 +63,19 @@ export default function FontShowcase({
     if (fontTextRef.current)
       fontTextRef.current.textContent = defaultEditableText;
   };
+
+  const TRACKING_MAP: Record<string, string> = {
+    "200": "tracking-[-0.1em]",
+    "300": "tracking-[-0.0875em]",
+    "400": "tracking-[-0.075em]",
+    "500": "tracking-[-0.0625em]",
+    "600": "tracking-[-0.05em]",
+    "700": "tracking-[-0.0375em]",
+    "800": "tracking-[-0.025em]",
+  };
+
+  const getTrackingClass = (weight: string): string =>
+    TRACKING_MAP[weight] || "tracking-[0em]";
 
   return (
     <>
@@ -157,8 +170,9 @@ export default function FontShowcase({
         <span
           ref={fontTextRef}
           className={cn(
-            `font-tester inline-block w-full bg-white px-2 py-4 leading-none tracking-tighter
-            hover:cursor-text focus:outline-none md:pt-2 md:pb-6`,
+            `font-tester inline-block w-full bg-white px-2 py-4 leading-none
+            hover:cursor-text focus:outline-none md:pt-2 md:pb-8`,
+            getTrackingClass(fontWeight),
             className,
           )}
           contentEditable="true"
