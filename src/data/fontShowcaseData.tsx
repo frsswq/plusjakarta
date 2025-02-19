@@ -20,9 +20,12 @@ export const fontFeaturesLabel: LabelValueTypes[] = [
   { label: "Lingkar", value: "ss03", desc: "Lingkar alternates" },
 ];
 
-export const textAlignLabel: LabelValueTypes[] = [
-  {
-    label: "left",
-    value: "",
-  },
-];
+export const TRACKING_MAP: Record<string, string> = {
+  "200": "tracking-[-0.1em]",
+  "300": "tracking-[-0.09375em]",
+  "400": "tracking-[-0.0875em]",
+  "500": "tracking-[-0.08125em]",
+  "600": "tracking-[-0.075em]",
+  "700": "tracking-[-0.06875em]",
+  "800": "tracking-[-0.0625em]",
+};

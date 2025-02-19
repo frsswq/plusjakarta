@@ -80,6 +80,7 @@ const { showFooter = true, stickyNavbar = false } = Astro.props;
     />
   </head>
   <body class="bg-white">
+    <script src="https://unpkg.com/react-scan/dist/auto.global.js"></script>
     <Navbar stickyNavbar={stickyNavbar} />
     <slot />
     {showFooter && <Footer />}

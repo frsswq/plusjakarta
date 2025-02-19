@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from "react";
-import { SystemUiconsReset } from "@/components/icons/SystemUiconsReset";
+import { useState, useRef, useEffect, useCallback } from "react";
+
 import { Button } from "@/components/ui/button";
 import { ToggleDefault } from "@/components/ui/toggleDefault";
 import { Separator } from "@/components/ui/separator";
@@ -7,31 +7,22 @@ import { Separator } from "@/components/ui/separator";
 import { MynauiTextAlignLeft } from "@/components/icons/MynauiTextAlignLeft";
 import { MynauiTextAlignCenter } from "@/components/icons/MynauiTextAlignCenter";
 import { TablerItalic } from "@/components/icons/TablerItalic";
+import { SystemUiconsReset } from "@/components/icons/SystemUiconsReset";
 
 import FontShowcaseSelectWeight from "./FontShowcaseSelectWeight";
 import FontShowcaseSliderSize from "./FontShowcaseSliderSize";
 
 import { cn } from "@/lib/utils";
 
-import { fontFeaturesLabel } from "@/data/fontShowcaseData";
+import { fontFeaturesLabel, TRACKING_MAP } from "@/data/fontShowcaseData";
 import { type FontShowcaseProps } from "@/types/commonProps";
-
-const TRACKING_MAP: Record<string, string> = {
-  "200": "tracking-[-0.1em]",
-  "300": "tracking-[-0.09375em]",
-  "400": "tracking-[-0.0875em]",
-  "500": "tracking-[-0.08125em]",
-  "600": "tracking-[-0.075em]",
-  "700": "tracking-[-0.06875em]",
-  "800": "tracking-[-0.0625em]",
-};
 
 export default function FontShowcase({
   defaultEditableText,
   defaultFontSize = 150,
   defaultFontWeight = "800",
   defaultFontStyle = "normal",
-  defaultTextAlign = "center",
+  defaultTextAlign = "left",
   defaultFontFeatures = [],
   className,
 }: FontShowcaseProps) {
@@ -43,27 +34,41 @@ export default function FontShowcase({
   >(defaultTextAlign);
   const [fontFeatures, setFontFeatures] =
     useState<string[]>(defaultFontFeatures);
-  const fontTextRef = useRef<HTMLParagraphElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const fontTextRef = useRef<HTMLSpanElement>(null);
+
+  const adjustFontSize = useCallback(() => {
+    const container = containerRef.current;
+    const textElement = fontTextRef.current;
+    if (!container || !textElement) return;
+
+    const containerWidth = container.clientWidth;
+    const textWidth = textElement.offsetWidth;
+
+    console.log(containerWidth);
+    console.log(textWidth);
+
+    if (textWidth === 0) return;
+
+    const currentFontSize = parseFloat(
+      window.getComputedStyle(textElement).fontSize,
+    );
+    const newFontSize = Math.round(
+      (containerWidth / textWidth) * currentFontSize,
+    );
+    setFontSize(newFontSize);
+  }, []);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const textElement = fontTextRef.current;
+    if (!container || !textElement) return;
+
+    adjustFontSize();
+  }, []);
 
   const addFontFeature: string =
     fontFeatures.length > 0 ? `"${fontFeatures.join(`", "`)}"` : "normal";
-
-  useEffect(() => {
-    const resizeText = () => {
-      if (fontTextRef.current) {
-        const parentWidth = fontTextRef.current.parentElement?.offsetWidth || 0;
-        const cappedWidth = Math.min(parentWidth, 1440) - 40;
-
-        if (cappedWidth) {
-          const rawSize = Math.max(10, Math.min(cappedWidth * 0.8 * 0.16, 300));
-          const roundedSize = Math.round(rawSize / 5) * 5;
-          setFontSize(roundedSize);
-        }
-      }
-    };
-
-    resizeText();
-  }, []);
 
   const resetFont = () => {
     setFontSize(defaultFontSize);
@@ -73,9 +78,6 @@ export default function FontShowcase({
     if (fontTextRef.current)
       fontTextRef.current.textContent = defaultEditableText;
   };
-
-  const getTrackingClass = (weight: string): string =>
-    TRACKING_MAP[weight] || "tracking-[0em]";
 
   return (
     <>
@@ -167,32 +169,37 @@ export default function FontShowcase({
           </div>
         </div>
 
-        <span
-          ref={fontTextRef}
-          className={cn(
-            `font-tester inline-block w-full bg-white px-2 py-4 leading-none
-            hover:cursor-text focus:outline-none md:pt-2 md:pb-8`,
-            getTrackingClass(fontWeight),
-            className,
-          )}
-          contentEditable="true"
-          autoCorrect="false"
-          autoCapitalize="false"
-          spellCheck="false"
-          suppressContentEditableWarning
-          style={{
-            fontSize: `${fontSize}px`,
-            fontWeight: fontWeight,
-            fontStyle: fontStyle,
-            textAlign: textAlign,
-            fontFeatureSettings: addFontFeature,
-            fontFamily: `"Plus Jakarta Sans", "Plus Jakarta Sans Variable", sans-serif`,
-          }}
+        <div
+          ref={containerRef}
+          className="flex w-full items-center bg-transparent"
         >
-          {defaultEditableText}
-        </span>
+          <span
+            ref={fontTextRef}
+            className={cn(
+              `inline-block bg-white px-2 py-4 leading-none hover:cursor-text
+              focus:outline-none md:pt-2 md:pb-8`,
+              TRACKING_MAP[fontWeight] || "tracking-[0em]",
+              className,
+            )}
+            contentEditable="true"
+            autoCorrect="false"
+            autoCapitalize="false"
+            spellCheck="false"
+            suppressContentEditableWarning
+            style={{
+              fontSize: `${fontSize}px`,
+              fontWeight: fontWeight,
+              fontStyle: fontStyle,
+              textAlign: textAlign,
+              fontFeatureSettings: addFontFeature,
+              fontFamily: `"Plus Jakarta Sans", "Plus Jakarta Sans Variable", sans-serif`,
+            }}
+          >
+            {defaultEditableText}
+          </span>
+        </div>
       </div>
-      <hr className="my-2 h-px w-full text-zinc-200 md:my-4" />
+      <hr className="my-2 h-px w-full bg-transparent text-zinc-200 md:my-4" />
     </>
   );
 }
