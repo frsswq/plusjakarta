@@ -19,10 +19,10 @@ import { type FontShowcaseProps } from "@/types/commonProps";
 
 export default function FontShowcase({
   defaultEditableText,
-  defaultFontSize = 150,
+  defaultFontSize = 50,
   defaultFontWeight = "800",
   defaultFontStyle = "normal",
-  defaultTextAlign = "left",
+  defaultTextAlign = "center",
   defaultFontFeatures = [],
   className,
 }: FontShowcaseProps) {
@@ -34,38 +34,50 @@ export default function FontShowcase({
   >(defaultTextAlign);
   const [fontFeatures, setFontFeatures] =
     useState<string[]>(defaultFontFeatures);
+
   const containerRef = useRef<HTMLDivElement>(null);
   const fontTextRef = useRef<HTMLSpanElement>(null);
 
-  const adjustFontSize = useCallback(() => {
-    const container = containerRef.current;
-    const textElement = fontTextRef.current;
-    if (!container || !textElement) return;
+  const adjustFontSize = useCallback(
+    (entries: ResizeObserverEntry[], observer: ResizeObserver) => {
+      if (containerRef.current && fontTextRef.current) {
+        let containerWidth = containerRef.current.clientWidth;
+        const textWidth = fontTextRef.current.scrollWidth;
 
-    const containerWidth = container.clientWidth;
-    const textWidth = textElement.offsetWidth;
+        if (containerWidth <= 768) {
+          containerWidth *= 0.9;
+        } else {
+          containerWidth *= 0.85;
+        }
 
-    console.log(containerWidth);
-    console.log(textWidth);
+        const currentFontSize = parseFloat(
+          window.getComputedStyle(fontTextRef.current).fontSize,
+        );
+        const newFontSize = Math.round(
+          (containerWidth / textWidth) * currentFontSize,
+        );
+        setFontSize(newFontSize);
 
-    if (textWidth === 0) return;
-
-    const currentFontSize = parseFloat(
-      window.getComputedStyle(textElement).fontSize,
-    );
-    const newFontSize = Math.round(
-      (containerWidth / textWidth) * currentFontSize,
-    );
-    setFontSize(newFontSize);
-  }, []);
+        if (Math.abs(textWidth - containerWidth) <= 5) {
+          observer.disconnect();
+        }
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     const container = containerRef.current;
     const textElement = fontTextRef.current;
     if (!container || !textElement) return;
 
-    adjustFontSize();
-  }, []);
+    const observer = new ResizeObserver(adjustFontSize);
+    observer.observe(container);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [adjustFontSize]);
 
   const addFontFeature: string =
     fontFeatures.length > 0 ? `"${fontFeatures.join(`", "`)}"` : "normal";
@@ -81,8 +93,8 @@ export default function FontShowcase({
 
   return (
     <>
-      <div className="fixed-container group/showcase flex flex-col gap-y-1.5 px-4 md:px-6">
-        <div className="z-10 flex h-8 flex-wrap items-center gap-1 md:h-9 md:gap-1.5">
+      <div className="fixed-container group/showcase flex flex-col gap-y-1.5 px-4 py-2 md:px-6 md:py-4">
+        <div className="z-10 flex h-7.5 flex-wrap items-center md:h-9 md:gap-1.5">
           <div title="Font Weight">
             <FontShowcaseSelectWeight
               value={fontWeight}
@@ -99,14 +111,15 @@ export default function FontShowcase({
             />
           </div>
 
-          <div className="ml-auto flex h-9 items-center gap-1.5">
+          <div className="ml-auto flex h-7.5 items-center gap-1.5 md:h-9">
             <div
-              className="hidden items-center gap-x-0.5 rounded-sm border border-zinc-200 bg-white p-0.5
-                group-hover/showcase:flex hover:border-zinc-300 hover:shadow-2xs"
+              className="flex h-7.5 items-center gap-x-0.5 rounded-xs border border-zinc-200 bg-white
+                p-0.5 hover:border-zinc-300 hover:shadow-2xs md:hidden md:h-9
+                md:group-hover/showcase:flex"
             >
               {fontFeaturesLabel.map(({ label, value, desc }) => (
                 <ToggleDefault
-                  className="w-full px-2.5 text-xs lowercase"
+                  className="h-6.5 w-full text-[10px] lowercase md:h-9 md:px-2.5 md:text-xs"
                   key={value}
                   title={value}
                   aria-label={desc}
@@ -171,12 +184,12 @@ export default function FontShowcase({
 
         <div
           ref={containerRef}
-          className="flex w-full items-center bg-transparent"
+          className="flex w-full items-center justify-center bg-transparent"
         >
           <span
             ref={fontTextRef}
             className={cn(
-              `inline-block bg-white px-2 py-4 leading-none hover:cursor-text
+              `inline-block max-w-full bg-white px-2 py-4 leading-none hover:cursor-text
               focus:outline-none md:pt-2 md:pb-8`,
               TRACKING_MAP[fontWeight] || "tracking-[0em]",
               className,
@@ -185,6 +198,7 @@ export default function FontShowcase({
             autoCorrect="false"
             autoCapitalize="false"
             spellCheck="false"
+            role="textbox"
             suppressContentEditableWarning
             style={{
               fontSize: `${fontSize}px`,
@@ -199,7 +213,7 @@ export default function FontShowcase({
           </span>
         </div>
       </div>
-      <hr className="my-2 h-px w-full bg-transparent text-zinc-200 md:my-4" />
+      <hr className="h-px w-full bg-transparent text-zinc-200" />
     </>
   );
 }
