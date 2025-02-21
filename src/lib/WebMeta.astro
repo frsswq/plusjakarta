@@ -1,0 +1,48 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<title>
+  {
+    title
+      ? `${title} | +Jakarta Sans`
+      : "+Jakarta Sans | Open-source fonts for Jakarta City of Collaboration"
+  }
+</title>
+<meta
+  name="description"
+  content={description ||
+    "+Jakarta Sans is an open-source font. Designed for Jakarta 'City of Collaboration' program in 2020."}
+/>
+
+<!-- Open Graph Meta Tags -->
+<meta property="og:title" content={title || "+Jakarta Sans"} />
+<meta
+  property="og:description"
+  content={description ||
+    "+Jakarta Sans is an open-source font. Designed for Jakarta 'City of Collaboration' program in 2020."}
+/>
+<meta property="og:type" content="website" />
+<meta property="og:image" content="/assets/og-image.png" />
+<meta property="og:url" content={Astro.url} />
+
+<!-- Twitter Meta Tags -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:creator" content="@frsswq" />
+<meta name="twitter:title" content={title || "+Jakarta Sans"} />
+<meta
+  name="twitter:description"
+  content={description || "+Jakarta Sans is an open-source font."}
+/>
+<meta name="twitter:image" content="/assets/og-image.png" />
+
+<meta name="generator" content={Astro.generator} />
+<meta
+  http-equiv="Cache-Control"
+  content="public, max-age=31536000, immutable"
+/>

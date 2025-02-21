@@ -1,12 +1,13 @@
 ---
 import "../styles/global.css";
 
-import Analytics from "@vercel/analytics/astro"
+import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
+import WebMeta from "../lib/WebMeta.astro";
 import Navbar from "../components/common/Navbar.astro";
 import Footer from "../components/common/Footer.astro";
 
-export interface Props {
+interface Props {
   title?: string;
   description?: string;
   showFooter?: boolean;
@@ -22,42 +23,8 @@ const { showFooter = true, stickyNavbar = false } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>
-      {
-        title
-          ? `${title} | +Jakarta Sans`
-          : "+Jakarta Sans | Open-source fonts for Jakarta City of Collaboration"
-      }
-    </title>
-    <meta
-      name="description"
-      content={description ||
-        "+Jakarta Sans is an open-source font. Designed for Jakarta 'City of Collaboration' program in 2020."}
-    />
-
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content={title || "+Jakarta Sans"} />
-    <meta
-      property="og:description"
-      content={description ||
-        "+Jakarta Sans is an open-source font. Designed for Jakarta 'City of Collaboration' program in 2020."}
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="/assets/og-image.png" />
-    <meta property="og:url" content={Astro.url} />
-
-    <!-- Twitter Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:creator" content="@frsswq" />
-    <meta name="twitter:title" content={title || "+Jakarta Sans"} />
-    <meta
-      name="twitter:description"
-      content={description || "+Jakarta Sans is an open-source font."}
-    />
-    <meta name="twitter:image" content="/assets/og-image.png" />
-
+    <WebMeta title={title} description={description} />
     <link rel="icon" type="image/svg+xml" href="/assets/jfavico.png" />
-    <meta name="generator" content={Astro.generator} />
 
     <link
       rel="preload"
@@ -65,10 +32,6 @@ const { showFooter = true, stickyNavbar = false } = Astro.props;
       as="font"
       type="font/otf"
       crossorigin
-    />
-    <meta
-      http-equiv="Cache-Control"
-      content="public, max-age=31536000, immutable"
     />
   </head>
   <body class="bg-white">

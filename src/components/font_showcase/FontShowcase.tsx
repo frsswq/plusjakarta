@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Button } from "../ui/button.tsx";
-import { ToggleDefault } from "../ui/toggleDefault.tsx";
 import { Separator } from "../ui/separator.tsx";
 
 import { MynauiTextAlignLeft } from "../icons/MynauiTextAlignLeft.tsx";
@@ -9,8 +8,9 @@ import { MynauiTextAlignCenter } from "../icons/MynauiTextAlignCenter.tsx";
 import { TablerItalic } from "../icons/TablerItalic.tsx";
 import { SystemUiconsReset } from "../icons/SystemUiconsReset.tsx";
 
-import FontShowcaseSelectWeight from "../font_showcase/FontShowcaseSelectWeight.tsx";
-import FontShowcaseSliderSize from "../font_showcase/FontShowcaseSliderSize.tsx";
+import FontShowcaseSelectWeight from "./FontShowcaseSelectWeight.tsx";
+import FontShowcaseSliderSize from "./FontShowcaseSliderSize.tsx";
+import { FontShowcaseToggle } from "./FontShowcaseToggle.tsx";
 
 import { cn } from "../../lib/utils.ts";
 
@@ -22,14 +22,17 @@ import { type FontShowcaseProps } from "../../types/commonProps.ts";
 
 export default function FontShowcase({
   defaultEditableText,
-  defaultFontSize = 50,
+  defaultFontSize,
   defaultFontWeight = "800",
   defaultFontStyle = "normal",
-  defaultTextAlign = "center",
+  defaultTextAlign = "left",
   defaultFontFeatures = [],
   className,
 }: FontShowcaseProps) {
-  const [fontSize, setFontSize] = useState<number>(defaultFontSize);
+  const autoAdjustFontSize = defaultFontSize === undefined;
+
+  const [initialFontSize, setInitialFontSize] = useState(defaultFontSize ?? 50);
+  const [fontSize, setFontSize] = useState<number>(initialFontSize);
   const [fontWeight, setFontWeight] = useState<string>(defaultFontWeight);
   const [fontStyle, setFontStyle] = useState<string>(defaultFontStyle);
   const [textAlign, setTextAlign] = useState<
@@ -40,53 +43,44 @@ export default function FontShowcase({
 
   const containerRef = useRef<HTMLDivElement>(null);
   const fontTextRef = useRef<HTMLSpanElement>(null);
+  const lastContainerWidthRef = useRef<number>(0);
 
-  const adjustFontSize = useCallback(
-    (_entries: ResizeObserverEntry[], observer: ResizeObserver) => {
-      if (containerRef.current && fontTextRef.current) {
-        let containerWidth = containerRef.current.clientWidth;
-        const textWidth = fontTextRef.current.scrollWidth;
+  const adjustFontSize = useCallback((entries: ResizeObserverEntry[]) => {
+    if (containerRef.current && fontTextRef.current) {
+      const newContainerWidth = entries[0].contentRect.width;
+      if (Math.abs(newContainerWidth - lastContainerWidthRef.current) < 2)
+        return;
 
-        if (containerWidth <= 768) {
-          containerWidth *= 0.9;
-        } else {
-          containerWidth *= 0.85;
-        }
+      lastContainerWidthRef.current = newContainerWidth;
 
-        const currentFontSize = parseFloat(
-          globalThis.getComputedStyle(fontTextRef.current).fontSize,
-        );
-        const newFontSize = Math.round(
-          (containerWidth / textWidth) * currentFontSize,
-        );
-        setFontSize(newFontSize);
+      let containerWidth = newContainerWidth;
+      containerWidth *= containerWidth <= 768 ? 0.9 : 0.95;
 
-        if (Math.abs(textWidth - containerWidth) <= 5) {
-          observer.disconnect();
-        }
-      }
-    },
-    [],
-  );
+      const textWidth = fontTextRef.current.scrollWidth;
+      const currentFontSize = parseInt(
+        globalThis.getComputedStyle(fontTextRef.current).fontSize,
+      );
+      const newFontSize =
+        Math.round(((containerWidth / textWidth) * currentFontSize) / 2) * 2;
+      setFontSize(newFontSize);
+      setInitialFontSize(newFontSize);
+    }
+  }, []);
 
   useEffect(() => {
-    const container = containerRef.current;
-    const textElement = fontTextRef.current;
-    if (!container || !textElement) return;
+    if (!autoAdjustFontSize || !containerRef.current) return;
 
     const observer = new ResizeObserver(adjustFontSize);
-    observer.observe(container);
+    observer.observe(containerRef.current);
 
-    return () => {
-      observer.disconnect();
-    };
-  }, [adjustFontSize]);
+    return () => observer.disconnect();
+  }, [adjustFontSize, autoAdjustFontSize]);
 
   const addFontFeature: string =
     fontFeatures.length > 0 ? `"${fontFeatures.join(`", "`)}"` : "normal";
 
   const resetFont = () => {
-    setFontSize(defaultFontSize);
+    setFontSize(initialFontSize);
     setFontWeight(defaultFontWeight);
     setTextAlign(defaultTextAlign);
     setFontFeatures([]);
@@ -97,7 +91,7 @@ export default function FontShowcase({
 
   return (
     <>
-      <div className="fixed-container group/showcase flex flex-col gap-y-1.5 px-4 py-2 md:px-6 md:py-4">
+      <div className="fixed-container group/showcase flex flex-col gap-y-0 px-4 py-2 md:px-6 md:py-4">
         <div className="z-10 flex h-7.5 flex-wrap items-center md:h-9 md:gap-1.5">
           <div title="Font Weight">
             <FontShowcaseSelectWeight
@@ -122,7 +116,7 @@ export default function FontShowcase({
                 md:group-hover/showcase:flex"
             >
               {fontFeaturesLabel.map(({ label, value, desc }) => (
-                <ToggleDefault
+                <FontShowcaseToggle
                   className="h-6.5 w-full px-2.5 text-[10px] lowercase md:h-8 md:text-xs"
                   key={value}
                   title={value}
@@ -135,7 +129,7 @@ export default function FontShowcase({
                   }
                 >
                   {label}
-                </ToggleDefault>
+                </FontShowcaseToggle>
               ))}
             </div>
 
@@ -143,7 +137,7 @@ export default function FontShowcase({
               className="hidden items-center gap-x-0.5 rounded-sm border border-zinc-200 bg-white p-0.5
                 group-hover/showcase:flex hover:border-zinc-300 hover:shadow-2xs"
             >
-              <ToggleDefault
+              <FontShowcaseToggle
                 title="Italic"
                 pressed={fontStyle === "italic"}
                 onPressedChange={() =>
@@ -153,22 +147,22 @@ export default function FontShowcase({
                 }
               >
                 <TablerItalic />
-              </ToggleDefault>
+              </FontShowcaseToggle>
               <Separator orientation="vertical" className="h-6" />
-              <ToggleDefault
+              <FontShowcaseToggle
                 title="Align left"
                 pressed={textAlign === "left"}
                 onPressedChange={() => setTextAlign("left")}
               >
                 <MynauiTextAlignLeft />
-              </ToggleDefault>
-              <ToggleDefault
+              </FontShowcaseToggle>
+              <FontShowcaseToggle
                 title="Align center"
                 pressed={textAlign === "center"}
                 onPressedChange={() => setTextAlign("center")}
               >
                 <MynauiTextAlignCenter />
-              </ToggleDefault>
+              </FontShowcaseToggle>
             </div>
             <div
               className="hidden items-center rounded-sm border border-zinc-200 bg-white p-0.5
@@ -188,7 +182,7 @@ export default function FontShowcase({
 
         <div
           ref={containerRef}
-          className="flex w-full items-center justify-center bg-transparent"
+          className="justify-left flex w-full items-start bg-transparent"
         >
           <span
             ref={fontTextRef}

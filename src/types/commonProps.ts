@@ -27,7 +27,7 @@ export interface FontInputSliderProps {
 
 export interface FontShowcaseProps {
   defaultEditableText: string;
-  defaultFontSize?: number;
+  defaultFontSize?: number | undefined;
   defaultFontWeight?: string;
   defaultFontStyle?: "normal" | "italic";
   defaultTextAlign?: "left" | "center" | "right" | "justify";

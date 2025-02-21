@@ -3,7 +3,7 @@ import { Toggle as TogglePrimitive } from "radix-ui";
 
 import { cn } from "../../lib/utils.ts";
 
-const ToggleDefault = React.forwardRef<
+const FontShowcaseToggle = React.forwardRef<
   React.ElementRef<typeof TogglePrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof TogglePrimitive.Root>
 >(({ className, ...props }, ref) => (
@@ -21,6 +21,6 @@ const ToggleDefault = React.forwardRef<
   />
 ));
 
-ToggleDefault.displayName = TogglePrimitive.Root.displayName;
+FontShowcaseToggle.displayName = TogglePrimitive.Root.displayName;
 
-export { ToggleDefault };
+export { FontShowcaseToggle };
