@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Toggle as TogglePrimitive } from "radix-ui";
 
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils.ts";
 
 const Toggle = React.forwardRef<
   React.ElementRef<typeof TogglePrimitive.Root>,
@@ -18,7 +18,6 @@ const Toggle = React.forwardRef<
       data-[state=on]:text-black data-[state=on]:inset-ring-2
       data-[state=on]:inset-shadow-2xs data-[state=on]:inset-ring-zinc-50/10
       [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0`,
-
       className,
     )}
     {...props}

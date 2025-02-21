@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Toggle as TogglePrimitive } from "radix-ui";
 
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils.ts";
 
 const ToggleDefault = React.forwardRef<
   React.ElementRef<typeof TogglePrimitive.Root>,
@@ -15,7 +15,6 @@ const ToggleDefault = React.forwardRef<
       focus-visible:ring-0 focus-visible:outline-none data-[state=on]:bg-zinc-100
       data-[state=on]:text-black [&_svg]:pointer-events-none [&_svg]:size-4
       [&_svg]:shrink-0`,
-
       className,
     )}
     {...props}

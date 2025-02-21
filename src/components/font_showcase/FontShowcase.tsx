@@ -1,21 +1,21 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-import { Button } from "@/components/ui/button";
-import { ToggleDefault } from "@/components/ui/toggleDefault";
-import { Separator } from "@/components/ui/separator";
+import { Button } from "../ui/button.tsx";
+import { ToggleDefault } from "../ui/toggleDefault.tsx";
+import { Separator } from "../ui/separator.tsx";
 
-import { MynauiTextAlignLeft } from "@/components/icons/MynauiTextAlignLeft";
-import { MynauiTextAlignCenter } from "@/components/icons/MynauiTextAlignCenter";
-import { TablerItalic } from "@/components/icons/TablerItalic";
-import { SystemUiconsReset } from "@/components/icons/SystemUiconsReset";
+import { MynauiTextAlignLeft } from "../icons/MynauiTextAlignLeft.tsx";
+import { MynauiTextAlignCenter } from "../icons/MynauiTextAlignCenter.tsx";
+import { TablerItalic } from "../icons/TablerItalic.tsx";
+import { SystemUiconsReset } from "../icons/SystemUiconsReset.tsx";
 
-import FontShowcaseSelectWeight from "./FontShowcaseSelectWeight";
-import FontShowcaseSliderSize from "./FontShowcaseSliderSize";
+import FontShowcaseSelectWeight from "../font_showcase/FontShowcaseSelectWeight.tsx";
+import FontShowcaseSliderSize from "../font_showcase/FontShowcaseSliderSize.tsx";
 
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils.ts";
 
-import { fontFeaturesLabel, TRACKING_MAP } from "@/data/fontShowcaseData";
-import { type FontShowcaseProps } from "@/types/commonProps";
+import { fontFeaturesLabel, TRACKING_MAP } from "../../data/fontShowcaseData.tsx";
+import { type FontShowcaseProps } from "../../types/commonProps.ts";
 
 export default function FontShowcase({
   defaultEditableText,
@@ -39,7 +39,7 @@ export default function FontShowcase({
   const fontTextRef = useRef<HTMLSpanElement>(null);
 
   const adjustFontSize = useCallback(
-    (entries: ResizeObserverEntry[], observer: ResizeObserver) => {
+    (_entries: ResizeObserverEntry[], observer: ResizeObserver) => {
       if (containerRef.current && fontTextRef.current) {
         let containerWidth = containerRef.current.clientWidth;
         const textWidth = fontTextRef.current.scrollWidth;
@@ -51,7 +51,7 @@ export default function FontShowcase({
         }
 
         const currentFontSize = parseFloat(
-          window.getComputedStyle(fontTextRef.current).fontSize,
+          globalThis.getComputedStyle(fontTextRef.current).fontSize,
         );
         const newFontSize = Math.round(
           (containerWidth / textWidth) * currentFontSize,
@@ -87,8 +87,9 @@ export default function FontShowcase({
     setFontWeight(defaultFontWeight);
     setTextAlign(defaultTextAlign);
     setFontFeatures([]);
-    if (fontTextRef.current)
+    if (fontTextRef.current) {
       fontTextRef.current.textContent = defaultEditableText;
+    }
   };
 
   return (

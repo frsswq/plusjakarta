@@ -1,11 +1,11 @@
 import {
   Select,
   SelectContent,
+  SelectItem,
   SelectTrigger,
   SelectValue,
-  SelectItem,
-} from "@/components/ui/select";
-import { fontWeightsLabel } from "@/data/fontShowcaseData";
+} from "../ui/select.tsx";
+import { fontWeightsLabel } from "../../data/fontShowcaseData.tsx";
 
 interface FontShowcaseSelectWeightProps {
   value: string;

@@ -16,7 +16,8 @@ export function MynauiTextAlignLeft(props: SVGProps<SVGSVGElement>) {
         strokeLinejoin="round"
         strokeWidth="1.5"
         d="M4.5 6h15m-15 4h10m-10 4h15m-15 4h10"
-      ></path>
+      >
+      </path>
     </svg>
   );
 }

@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Select as SelectPrimitive } from "radix-ui";
-import { RadixIconsCaretDown } from "@/components/icons/RadixIconsCaretDown";
-import { RadixIconsCaretUp } from "@/components/icons/RadixIconsCaretUp";
+import { RadixIconsCaretDown } from "../../components/icons/RadixIconsCaretDown.tsx";
+import { RadixIconsCaretUp } from "../../components/icons/RadixIconsCaretUp.tsx";
 
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils.ts";
 
 const Select = SelectPrimitive.Root;
 
@@ -151,13 +151,13 @@ SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
 
 export {
   Select,
-  SelectGroup,
-  SelectValue,
-  SelectTrigger,
   SelectContent,
-  SelectLabel,
+  SelectGroup,
   SelectItem,
-  SelectSeparator,
-  SelectScrollUpButton,
+  SelectLabel,
   SelectScrollDownButton,
+  SelectScrollUpButton,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
 };

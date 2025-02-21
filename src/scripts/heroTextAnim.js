@@ -45,7 +45,7 @@ export const sketch = (p) => {
   let frameNumber = 0;
 
   const calculateSizes = () => {
-    const width = window.innerWidth;
+    const width = globalThis.innerWidth;
     if (width >= BREAKPOINT_DESKTOP) {
       FONT_SIZE = DESKTOP_FONT_SIZE;
       CANVAS_WIDTH = DESKTOP_CANVAS_WIDTH;
@@ -205,7 +205,7 @@ export const sketch = (p) => {
     }
 
     let currentX = (CANVAS_WIDTH - totalWidth) / 2;
-    let currentY = baselinePosition;
+    const currentY = baselinePosition;
 
     const allContours = [];
 
@@ -248,7 +248,7 @@ export const sketch = (p) => {
 
     try {
       const buffer = await fetch(
-        "/plus-jakarta-site-redesign/fonts/subset/PlusJakartaSans-Bold-Subset.otf",
+        "/fonts/subset/PlusJakartaSans-Bold-Subset.otf",
       ).then((res) => {
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         return res.arrayBuffer();
@@ -259,7 +259,7 @@ export const sketch = (p) => {
 
       generateContourGroups();
       setupComplete = true;
-      window.dispatchEvent(new Event("animationStart"));
+      self.dispatchEvent(new Event("animationStart"));
       p.loop();
     } catch (error) {
       console.error("Failed to initialize sketch:", error);
@@ -281,8 +281,8 @@ export const sketch = (p) => {
       p.resizeCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
       generateContourGroups();
       animationDone = false;
-      window._animationFired = false;
-      window.dispatchEvent(new Event("animationStart"));
+      self._animationFired = false;
+      self.dispatchEvent(new Event("animationStart"));
       p.redraw();
     }
   };
@@ -313,9 +313,9 @@ export const sketch = (p) => {
     });
 
     if (animationDone) {
-      if (!window._animationFired) {
-        window.dispatchEvent(new Event("animationComplete"));
-        window._animationFired = true;
+      if (!self._animationFired) {
+        self.dispatchEvent(new Event("animationComplete"));
+        self._animationFired = true;
       }
 
       const ctx = p.canvas.getContext("2d", { willReadFrequently: true });

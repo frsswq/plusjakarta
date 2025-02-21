@@ -16,7 +16,8 @@ export function TablerItalic(props: SVGProps<SVGSVGElement>) {
         strokeLinejoin="round"
         strokeWidth="2"
         d="M11 5h6M7 19h6m1-14l-4 14"
-      ></path>
+      >
+      </path>
     </svg>
   );
 }

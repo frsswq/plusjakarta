@@ -1,7 +1,11 @@
 ---
-import { JLogo } from "@/components/icons/JLogo";
+import { JLogo } from "../icons/JLogo";
 
-const { stickyNavbar = false } = Astro.props;
+interface Props {
+  stickyNavbar: boolean;
+}
+
+const { stickyNavbar = false } = Astro.props as Props;
 
 const navbarButtonStyle =
   "cursor-pointer border not-first:border-l-0 border-zinc-700 bg-zinc-800 px-2 pt-1.75 pb-2.25 hover:border-zinc-700/80 hover:bg-zinc-700";
@@ -13,11 +17,7 @@ const navbarButtonStyle =
   <div
     class="fixed-container flex h-8 flex-row justify-between text-sm text-white"
   >
-    <a
-      class="flex"
-      href="/plus-jakarta-site-redesign/"
-      aria-label="Go to home page"
-    >
+    <a class="flex" href="/" aria-label="Go to home page">
       <JLogo
         name="j-logo"
         className={`${navbarButtonStyle} flex h-full w-auto items-stretch rounded-l-[1px] p-2`}
@@ -31,7 +31,7 @@ const navbarButtonStyle =
     </a>
     <div class="flex rounded-xs">
       <a
-        href="/plus-jakarta-site-redesign/editor"
+        href="/editor"
         class={`${navbarButtonStyle} flex items-center rounded-l-[1px]`}
         >Editor</a
       >

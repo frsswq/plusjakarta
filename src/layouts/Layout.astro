@@ -41,10 +41,7 @@ const { showFooter = true, stickyNavbar = false } = Astro.props;
         "+Jakarta Sans is an open-source font. Designed for Jakarta 'City of Collaboration' program in 2020."}
     />
     <meta property="og:type" content="website" />
-    <meta
-      property="og:image"
-      content="/plus-jakarta-site-redesign/assets/og-image.png"
-    />
+    <meta property="og:image" content="/assets/og-image.png" />
     <meta property="og:url" content={Astro.url} />
 
     <!-- Twitter Meta Tags -->
@@ -55,21 +52,14 @@ const { showFooter = true, stickyNavbar = false } = Astro.props;
       name="twitter:description"
       content={description || "+Jakarta Sans is an open-source font."}
     />
-    <meta
-      name="twitter:image"
-      content="/plus-jakarta-site-redesign/assets/og-image.png"
-    />
+    <meta name="twitter:image" content="/assets/og-image.png" />
 
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="/plus-jakarta-site-redesign/assets/jfavico.png"
-    />
+    <link rel="icon" type="image/svg+xml" href="/assets/jfavico.png" />
     <meta name="generator" content={Astro.generator} />
 
     <link
       rel="preload"
-      href="/plus-jakarta-site-redesign/fonts/subset/PlusJakartaSans-Bold-Subset.otf"
+      href="/fonts/subset/PlusJakartaSans-Bold-Subset.otf"
       as="font"
       type="font/otf"
       crossorigin

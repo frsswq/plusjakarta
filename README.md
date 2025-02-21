@@ -12,12 +12,12 @@
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/frsswq/plus-jakarta-site-redesign
+$ git clone https://github.com/frsswq/plusjakarta
 ```
 
 ```bash
 # Go into the repository
-$ cd plus-jakarta-site-redesign
+$ cd plusjakarta
 ```
 
 ```bash
