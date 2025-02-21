@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 
+import Analytics from "@vercel/analytics/astro"
 import SpeedInsights from "@vercel/speed-insights/astro";
 import Navbar from "../components/common/Navbar.astro";
 import Footer from "../components/common/Footer.astro";
@@ -76,6 +77,7 @@ const { showFooter = true, stickyNavbar = false } = Astro.props;
     <slot />
     {showFooter && <Footer />}
     <SpeedInsights />
+    <Analytics />
   </body>
 </html>
 
