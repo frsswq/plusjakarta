@@ -14,7 +14,10 @@ import FontShowcaseSliderSize from "../font_showcase/FontShowcaseSliderSize.tsx"
 
 import { cn } from "../../lib/utils.ts";
 
-import { fontFeaturesLabel, TRACKING_MAP } from "../../data/fontShowcaseData.tsx";
+import {
+  fontFeaturesLabel,
+  TRACKING_MAP,
+} from "../../data/fontShowcaseData.tsx";
 import { type FontShowcaseProps } from "../../types/commonProps.ts";
 
 export default function FontShowcase({
@@ -115,12 +118,12 @@ export default function FontShowcase({
           <div className="ml-auto flex h-7.5 items-center gap-1.5 md:h-9">
             <div
               className="flex h-7.5 items-center gap-x-0.5 rounded-xs border border-zinc-200 bg-white
-                p-0.5 hover:border-zinc-300 hover:shadow-2xs md:hidden md:h-9
+                p-0.5 hover:border-zinc-300 hover:shadow-2xs md:hidden md:h-9 md:rounded-sm
                 md:group-hover/showcase:flex"
             >
               {fontFeaturesLabel.map(({ label, value, desc }) => (
                 <ToggleDefault
-                  className="h-6.5 w-full text-[10px] lowercase md:h-9 md:px-2.5 md:text-xs"
+                  className="h-6.5 w-full px-2.5 text-[10px] lowercase md:h-8 md:text-xs"
                   key={value}
                   title={value}
                   aria-label={desc}
