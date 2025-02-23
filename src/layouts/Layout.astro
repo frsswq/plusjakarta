@@ -1,8 +1,5 @@
 ---
 import "../styles/global.css";
-
-import Analytics from "@vercel/analytics/astro";
-import SpeedInsights from "@vercel/speed-insights/astro";
 import WebMeta from "../lib/WebMeta.astro";
 import Navbar from "../components/common/Navbar.astro";
 import Footer from "../components/common/Footer.astro";
@@ -39,8 +36,6 @@ const { showFooter = true, stickyNavbar = false } = Astro.props;
     <Navbar stickyNavbar={stickyNavbar} />
     <slot />
     {showFooter && <Footer />}
-    <SpeedInsights />
-    <Analytics />
   </body>
 </html>
 
@@ -61,5 +56,10 @@ const { showFooter = true, stickyNavbar = false } = Astro.props;
     flex-direction: column;
     margin: 0;
     padding: 0;
+  }
+
+  html body[data-scroll-locked] {
+    overflow: visible !important;
+    margin-right: 0 !important;
   }
 </style>

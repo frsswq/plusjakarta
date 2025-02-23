@@ -28,9 +28,11 @@ export interface FontInputSliderProps {
 export interface FontShowcaseProps {
   defaultEditableText: string;
   defaultFontSize?: number | undefined;
-  defaultFontWeight?: string;
+  defaultFontWeight?: "200" | "300" | "400" | "500" | "600" | "700" | "800";
   defaultFontStyle?: "normal" | "italic";
   defaultTextAlign?: "left" | "center" | "right" | "justify";
   defaultFontFeatures?: string[];
+  defaultWordSpacing?: string;
+  defaultTextContainerSize?: [number, number];
   className?: string;
 }

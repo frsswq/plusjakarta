@@ -12,13 +12,10 @@ import FontShowcaseSelectWeight from "./FontShowcaseSelectWeight.tsx";
 import FontShowcaseSliderSize from "./FontShowcaseSliderSize.tsx";
 import { FontShowcaseToggle } from "./FontShowcaseToggle.tsx";
 
-import { cn } from "../../lib/utils.ts";
+import { cn } from "@/lib/utils.ts";
 
-import {
-  fontFeaturesLabel,
-  TRACKING_MAP,
-} from "../../data/fontShowcaseData.tsx";
-import { type FontShowcaseProps } from "../../types/commonProps.ts";
+import { fontFeaturesLabel, TRACKING_MAP } from "@/data/fontShowcaseData.tsx";
+import { type FontShowcaseProps } from "@/types/commonProps.ts";
 
 export default function FontShowcase({
   defaultEditableText,
@@ -27,11 +24,13 @@ export default function FontShowcase({
   defaultFontStyle = "normal",
   defaultTextAlign = "left",
   defaultFontFeatures = [],
+  defaultWordSpacing,
+  defaultTextContainerSize = [1, 1],
   className,
 }: FontShowcaseProps) {
   const autoAdjustFontSize = defaultFontSize === undefined;
 
-  const [initialFontSize, setInitialFontSize] = useState(defaultFontSize ?? 50);
+  const [initialFontSize, setInitialFontSize] = useState(defaultFontSize ?? 1);
   const [fontSize, setFontSize] = useState<number>(initialFontSize);
   const [fontWeight, setFontWeight] = useState<string>(defaultFontWeight);
   const [fontStyle, setFontStyle] = useState<string>(defaultFontStyle);
@@ -40,35 +39,59 @@ export default function FontShowcase({
   >(defaultTextAlign);
   const [fontFeatures, setFontFeatures] =
     useState<string[]>(defaultFontFeatures);
+  const [isAdjusting, setIsAdjusting] = useState<boolean>(true);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const fontTextRef = useRef<HTMLSpanElement>(null);
   const lastContainerWidthRef = useRef<number>(0);
 
-  const adjustFontSize = useCallback((entries: ResizeObserverEntry[]) => {
-    if (containerRef.current && fontTextRef.current) {
+  const adjustFontSize = useCallback(
+    (entries: ResizeObserverEntry[]) => {
+      if (!containerRef.current || !fontTextRef.current) return;
+
       const newContainerWidth = entries[0].contentRect.width;
-      if (Math.abs(newContainerWidth - lastContainerWidthRef.current) < 2)
-        return;
-
-      lastContainerWidthRef.current = newContainerWidth;
-
       let containerWidth = newContainerWidth;
-      containerWidth *= containerWidth <= 768 ? 0.9 : 0.95;
+
+      if (containerWidth <= 768) {
+        containerWidth *= defaultTextContainerSize[0];
+      } else {
+        containerWidth *= defaultTextContainerSize[1];
+      }
 
       const textWidth = fontTextRef.current.scrollWidth;
-      const currentFontSize = parseInt(
+      const currentFontSize = parseFloat(
         globalThis.getComputedStyle(fontTextRef.current).fontSize,
       );
-      const newFontSize =
-        Math.round(((containerWidth / textWidth) * currentFontSize) / 2) * 2;
-      setFontSize(newFontSize);
-      setInitialFontSize(newFontSize);
-    }
-  }, []);
+
+      console.log(containerWidth);
+      console.log(textWidth);
+
+      if (Math.abs(textWidth - containerWidth) <= 10) {
+        setTimeout(() => setIsAdjusting(false), 100);
+        return;
+      }
+
+      setIsAdjusting(true);
+
+      if (fontTextRef.current.textContent !== defaultEditableText) {
+        fontTextRef.current.textContent = defaultEditableText;
+      }
+
+      const newFontSize = Math.round(
+        (containerWidth / textWidth) * currentFontSize,
+      );
+
+      if (newFontSize !== fontSize) {
+        setFontSize(newFontSize);
+        setInitialFontSize(newFontSize);
+      }
+    },
+    [defaultEditableText, fontSize],
+  );
 
   useEffect(() => {
-    if (!autoAdjustFontSize || !containerRef.current) return;
+    if (!autoAdjustFontSize || !containerRef.current || !fontTextRef.current)
+      return;
 
     const observer = new ResizeObserver(adjustFontSize);
     observer.observe(containerRef.current);
@@ -103,7 +126,7 @@ export default function FontShowcase({
             <FontShowcaseSliderSize
               value={fontSize}
               min={10}
-              max={300}
+              max={500}
               step={1}
               onValueChange={setFontSize}
             />
@@ -132,7 +155,6 @@ export default function FontShowcase({
                 </FontShowcaseToggle>
               ))}
             </div>
-
             <div
               className="hidden items-center gap-x-0.5 rounded-sm border border-zinc-200 bg-white p-0.5
                 group-hover/showcase:flex hover:border-zinc-300 hover:shadow-2xs"
@@ -180,16 +202,14 @@ export default function FontShowcase({
           </div>
         </div>
 
-        <div
-          ref={containerRef}
-          className="justify-left flex w-full items-start bg-transparent"
-        >
+        <div ref={containerRef} className="flex w-full bg-transparent">
           <span
             ref={fontTextRef}
             className={cn(
-              `inline-block max-w-full bg-white px-2 py-4 leading-none hover:cursor-text
-              focus:outline-none md:pt-2 md:pb-8`,
+              `inline-block max-w-full bg-white px-2 py-4 leading-none whitespace-pre-wrap
+              hover:cursor-text focus:outline-none md:pt-2 md:pb-8`,
               TRACKING_MAP[fontWeight] || "tracking-[0em]",
+              isAdjusting ? "w-fit" : "w-full",
               className,
             )}
             contentEditable="true"
@@ -197,6 +217,7 @@ export default function FontShowcase({
             autoCapitalize="false"
             spellCheck="false"
             role="textbox"
+            aria-live="polite"
             suppressContentEditableWarning
             style={{
               fontSize: `${fontSize}px`,
@@ -205,6 +226,7 @@ export default function FontShowcase({
               textAlign: textAlign,
               fontFeatureSettings: addFontFeature,
               fontFamily: `"Plus Jakarta Sans", "Plus Jakarta Sans Variable", sans-serif`,
+              wordSpacing: defaultWordSpacing || "normal",
             }}
           >
             {defaultEditableText}

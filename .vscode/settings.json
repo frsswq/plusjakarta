@@ -2,6 +2,5 @@
   "prettier.documentSelectors": ["**/*.astro"],
   "[astro]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "deno.enable": true
+  }
 }

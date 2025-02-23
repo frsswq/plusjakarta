@@ -6,6 +6,7 @@
 
 - [Astro](https://astro.build/)
 - [Tailwind](https://tailwindcss.com/)
+- [React](https://react.dev/)
 - [q5](https://q5js.org/home/)
 
 ## Steps

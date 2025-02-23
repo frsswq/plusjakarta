@@ -1,54 +1,9 @@
 ---
-import FontShowcase from "../font_showcase/FontShowcase";
 import HeroText from "./HeroText.astro";
+import HomeFontShowcase from "./HomeFontShowcase.astro";
 ---
 
 <main class="flex flex-col">
   <HeroText />
-  <hr class="h-px w-full bg-transparent text-zinc-200" />
-  <FontShowcase
-    defaultEditableText="Oceanography"
-    defaultFontWeight="200"
-    className="whitespace-nowrap"
-    client:idle
-  />
-  <FontShowcase
-    defaultEditableText="Biotechnologist"
-    defaultFontWeight="300"
-    className="whitespace-nowrap"
-    defaultFontFeatures={["ss01"]}
-    client:idle
-  />
-  <FontShowcase
-    defaultEditableText="Semiconductor"
-    defaultFontWeight="400"
-    className="whitespace-nowrap"
-    client:idle
-  />
-  <FontShowcase
-    defaultEditableText="Lexicographers"
-    defaultFontWeight="500"
-    className="whitespace-nowrap"
-    defaultFontFeatures={["ss02"]}
-    client:idle
-  />
-  <FontShowcase
-    defaultEditableText="Oceanography"
-    defaultFontWeight="600"
-    className="whitespace-nowrap"
-    client:idle
-  />
-  <FontShowcase
-    defaultEditableText="Biotechnologist"
-    defaultFontWeight="700"
-    className="whitespace-nowrap"
-    defaultFontFeatures={["ss03"]}
-    client:idle
-  />
-  <FontShowcase
-    defaultEditableText="Semiconductor"
-    defaultFontWeight="800"
-    className="whitespace-nowrap"
-    client:idle
-  />
+  <HomeFontShowcase />
 </main>

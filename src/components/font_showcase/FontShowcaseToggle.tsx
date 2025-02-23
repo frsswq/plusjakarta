@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Toggle as TogglePrimitive } from "radix-ui";
 
-import { cn } from "../../lib/utils.ts";
+import { cn } from "@/lib/utils";
 
 const FontShowcaseToggle = React.forwardRef<
   React.ElementRef<typeof TogglePrimitive.Root>,
