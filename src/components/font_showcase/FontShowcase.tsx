@@ -43,55 +43,44 @@ export default function FontShowcase({
 
   const containerRef = useRef<HTMLDivElement>(null);
   const fontTextRef = useRef<HTMLSpanElement>(null);
-  const lastContainerWidthRef = useRef<number>(0);
 
-  const adjustFontSize = useCallback(
-    (entries: ResizeObserverEntry[]) => {
-      if (!containerRef.current || !fontTextRef.current) return;
+  const adjustFontSize = useCallback(() => {
+    if (!containerRef.current || !fontTextRef.current) return;
 
-      const newContainerWidth = entries[0].contentRect.width;
-      let containerWidth = newContainerWidth;
+    const containerWidth = containerRef.current.scrollWidth;
 
-      if (containerWidth <= 768) {
-        containerWidth *= defaultTextContainerSize[0];
-      } else {
-        containerWidth *= defaultTextContainerSize[1];
-      }
+    const targetContainerWidth =
+      containerWidth <= 768
+        ? containerWidth * defaultTextContainerSize[0]
+        : containerWidth * defaultTextContainerSize[1];
 
-      const textWidth = fontTextRef.current.scrollWidth;
-      const currentFontSize = parseFloat(
-        globalThis.getComputedStyle(fontTextRef.current).fontSize,
-      );
+    const textWidth = fontTextRef.current.scrollWidth;
+    const currentFontSize = parseFloat(
+      globalThis.getComputedStyle(fontTextRef.current).fontSize,
+    );
 
-      console.log(containerWidth);
-      console.log(textWidth);
+    if (
+      Math.abs(textWidth - targetContainerWidth) <
+      targetContainerWidth * 0.05
+    ) {
+      setTimeout(() => setIsAdjusting(false), 100);
+      return;
+    }
 
-      if (Math.abs(textWidth - containerWidth) <= 10) {
-        setTimeout(() => setIsAdjusting(false), 100);
-        return;
-      }
+    setIsAdjusting(true);
 
-      setIsAdjusting(true);
+    const newFontSize = Math.round(
+      (targetContainerWidth / textWidth) * currentFontSize,
+    );
 
-      if (fontTextRef.current.textContent !== defaultEditableText) {
-        fontTextRef.current.textContent = defaultEditableText;
-      }
-
-      const newFontSize = Math.round(
-        (containerWidth / textWidth) * currentFontSize,
-      );
-
-      if (newFontSize !== fontSize) {
-        setFontSize(newFontSize);
-        setInitialFontSize(newFontSize);
-      }
-    },
-    [defaultEditableText, fontSize],
-  );
+    if (newFontSize !== fontSize) {
+      setFontSize(newFontSize);
+      setInitialFontSize(newFontSize);
+    }
+  }, [defaultEditableText, fontSize]);
 
   useEffect(() => {
-    if (!autoAdjustFontSize || !containerRef.current || !fontTextRef.current)
-      return;
+    if (!autoAdjustFontSize || !containerRef.current) return;
 
     const observer = new ResizeObserver(adjustFontSize);
     observer.observe(containerRef.current);
@@ -126,7 +115,7 @@ export default function FontShowcase({
             <FontShowcaseSliderSize
               value={fontSize}
               min={10}
-              max={500}
+              max={300}
               step={1}
               onValueChange={setFontSize}
             />
@@ -206,9 +195,12 @@ export default function FontShowcase({
           <span
             ref={fontTextRef}
             className={cn(
-              `inline-block max-w-full bg-white px-2 py-4 leading-none whitespace-pre-wrap
-              hover:cursor-text focus:outline-none md:pt-2 md:pb-8`,
+              `inline-block max-w-full bg-white px-2 py-4 leading-none hover:cursor-text
+              focus:outline-none md:pt-2 md:pb-8`,
               TRACKING_MAP[fontWeight] || "tracking-[0em]",
+              !/\n/.test(defaultEditableText) && isAdjusting
+                ? "whitespace-nowrap"
+                : "whitespace-pre-wrap",
               isAdjusting ? "w-fit" : "w-full",
               className,
             )}
