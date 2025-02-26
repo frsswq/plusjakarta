@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Slider } from "../ui/slider.tsx";
 import { ClarityFontSizeLine } from "../icons/ClarityFontSizeLine.tsx";
 
@@ -6,16 +7,18 @@ interface FontShowcaseSliderSizeProps {
   min: number;
   max: number;
   step: number;
-  onValueChange: (fontSize: number) => void;
+  onValueChange: (value: number) => void;
+  onValueCommit: (value: number[]) => void;
 }
 
-export default function FontShowcaseSliderSize({
+const FontShowcaseSliderSize = ({
   value,
   min,
   max,
   step,
   onValueChange,
-}: FontShowcaseSliderSizeProps) {
+  onValueCommit,
+}: FontShowcaseSliderSizeProps) => {
   return (
     <div
       className="group/slider flex h-9 w-[350px] items-center gap-2 rounded-xs bg-transparent
@@ -25,6 +28,7 @@ export default function FontShowcaseSliderSize({
       <Slider
         value={[value]}
         onValueChange={([val]) => onValueChange(val)}
+        onValueCommit={([val]) => onValueCommit([val])}
         min={min}
         max={max}
         step={step}
@@ -38,4 +42,6 @@ export default function FontShowcaseSliderSize({
       </span>
     </div>
   );
-}
+};
+
+export default memo(FontShowcaseSliderSize);

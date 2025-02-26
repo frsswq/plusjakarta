@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, memo, useMemo } from "react";
 
 import { Button } from "../ui/button.tsx";
 import { Separator } from "../ui/separator.tsx";
@@ -25,7 +25,7 @@ export default function FontShowcase({
   defaultTextAlign = "left",
   defaultFontFeatures = [],
   defaultWordSpacing,
-  defaultTextContainerSize = [1, 1],
+  defaultTextContainerSize = [0.99, 0.99],
   className,
 }: FontShowcaseProps) {
   const autoAdjustFontSize = defaultFontSize === undefined;
@@ -40,14 +40,16 @@ export default function FontShowcase({
   const [fontFeatures, setFontFeatures] =
     useState<string[]>(defaultFontFeatures);
   const [isAdjusting, setIsAdjusting] = useState<boolean>(true);
+  const [isManualAdjustment, setIsManualAdjustment] = useState<boolean>(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const fontTextRef = useRef<HTMLSpanElement>(null);
 
   const adjustFontSize = useCallback(() => {
-    if (!containerRef.current || !fontTextRef.current) return;
+    if (!containerRef.current || !fontTextRef.current || isManualAdjustment)
+      return;
 
-    const containerWidth = containerRef.current.scrollWidth;
+    const containerWidth = containerRef.current.clientWidth;
 
     const targetContainerWidth =
       containerWidth <= 768
@@ -61,13 +63,17 @@ export default function FontShowcase({
 
     if (
       Math.abs(textWidth - targetContainerWidth) <
-      targetContainerWidth * 0.05
+      targetContainerWidth * 0.01
     ) {
       setTimeout(() => setIsAdjusting(false), 100);
       return;
     }
 
     setIsAdjusting(true);
+
+    if (fontTextRef.current.textContent !== defaultEditableText) {
+      fontTextRef.current.textContent = defaultEditableText;
+    }
 
     const newFontSize = Math.round(
       (targetContainerWidth / textWidth) * currentFontSize,
@@ -82,10 +88,21 @@ export default function FontShowcase({
   useEffect(() => {
     if (!autoAdjustFontSize || !containerRef.current) return;
 
-    const observer = new ResizeObserver(adjustFontSize);
-    observer.observe(containerRef.current);
+    let resizeTimer: NodeJS.Timeout;
+    const handleResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        adjustFontSize();
+      }, 200);
+    };
 
-    return () => observer.disconnect();
+    window.addEventListener("resize", handleResize);
+    adjustFontSize();
+
+    return () => {
+      clearTimeout(resizeTimer);
+      window.removeEventListener("resize", handleResize);
+    };
   }, [adjustFontSize, autoAdjustFontSize]);
 
   const addFontFeature: string =
@@ -100,6 +117,49 @@ export default function FontShowcase({
       fontTextRef.current.textContent = defaultEditableText;
     }
   };
+
+  const textStyle = useMemo(
+    () => ({
+      fontSize: `${fontSize}px`,
+      fontWeight: fontWeight,
+      fontStyle: fontStyle,
+      textAlign: textAlign,
+      fontFeatureSettings: addFontFeature,
+      fontFamily: `"Plus Jakarta Sans", "Plus Jakarta Sans Variable", sans-serif`,
+      wordSpacing: defaultWordSpacing || "normal",
+    }),
+    [
+      fontSize,
+      fontWeight,
+      fontStyle,
+      textAlign,
+      addFontFeature,
+      defaultWordSpacing,
+    ],
+  );
+
+  const textClasses = useMemo(
+    () =>
+      cn(
+        `inline-block max-w-full text-black bg-white px-2 py-4 leading-none break-all
+    hover:cursor-text focus:outline-none md:pt-2 md:pb-8`,
+        !/\n/.test(defaultEditableText)
+          ? TRACKING_MAP[fontWeight]
+          : "tracking-tighter",
+        !/\n/.test(defaultEditableText) && isAdjusting
+          ? "whitespace-nowrap"
+          : "whitespace-pre-wrap",
+        isAdjusting ? "w-fit" : "w-full",
+        className,
+      ),
+    [fontWeight, isAdjusting, className],
+  );
+
+  const handleToggle = useCallback((value: string, pressed: boolean) => {
+    setFontFeatures((prev) =>
+      pressed ? [...prev, value] : prev.filter((f) => f !== value),
+    );
+  }, []);
 
   return (
     <>
@@ -117,7 +177,13 @@ export default function FontShowcase({
               min={10}
               max={300}
               step={1}
-              onValueChange={setFontSize}
+              onValueChange={(value) => {
+                setIsManualAdjustment(true);
+                setFontSize(value);
+              }}
+              onValueCommit={() => {
+                setIsManualAdjustment(false);
+              }}
             />
           </div>
 
@@ -134,11 +200,7 @@ export default function FontShowcase({
                   title={value}
                   aria-label={desc}
                   pressed={fontFeatures.includes(value)}
-                  onPressedChange={(p) =>
-                    setFontFeatures((prev) =>
-                      p ? [...prev, value] : prev.filter((f) => f !== value),
-                    )
-                  }
+                  onPressedChange={(p) => handleToggle(value, p)}
                 >
                   {label}
                 </FontShowcaseToggle>
@@ -194,16 +256,7 @@ export default function FontShowcase({
         <div ref={containerRef} className="flex w-full bg-transparent">
           <span
             ref={fontTextRef}
-            className={cn(
-              `inline-block max-w-full bg-white px-2 py-4 leading-none hover:cursor-text
-              focus:outline-none md:pt-2 md:pb-8`,
-              TRACKING_MAP[fontWeight] || "tracking-[0em]",
-              !/\n/.test(defaultEditableText) && isAdjusting
-                ? "whitespace-nowrap"
-                : "whitespace-pre-wrap",
-              isAdjusting ? "w-fit" : "w-full",
-              className,
-            )}
+            className={textClasses}
             contentEditable="true"
             autoCorrect="false"
             autoCapitalize="false"
@@ -211,15 +264,7 @@ export default function FontShowcase({
             role="textbox"
             aria-live="polite"
             suppressContentEditableWarning
-            style={{
-              fontSize: `${fontSize}px`,
-              fontWeight: fontWeight,
-              fontStyle: fontStyle,
-              textAlign: textAlign,
-              fontFeatureSettings: addFontFeature,
-              fontFamily: `"Plus Jakarta Sans", "Plus Jakarta Sans Variable", sans-serif`,
-              wordSpacing: defaultWordSpacing || "normal",
-            }}
+            style={textStyle}
           >
             {defaultEditableText}
           </span>

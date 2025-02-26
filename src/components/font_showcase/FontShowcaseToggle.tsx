@@ -1,4 +1,5 @@
 import * as React from "react";
+import { memo } from "react";
 import { Toggle as TogglePrimitive } from "radix-ui";
 
 import { cn } from "@/lib/utils";
@@ -22,5 +23,6 @@ const FontShowcaseToggle = React.forwardRef<
 ));
 
 FontShowcaseToggle.displayName = TogglePrimitive.Root.displayName;
+const FontShowcaseToggleMemo = memo(FontShowcaseToggle);
 
-export { FontShowcaseToggle };
+export { FontShowcaseToggleMemo as FontShowcaseToggle };
