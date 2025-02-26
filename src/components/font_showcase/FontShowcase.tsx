@@ -22,10 +22,10 @@ export default function FontShowcase({
   defaultFontSize,
   defaultFontWeight = "800",
   defaultFontStyle = "normal",
-  defaultTextAlign = "left",
+  defaultTextAlign = "center",
   defaultFontFeatures = [],
   defaultWordSpacing,
-  defaultTextContainerSize = [0.99, 0.99],
+  defaultTextContainerSize = [0.95, 0.95],
   className,
 }: FontShowcaseProps) {
   const autoAdjustFontSize = defaultFontSize === undefined;
@@ -141,8 +141,11 @@ export default function FontShowcase({
   const textClasses = useMemo(
     () =>
       cn(
-        `inline-block max-w-full text-black bg-white px-2 py-4 leading-none break-all
-    hover:cursor-text focus:outline-none md:pt-2 md:pb-8`,
+        `inline-block max-w-full bg-white px-2 leading-none break-all
+    hover:cursor-text focus:outline-none `,
+        !/\n/.test(defaultEditableText)
+          ? "py-4 md:pt-2 md:pb-8"
+          : "py-4 md:pb-8",
         !/\n/.test(defaultEditableText)
           ? TRACKING_MAP[fontWeight]
           : "tracking-tighter",
@@ -253,7 +256,13 @@ export default function FontShowcase({
           </div>
         </div>
 
-        <div ref={containerRef} className="flex w-full bg-transparent">
+        <div
+          ref={containerRef}
+          className={cn(
+            "flex w-full bg-transparent",
+            defaultTextAlign === "center" ? "justify-center" : "",
+          )}
+        >
           <span
             ref={fontTextRef}
             className={textClasses}
