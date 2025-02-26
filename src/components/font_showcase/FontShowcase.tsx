@@ -89,10 +89,16 @@ export default function FontShowcase({
     if (!autoAdjustFontSize || !containerRef.current) return;
 
     let resizeTimer: NodeJS.Timeout;
+    const previousWidth = { current: window.innerWidth };
+
     const handleResize = () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        adjustFontSize();
+        const currentWidth = window.innerWidth;
+        if (currentWidth !== previousWidth.current) {
+          previousWidth.current = currentWidth;
+          adjustFontSize();
+        }
       }, 200);
     };
 
