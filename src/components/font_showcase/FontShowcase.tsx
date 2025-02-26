@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState, memo, useMemo } from "react";
+import { useCallback, useEffect, useRef, useState, useMemo } from "react";
 
 import { Button } from "../ui/button.tsx";
 import { Separator } from "../ui/separator.tsx";
@@ -25,12 +25,14 @@ export default function FontShowcase({
   defaultTextAlign = "center",
   defaultFontFeatures = [],
   defaultWordSpacing,
-  defaultTextContainerSize = [0.95, 0.95],
+  defaultTextContainerSize = [0.99, 0.99],
   className,
 }: FontShowcaseProps) {
   const autoAdjustFontSize = defaultFontSize === undefined;
 
-  const [initialFontSize, setInitialFontSize] = useState(defaultFontSize ?? 1);
+  const [initialFontSize, setInitialFontSize] = useState(
+    () => defaultFontSize ?? 1,
+  );
   const [fontSize, setFontSize] = useState<number>(initialFontSize);
   const [fontWeight, setFontWeight] = useState<string>(defaultFontWeight);
   const [fontStyle, setFontStyle] = useState<string>(defaultFontStyle);
@@ -40,13 +42,13 @@ export default function FontShowcase({
   const [fontFeatures, setFontFeatures] =
     useState<string[]>(defaultFontFeatures);
   const [isAdjusting, setIsAdjusting] = useState<boolean>(true);
-  const [isManualAdjustment, setIsManualAdjustment] = useState<boolean>(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const fontTextRef = useRef<HTMLSpanElement>(null);
+  const isDraggingRef = useRef<boolean>(false);
 
   const adjustFontSize = useCallback(() => {
-    if (!containerRef.current || !fontTextRef.current || isManualAdjustment)
+    if (!containerRef.current || !fontTextRef.current || isDraggingRef.current)
       return;
 
     const containerWidth = containerRef.current.clientWidth;
@@ -63,7 +65,7 @@ export default function FontShowcase({
 
     if (
       Math.abs(textWidth - targetContainerWidth) <
-      targetContainerWidth * 0.01
+      targetContainerWidth * 0.015
     ) {
       setTimeout(() => setIsAdjusting(false), 100);
       return;
@@ -83,7 +85,12 @@ export default function FontShowcase({
       setFontSize(newFontSize);
       setInitialFontSize(newFontSize);
     }
-  }, [defaultEditableText, fontSize]);
+  }, [
+    defaultEditableText,
+    defaultTextContainerSize,
+    autoAdjustFontSize,
+    fontSize,
+  ]);
 
   useEffect(() => {
     if (!autoAdjustFontSize || !containerRef.current) return;
@@ -148,10 +155,8 @@ export default function FontShowcase({
     () =>
       cn(
         `inline-block max-w-full bg-white px-2 leading-none break-all
-    hover:cursor-text focus:outline-none `,
-        !/\n/.test(defaultEditableText)
-          ? "py-4 md:pt-2 md:pb-8"
-          : "py-4 md:pb-8",
+    hover:cursor-text focus:outline-none py-4 md:pb-8`,
+        !/\n/.test(defaultEditableText) ? "md:pt-2" : "",
         !/\n/.test(defaultEditableText)
           ? TRACKING_MAP[fontWeight]
           : "tracking-tighter",
@@ -169,6 +174,20 @@ export default function FontShowcase({
       pressed ? [...prev, value] : prev.filter((f) => f !== value),
     );
   }, []);
+  const handleSliderChange = useCallback((value: number) => {
+    isDraggingRef.current = true;
+    setFontSize(value);
+  }, []);
+  const handleSliderCommit = useCallback(() => {
+    setTimeout(() => {
+      isDraggingRef.current = false;
+    }, 200);
+  }, []);
+  const handleItalicToggle = useCallback(() => {
+    setFontStyle((prev) => (prev === "italic" ? "normal" : "italic"));
+  }, []);
+  const handleAlignLeft = useCallback(() => setTextAlign("left"), []);
+  const handleAlignCenter = useCallback(() => setTextAlign("center"), []);
 
   return (
     <>
@@ -186,13 +205,8 @@ export default function FontShowcase({
               min={10}
               max={300}
               step={1}
-              onValueChange={(value) => {
-                setIsManualAdjustment(true);
-                setFontSize(value);
-              }}
-              onValueCommit={() => {
-                setIsManualAdjustment(false);
-              }}
+              onValueChange={handleSliderChange}
+              onValueCommit={handleSliderCommit}
             />
           </div>
 
@@ -209,7 +223,7 @@ export default function FontShowcase({
                   title={value}
                   aria-label={desc}
                   pressed={fontFeatures.includes(value)}
-                  onPressedChange={(p) => handleToggle(value, p)}
+                  onPressedChange={(pressed) => handleToggle(value, pressed)}
                 >
                   {label}
                 </FontShowcaseToggle>
@@ -222,11 +236,7 @@ export default function FontShowcase({
               <FontShowcaseToggle
                 title="Italic"
                 pressed={fontStyle === "italic"}
-                onPressedChange={() =>
-                  setFontStyle((prev) =>
-                    prev === "italic" ? "normal" : "italic",
-                  )
-                }
+                onPressedChange={handleItalicToggle}
               >
                 <TablerItalic />
               </FontShowcaseToggle>
@@ -234,14 +244,14 @@ export default function FontShowcase({
               <FontShowcaseToggle
                 title="Align left"
                 pressed={textAlign === "left"}
-                onPressedChange={() => setTextAlign("left")}
+                onPressedChange={handleAlignLeft}
               >
                 <MynauiTextAlignLeft />
               </FontShowcaseToggle>
               <FontShowcaseToggle
                 title="Align center"
                 pressed={textAlign === "center"}
-                onPressedChange={() => setTextAlign("center")}
+                onPressedChange={handleAlignCenter}
               >
                 <MynauiTextAlignCenter />
               </FontShowcaseToggle>
@@ -279,7 +289,7 @@ export default function FontShowcase({
             role="textbox"
             aria-live="polite"
             suppressContentEditableWarning
-            style={textStyle}
+            style={{ ...textStyle, willChange: "font-size, font-weight" }}
           >
             {defaultEditableText}
           </span>
