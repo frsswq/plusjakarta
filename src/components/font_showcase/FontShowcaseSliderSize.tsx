@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { Slider } from "../ui/slider.tsx";
-import { ClarityFontSizeLine } from "../icons/ClarityFontSizeLine.tsx";
+import ClarityFontSizeLine from "../icons/ClarityFontSizeLine.tsx";
 
 interface FontShowcaseSliderSizeProps {
   value: number;

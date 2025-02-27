@@ -1,6 +1,7 @@
+import { memo } from "react";
 import { type SVGProps } from "react";
 
-export function RadixIconsCaretUp(props: SVGProps<SVGSVGElement>) {
+const RadixIconsCaretUp = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -14,9 +15,9 @@ export function RadixIconsCaretUp(props: SVGProps<SVGSVGElement>) {
         fillRule="evenodd"
         d="M4.182 8.818a.45.45 0 0 1 0-.636l3-3a.45.45 0 0 1 .636 0l3 3a.45.45 0 0 1-.636.636L7.5 6.136L4.818 8.818a.45.45 0 0 1-.636 0"
         clipRule="evenodd"
-      >
-      </path>
+      ></path>
     </svg>
   );
-}
-export default RadixIconsCaretUp;
+};
+
+export default memo(RadixIconsCaretUp);

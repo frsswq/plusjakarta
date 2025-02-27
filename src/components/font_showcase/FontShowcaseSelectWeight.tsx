@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select.tsx";
-import { fontWeightsLabel } from "../../data/fontShowcaseData.tsx";
+import { fontWeightsLabel } from "@/data/fontShowcaseData.tsx";
 
 const SelectItemMemo = memo(SelectItem);
 

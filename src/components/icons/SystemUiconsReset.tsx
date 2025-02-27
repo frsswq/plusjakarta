@@ -1,6 +1,7 @@
+import { memo } from "react";
 import { type SVGProps } from "react";
 
-export function SystemUiconsReset(props: SVGProps<SVGSVGElement>) {
+const SystemUiconsReset = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -21,4 +22,6 @@ export function SystemUiconsReset(props: SVGProps<SVGSVGElement>) {
       </g>
     </svg>
   );
-}
+};
+
+export default memo(SystemUiconsReset);

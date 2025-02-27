@@ -3,14 +3,14 @@ import { useCallback, useEffect, useRef, useState, useMemo } from "react";
 import { Button } from "../ui/button.tsx";
 import { Separator } from "../ui/separator.tsx";
 
-import { MynauiTextAlignLeft } from "../icons/MynauiTextAlignLeft.tsx";
-import { MynauiTextAlignCenter } from "../icons/MynauiTextAlignCenter.tsx";
-import { TablerItalic } from "../icons/TablerItalic.tsx";
-import { SystemUiconsReset } from "../icons/SystemUiconsReset.tsx";
+import MynauiTextAlignLeft from "../icons/MynauiTextAlignLeft.tsx";
+import MynauiTextAlignCenter from "../icons/MynauiTextAlignCenter.tsx";
+import TablerItalic from "../icons/TablerItalic.tsx";
+import SystemUiconsReset from "../icons/SystemUiconsReset.tsx";
 
 import FontShowcaseSelectWeight from "./FontShowcaseSelectWeight.tsx";
 import FontShowcaseSliderSize from "./FontShowcaseSliderSize.tsx";
-import { FontShowcaseToggle } from "./FontShowcaseToggle.tsx";
+import FontShowcaseToggle from "./FontShowcaseToggle.tsx";
 
 import { cn } from "@/lib/utils.ts";
 

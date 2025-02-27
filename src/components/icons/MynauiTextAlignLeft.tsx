@@ -1,6 +1,7 @@
+import { memo } from "react";
 import { type SVGProps } from "react";
 
-export function MynauiTextAlignLeft(props: SVGProps<SVGSVGElement>) {
+const MynauiTextAlignLeft = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -16,8 +17,9 @@ export function MynauiTextAlignLeft(props: SVGProps<SVGSVGElement>) {
         strokeLinejoin="round"
         strokeWidth="1.5"
         d="M4.5 6h15m-15 4h10m-10 4h15m-15 4h10"
-      >
-      </path>
+      />
     </svg>
   );
-}
+};
+
+export default memo(MynauiTextAlignLeft);

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Select as SelectPrimitive } from "radix-ui";
-import { RadixIconsCaretDown } from "@/components/icons/RadixIconsCaretDown.tsx";
-import { RadixIconsCaretUp } from "@/components/icons/RadixIconsCaretUp.tsx";
+import RadixIconsCaretDown from "@/components/icons/RadixIconsCaretDown.tsx";
+import RadixIconsCaretUp from "@/components/icons/RadixIconsCaretUp.tsx";
 import { cn } from "@/lib/utils";
 
 const Select = SelectPrimitive.Root;
