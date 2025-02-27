@@ -1,16 +1,10 @@
 // @ts-check
 import { defineConfig } from "astro/config";
-import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
 
 export default defineConfig({
   output: "static",
-  adapter: vercel({
-    webAnalytics: {
-      enabled: true,
-    },
-  }),
   vite: {
     plugins: [tailwindcss()],
     css: {
@@ -35,5 +29,11 @@ export default defineConfig({
     },
   },
 
-  integrations: [react()],
+  integrations: [
+    react({
+      babel: {
+        plugins: [["babel-plugin-react-compiler"]],
+      },
+    }),
+  ],
 });

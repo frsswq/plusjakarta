@@ -2,6 +2,8 @@ import { memo } from "react";
 import { Slider } from "../ui/slider.tsx";
 import ClarityFontSizeLine from "../icons/ClarityFontSizeLine.tsx";
 
+const SliderMemo = memo(Slider);
+
 interface FontShowcaseSliderSizeProps {
   value: number;
   min: number;
@@ -25,7 +27,7 @@ const FontShowcaseSliderSize = ({
         px-3 whitespace-nowrap antialiased"
     >
       <ClarityFontSizeLine className="size-5.5 text-zinc-700 group-hover/slider:text-black" />
-      <Slider
+      <SliderMemo
         value={[value]}
         onValueChange={([val]) => onValueChange(val)}
         onValueCommit={([val]) => onValueCommit([val])}
