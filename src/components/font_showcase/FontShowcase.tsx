@@ -31,7 +31,6 @@ export default function FontShowcase({
   const autoAdjustFontSize = defaultFontSize === undefined;
 
   // useReducer? maybe next time
-
   const [initialFontSize, setInitialFontSize] = useState(
     () => defaultFontSize ?? 1,
   );
@@ -289,6 +288,7 @@ export default function FontShowcase({
             spellCheck="false"
             role="textbox"
             aria-live="polite"
+            aria-label={`Font tester text: ${defaultEditableText}`}
             suppressContentEditableWarning
             style={{ ...textStyle, willChange: "font-size, font-weight" }}
           >
