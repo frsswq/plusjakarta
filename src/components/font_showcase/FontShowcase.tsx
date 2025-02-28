@@ -13,6 +13,7 @@ import FontShowcaseSliderSize from "./FontShowcaseSliderSize.tsx";
 import FontShowcaseToggle from "./FontShowcaseToggle.tsx";
 
 import { cn } from "@/lib/utils.ts";
+import { renderTextWithKerning } from "./FontShowcaseKerningFix.tsx";
 
 import { fontFeaturesLabel, TRACKING_MAP } from "@/data/fontShowcaseData.tsx";
 import { type FontShowcaseProps } from "@/types/commonProps.ts";
@@ -22,10 +23,11 @@ export default function FontShowcase({
   defaultFontSize,
   defaultFontWeight = "800",
   defaultFontStyle = "normal",
-  defaultTextAlign = "center",
+  defaultTextAlign = "left",
   defaultFontFeatures = [],
   defaultWordSpacing,
   defaultTextContainerSize = [0.99, 0.99],
+  enableCustomKerning = false,
   className,
 }: FontShowcaseProps) {
   const autoAdjustFontSize = defaultFontSize === undefined;
@@ -68,7 +70,7 @@ export default function FontShowcase({
 
     if (
       Math.abs(textWidth - targetContainerWidth) <
-      targetContainerWidth * 0.015
+      targetContainerWidth * 0.01
     ) {
       setTimeout(() => setIsAdjusting(false), 100);
       return;
@@ -292,7 +294,9 @@ export default function FontShowcase({
             suppressContentEditableWarning
             style={{ ...textStyle, willChange: "font-size, font-weight" }}
           >
-            {defaultEditableText}
+            {enableCustomKerning
+              ? renderTextWithKerning(defaultEditableText)
+              : defaultEditableText}
           </span>
         </div>
       </div>
