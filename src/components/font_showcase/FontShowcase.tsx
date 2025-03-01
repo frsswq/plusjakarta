@@ -161,9 +161,9 @@ export default function FontShowcase({
   const textClasses = useMemo(
     () =>
       cn(
-        `inline-block max-w-full bg-white px-2 break-all
+        `inline-block max-w-full bg-white px-2 leading-[1.1] break-all
     hover:cursor-text focus:outline-none py-4 md:pt-4 md:pb-2`,
-        !multipleLines ? "md:pt-0 leading-none" : "leading-[1.1]",
+        !multipleLines ? "md:pt-0 md:pb-8" : "",
         !multipleLines ? TRACKING_MAP[fontWeight] : "tracking-tighter",
         !multipleLines && isAdjusting
           ? "whitespace-nowrap"

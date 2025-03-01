@@ -1,7 +1,7 @@
 import React from "react";
 
 const defaultKerningMap: Record<string, string> = {
-  rt: "tracking-[-0.03em]",
+  // Ta: "tracking-[-0.2em]",
 };
 
 export const renderTextWithKerning = (
