@@ -7,39 +7,40 @@ import FontShowcase from "../font_showcase/FontShowcase";
 <FontShowcase
   defaultEditableText="Kelapa Gading"
   defaultFontWeight="200"
+  defaultFontFeatures={["ss03"]}
+  enableCustomKerning={{
+    G: "tracking-[-0.06em]",
+    ap: "tracking-[-0.125em]",
+    di: "tracking-[-0.125em]",
+  }}
   client:idle
 />
 <FontShowcase
   defaultEditableText="Cempaka Putih"
   defaultFontWeight="500"
   defaultFontFeatures={["ss02"]}
+  enableCustomKerning={{ i: "tracking-[-0.1em]" }}
   client:idle
 />
 <FontShowcase
   defaultEditableText="Pondok Indah"
+  defaultFontFeatures={["ss01"]}
+  enableCustomKerning={{ I: "tracking-[-0.09em]" }}
   defaultFontWeight="800"
   client:idle
 />
 <!-- paragraph -->
 <FontShowcase
-  defaultEditableText="Probability is best understood as the\nplausibility of a statement given some\nassumed information, not just the\nfrequency of occurrence of events"
+  defaultEditableText="Masing-masing dari kita punya garis\nkehidupan yang telah digambarkan.\nDan masing-masing dari kita, kalau\ndiizinkan, akan saling bersinggungan."
   defaultFontWeight="300"
   defaultFontFeatures={["ss02"]}
-  defaultTextContainerSize={[0.95, 0.85]}
   client:idle
 />
 <FontShowcase
-  defaultEditableText="Hijau Betawi / Jingga Bis Kota\nKuning Gigi Balang / Biru Abang\nPink None & City Collaboration"
-  defaultFontWeight="600"
-  defaultFontFeatures={["ss03"]}
-  defaultTextContainerSize={[0.95, 0.85]}
-  client:idle
-/>
-<FontShowcase
-  defaultEditableText="Chemistry is a physical science\nunder natural sciences that covers\nthe elements that make up matter"
+  defaultEditableText="Kita akan selalu berpikir kalau\nada sesuatu yang salah dengan\nkita; dan mungkin saja memang\nada. Tapi, terus kenapa?"
   defaultFontWeight="700"
-  defaultFontStyle="italic"
-  defaultTextContainerSize={[0.95, 0.85]}
+  defaultFontFeatures={["ss03"]}
+  className="leading-none"
   client:idle
 />
 <!-- multi column -->

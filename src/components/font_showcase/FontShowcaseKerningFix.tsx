@@ -1,12 +1,8 @@
 import React from "react";
 
-const defaultKerningMap: Record<string, string> = {
-  // Ta: "tracking-[-0.2em]",
-};
-
 export const renderTextWithKerning = (
   text: string,
-  kerningMap: Record<string, string> = defaultKerningMap,
+  kerningMap: Record<string, string>,
 ): React.ReactNode[] => {
   const keys = Object.keys(kerningMap).sort((a, b) => b.length - a.length);
   const regex = new RegExp(`(${keys.join("|")})`, "g");

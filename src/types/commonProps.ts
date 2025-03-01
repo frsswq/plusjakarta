@@ -34,6 +34,6 @@ export interface FontShowcaseProps {
   defaultFontFeatures?: string[];
   defaultWordSpacing?: string;
   defaultTextContainerSize?: [number, number];
-  enableCustomKerning?: boolean;
+  enableCustomKerning?: Record<string, string>;
   className?: string;
 }

@@ -27,7 +27,7 @@ export default function FontShowcase({
   defaultFontFeatures = [],
   defaultWordSpacing,
   defaultTextContainerSize = [0.99, 0.99],
-  enableCustomKerning = false,
+  enableCustomKerning,
   className,
 }: FontShowcaseProps) {
   const autoAdjustFontSize = defaultFontSize === undefined;
@@ -162,7 +162,7 @@ export default function FontShowcase({
     () =>
       cn(
         `inline-block max-w-full bg-white px-2 leading-[1.1] break-all
-    hover:cursor-text focus:outline-none py-4 md:pt-4 md:pb-2`,
+    hover:cursor-text focus:outline-none py-4 md:py-8`,
         !multipleLines ? "md:pt-0 md:pb-8" : "",
         !multipleLines ? TRACKING_MAP[fontWeight] : "tracking-tighter",
         !multipleLines && isAdjusting
@@ -295,7 +295,7 @@ export default function FontShowcase({
             style={{ ...textStyle, willChange: "font-size, font-weight" }}
           >
             {enableCustomKerning
-              ? renderTextWithKerning(defaultEditableText)
+              ? renderTextWithKerning(defaultEditableText, enableCustomKerning)
               : defaultEditableText}
           </span>
         </div>
