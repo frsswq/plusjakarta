@@ -26,7 +26,7 @@ export default function FontShowcase({
   defaultTextAlign = "left",
   defaultFontFeatures = [],
   defaultWordSpacing,
-  defaultTextContainerSize = [0.99, 0.99],
+  defaultTextContainerSize = [0.975, 0.975],
   enableCustomKerning,
   className,
 }: FontShowcaseProps) {
@@ -70,7 +70,7 @@ export default function FontShowcase({
 
     if (
       Math.abs(textWidth - targetContainerWidth) <
-      targetContainerWidth * 0.01
+      targetContainerWidth * 0.0025
     ) {
       setTimeout(() => setIsAdjusting(false), 100);
       return;
@@ -161,8 +161,8 @@ export default function FontShowcase({
   const textClasses = useMemo(
     () =>
       cn(
-        `inline-block max-w-full bg-white px-2 leading-[1.1] break-all
-    hover:cursor-text focus:outline-none py-4 md:py-8`,
+        `inline-block max-w-full bg-white px-2 leading-[1.1] break-words
+      hover:cursor-text focus:outline-none py-2 md:py-4`,
         !multipleLines ? "md:pt-0 md:pb-8" : "",
         !multipleLines ? TRACKING_MAP[fontWeight] : "tracking-tighter",
         !multipleLines && isAdjusting
