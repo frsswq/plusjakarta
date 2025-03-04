@@ -7,6 +7,18 @@
     margin-right: auto;
     max-width: 1440px;
   }
+
+  .lancip {
+    font-feature-settings: "ss01" 1;
+  }
+
+  .lurus {
+    font-feature-settings: "ss02" 1;
+  }
+
+  .lingkar {
+    font-feature-settings: "ss03" 1;
+  }
 }
 
 /* Variable */

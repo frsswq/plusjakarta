@@ -163,7 +163,7 @@ export default function FontShowcase({
       cn(
         `inline-block max-w-full bg-white  leading-[1.1] break-words
       hover:cursor-text focus:outline-none`,
-        !multipleLines ? "pt-0 pb-2 md:pt-0 md:pb-8" : "py-4",
+        !multipleLines ? "pt-2 pb-4 md:pt-0 md:pb-8" : "py-2 md:py-4",
         !multipleLines ? TRACKING_MAP[fontWeight] : "tracking-tighter",
         !multipleLines && isAdjusting
           ? "whitespace-nowrap"
