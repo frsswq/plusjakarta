@@ -13,7 +13,7 @@ import FontShowcaseSliderSize from "./FontShowcaseSliderSize.tsx";
 import FontShowcaseToggle from "./FontShowcaseToggle.tsx";
 
 import { cn } from "@/lib/utils.ts";
-import { renderTextWithKerning } from "./FontShowcaseKerningFix.tsx";
+import { renderTextWithKerning } from "./fontShowcaseKerningFix.tsx";
 
 import { fontFeaturesLabel, TRACKING_MAP } from "@/data/fontShowcaseData.tsx";
 import { type FontShowcaseProps } from "@/types/commonProps.ts";
@@ -26,7 +26,7 @@ export default function FontShowcase({
   defaultTextAlign = "left",
   defaultFontFeatures = [],
   defaultWordSpacing,
-  defaultTextContainerSize = [0.98, 0.99],
+  defaultTextContainerSize = [0.97, 0.98],
   enableCustomKerning,
   className,
 }: FontShowcaseProps) {
@@ -72,7 +72,7 @@ export default function FontShowcase({
       Math.abs(textWidth - targetContainerWidth) <
       targetContainerWidth * 0.005
     ) {
-      setTimeout(() => setIsAdjusting(false), 100);
+      setTimeout(() => setIsAdjusting(false), 200);
       return;
     }
 
@@ -163,9 +163,7 @@ export default function FontShowcase({
       cn(
         `inline-block max-w-full bg-white  leading-[1.1] break-words
       hover:cursor-text focus:outline-none`,
-        !multipleLines
-          ? "py-2 md:pt-0 md:pb-8 first-letter:-ml-[0.05em]"
-          : "py-4",
+        !multipleLines ? "py-2 md:pt-0 md:pb-8" : "py-4",
         !multipleLines ? TRACKING_MAP[fontWeight] : "tracking-tighter",
         !multipleLines && isAdjusting
           ? "whitespace-nowrap"
