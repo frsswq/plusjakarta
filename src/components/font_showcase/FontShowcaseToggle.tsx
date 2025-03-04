@@ -1,16 +1,8 @@
 import { memo } from "react";
 import { Toggle } from "../ui/toggle.tsx";
+import { type FontShowcaseToggleProps } from "@/types/commonProps.ts";
 
 import { cn } from "@/lib/utils";
-
-interface FontShowcaseToggleProps {
-  title: string;
-  ariaLabel?: string;
-  pressed: boolean;
-  onPressedChange: (pressed: boolean) => void;
-  children: React.ReactNode;
-  className?: string;
-}
 
 const FontShowcaseToggle = ({
   title,

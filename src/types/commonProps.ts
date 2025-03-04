@@ -37,3 +37,26 @@ export interface FontShowcaseProps {
   enableCustomKerning?: Record<string, string>;
   className?: string;
 }
+
+export interface FontShowcaseToggleProps {
+  title: string;
+  ariaLabel?: string;
+  pressed: boolean;
+  onPressedChange: (pressed: boolean) => void;
+  children: React.ReactNode;
+  className?: string;
+}
+
+export interface FontShowcaseSliderSizeProps {
+  value: number;
+  min: number;
+  max: number;
+  step: number;
+  onValueChange: (value: number) => void;
+  onValueCommit: (value: number[]) => void;
+}
+
+export interface FontShowcaseSelectWeightProps {
+  value: string;
+  onValueChange: (value: string) => void;
+}

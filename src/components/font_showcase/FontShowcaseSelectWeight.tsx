@@ -6,14 +6,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select.tsx";
+import { type FontShowcaseSelectWeightProps } from "@/types/commonProps.ts";
 import { fontWeightsLabel } from "@/data/fontShowcaseData.tsx";
 
 const SelectItemMemo = memo(SelectItem);
 
-interface FontShowcaseSelectWeightProps {
-  value: string;
-  onValueChange: (value: string) => void;
-}
 const FontShowcaseSelectWeight = ({
   value,
   onValueChange,

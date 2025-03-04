@@ -1,17 +1,10 @@
 import { memo } from "react";
 import { Slider } from "../ui/slider.tsx";
+import { type FontShowcaseSliderSizeProps } from "@/types/commonProps.ts";
+
 import ClarityFontSizeLine from "../icons/ClarityFontSizeLine.tsx";
 
 const SliderMemo = memo(Slider);
-
-interface FontShowcaseSliderSizeProps {
-  value: number;
-  min: number;
-  max: number;
-  step: number;
-  onValueChange: (value: number) => void;
-  onValueCommit: (value: number[]) => void;
-}
 
 const FontShowcaseSliderSize = ({
   value,
