@@ -161,9 +161,9 @@ export default function FontShowcase({
   const textClasses = useMemo(
     () =>
       cn(
-        `inline-block max-w-full bg-white  leading-[1.1] break-words
+        `inline-block max-w-full bg-white leading-[1.1] break-words
       hover:cursor-text focus:outline-none`,
-        !multipleLines ? "pt-2 pb-4 md:pt-0 md:pb-8" : "py-2 md:py-4",
+        !multipleLines ? "pt-2 pb-4 md:pt-0 md:pb-8" : "py-4 md:pt-6 md:pb-8",
         !multipleLines ? TRACKING_MAP[fontWeight] : "tracking-tighter",
         !multipleLines && isAdjusting
           ? "whitespace-nowrap"
@@ -176,7 +176,10 @@ export default function FontShowcase({
 
   return (
     <>
-      <div className="fixed-container group/showcase flex flex-col gap-y-0 px-4 py-2 md:px-6 md:py-4">
+      <div
+        className="fixed-container group/showcase flex flex-col gap-y-0 px-5 py-2 sm:px-10 md:px-20
+          md:py-4"
+      >
         <div className="z-10 flex h-7.5 flex-wrap items-center md:h-9 md:gap-1.5">
           <div title="Font Weight">
             <FontShowcaseSelectWeight
