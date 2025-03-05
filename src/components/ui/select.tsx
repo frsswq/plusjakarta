@@ -27,7 +27,7 @@ const SelectTrigger = React.forwardRef<
   >
     {children}
     <SelectPrimitive.Icon asChild>
-      <RadixIconsCaretDown className="size-4 text-zinc-700 group-hover:text-black" />
+      <RadixIconsCaretDown className="hidden size-4 text-zinc-700 group-hover:text-black md:block" />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 ));
