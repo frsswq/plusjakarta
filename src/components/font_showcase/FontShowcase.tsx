@@ -184,7 +184,10 @@ export default function FontShowcase({
               onValueChange={setFontWeight}
             />
           </div>
-          <div title="Font Size" className="hidden group-hover/showcase:flex">
+          <div
+            title="Font Size"
+            className="hidden lg:group-hover/showcase:flex"
+          >
             <FontShowcaseSliderSize
               value={fontSize}
               min={10}
@@ -229,7 +232,7 @@ export default function FontShowcase({
             </div>
             <div
               className="hidden items-center gap-x-0.5 rounded-sm border border-zinc-200 bg-white p-0.5
-                group-hover/showcase:flex hover:border-zinc-300 hover:shadow-2xs"
+                hover:border-zinc-300 hover:shadow-2xs md:group-hover/showcase:flex"
             >
               <FontShowcaseToggle
                 title="Italic"
@@ -260,7 +263,7 @@ export default function FontShowcase({
             </div>
             <div
               className="hidden items-center rounded-sm border border-zinc-200 bg-white p-0.5
-                group-hover/showcase:flex hover:border-zinc-300"
+                hover:border-zinc-300 md:group-hover/showcase:flex"
             >
               <Button
                 onClick={resetFont}
