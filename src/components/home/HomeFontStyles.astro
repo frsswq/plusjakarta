@@ -1,0 +1,44 @@
+---
+import { fontWeightsLabel } from "@/data/fontShowcaseData";
+---
+
+<div class="fixed-container px-6 py-12 md:px-20 md:py-10">
+  <p class="lurus text-sm font-medium text-zinc-700 md:pl-3">Styles</p>
+  <div
+    class="grid grid-cols-1 pt-2 text-5xl leading-none tracking-tight md:grid-cols-2
+      md:gap-x-6 md:pl-3 md:text-4xl"
+  >
+    <div class="flex flex-col">
+      <hr class="h-px w-full bg-transparent text-zinc-200" />
+      {
+        fontWeightsLabel.map((weight) => (
+          <>
+            <p
+              class={`font-${weight.label.toLowerCase()} pt-2 pb-3 -indent-0.5`}
+              style={{ fontWeight: weight.value }}
+            >
+              {weight.label}
+            </p>
+            <hr class="h-px w-full bg-transparent text-zinc-200" />
+          </>
+        ))
+      }
+    </div>
+    <div class="hidden flex-col md:flex">
+      <hr class="h-px w-full bg-transparent text-zinc-200" />
+      {
+        fontWeightsLabel.map((weight) => (
+          <>
+            <p
+              class={`font-${weight.label.toLowerCase()} pt-2 pb-3 -indent-0.5 italic`}
+              style={{ fontWeight: weight.value }}
+            >
+              {weight.label} Italic
+            </p>
+            <hr class="h-px w-full bg-transparent text-zinc-200" />
+          </>
+        ))
+      }
+    </div>
+  </div>
+</div>

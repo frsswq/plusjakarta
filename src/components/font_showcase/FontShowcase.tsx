@@ -70,7 +70,7 @@ export default function FontShowcase({
 
     if (
       Math.abs(textWidth - targetContainerWidth) <
-      targetContainerWidth * 0.005
+      targetContainerWidth * 0.0075
     ) {
       setTimeout(() => setIsAdjusting(false), 200);
       return;

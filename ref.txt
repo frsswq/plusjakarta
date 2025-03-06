@@ -25,6 +25,7 @@
 - https://www.typotheque.com/
 - https://www.daltonmaag.com/font-library/mendl-sans.html
 - https://floriankarsten.github.io/space-grotesk/
+- https://www.publictype.us/
 
 collection
 - https://typespecimens.xyz/specimens/all/grid/36/
