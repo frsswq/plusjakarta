@@ -130,7 +130,7 @@ export default function FontShowcase({
     setFontSize(initialFontSize);
     setFontWeight(defaultFontWeight);
     setTextAlign(defaultTextAlign);
-    setFontFeatures([]);
+    setFontFeatures(defaultFontFeatures);
     if (fontTextRef.current) {
       fontTextRef.current.textContent = defaultEditableText;
     }
