@@ -30,11 +30,10 @@ export interface FontShowcaseProps {
   defaultFontSize?: number | undefined;
   defaultFontWeight?: "200" | "300" | "400" | "500" | "600" | "700" | "800";
   defaultFontStyle?: "normal" | "italic";
-  defaultTextAlign?: "left" | "center";
+  defaultTextAlign?: "left" | "center" | "justify";
   defaultFontFeatures?: string[];
   defaultWordSpacing?: string;
   defaultTextContainerSize?: [number, number];
-  enableCustomKerning?: Record<string, string>;
   className?: string;
 }
 
