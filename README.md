@@ -23,10 +23,10 @@ $ cd plusjakarta
 
 ```bash
 # Install dependencies
-$ npm install
+$ pnpm install
 ```
 
 ```bash
 # Start the project in development
-$ npm run dev
+$ pnpm run dev
 ```
