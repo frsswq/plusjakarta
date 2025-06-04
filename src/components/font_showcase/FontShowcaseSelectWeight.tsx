@@ -1,9 +1,6 @@
-import { memo } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select.tsx';
 import { type FontShowcaseSelectWeightProps } from '@typeDefs/commonProps.ts';
 import { fontWeightsLabel } from '@data/fontShowcaseData.tsx';
-
-const SelectItemMemo = memo(SelectItem);
 
 const FontShowcaseSelectWeight = ({ value, onValueChange }: FontShowcaseSelectWeightProps) => {
 	return (
@@ -19,18 +16,18 @@ const FontShowcaseSelectWeight = ({ value, onValueChange }: FontShowcaseSelectWe
 			</SelectTrigger>
 			<SelectContent className="rounded-xs border-zinc-300 shadow-2xs">
 				{fontWeightsLabel.map((weight) => (
-					<SelectItemMemo
+					<SelectItem
 						value={weight.value}
 						key={weight.value}
 						className="rounded-xs text-[10px] text-zinc-700 focus:cursor-pointer focus:bg-zinc-100 focus:font-[450]
 							focus:text-black md:text-sm"
 					>
 						{weight.label}
-					</SelectItemMemo>
+					</SelectItem>
 				))}
 			</SelectContent>
 		</Select>
 	);
 };
 
-export default memo(FontShowcaseSelectWeight);
+export default FontShowcaseSelectWeight;

@@ -33,13 +33,13 @@ export interface FontInputSliderProps {
 
 export interface FontShowcaseProps {
 	defaultEditableText: string;
-	defaultFontSize?: number | undefined;
+	defaultFontSize?: { mobile: number; desktop: number };
 	defaultFontWeight?: '200' | '300' | '400' | '500' | '600' | '700' | '800';
 	defaultFontStyle?: 'normal' | 'italic';
 	defaultTextAlign?: 'left' | 'center' | 'justify';
 	defaultFontFeatures?: string[];
 	defaultWordSpacing?: string;
-	defaultTextContainerSize?: [number, number];
+	defaultTextContainerSize?: { mobile: number; desktop: number };
 	className?: string;
 }
 

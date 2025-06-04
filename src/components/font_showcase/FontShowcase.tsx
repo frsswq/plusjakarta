@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState, useMemo } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { Button } from '../ui/button.tsx';
 import { Separator } from '../ui/separator.tsx';
@@ -26,19 +26,21 @@ export default function FontShowcase({
 	defaultTextAlign = 'left',
 	defaultFontFeatures = [],
 	defaultWordSpacing,
-	defaultTextContainerSize = [0.97, 0.98],
+	defaultTextContainerSize = { mobile: 0.97, desktop: 0.98 },
 	className
 }: FontShowcaseProps) {
+	//@TODO = make the defaultFontSize better
+
 	const isMobile = useIsMobile();
 	const autoAdjustFontSize = defaultFontSize === undefined;
 
-	const getResponsiveFontSize = useCallback(() => {
+	const getResponsiveFontSize = () => {
 		if (defaultFontSize !== undefined) {
-			return isMobile ? 12 : defaultFontSize;
+			return isMobile ? defaultFontSize.mobile : defaultFontSize.desktop;
 		}
 
 		return 1;
-	}, [defaultFontSize, isMobile]);
+	};
 
 	// useReducer? maybe next time
 	const [initialFontSize, setInitialFontSize] = useState(() => getResponsiveFontSize());
@@ -53,23 +55,15 @@ export default function FontShowcase({
 	const fontTextRef = useRef<HTMLSpanElement>(null);
 	const isDraggingRef = useRef<boolean>(false);
 
-	useEffect(() => {
-		if (defaultFontSize !== undefined) {
-			const newResponsiveFontSize = getResponsiveFontSize();
-			setInitialFontSize(newResponsiveFontSize);
-			setFontSize(newResponsiveFontSize);
-		}
-	}, [isMobile, defaultFontSize, getResponsiveFontSize]);
-
-	const adjustFontSize = useCallback(() => {
+	const adjustFontSize = () => {
 		if (!containerRef.current || !fontTextRef.current || isDraggingRef.current) return;
 
 		const containerWidth = containerRef.current.clientWidth;
 
 		const targetContainerWidth =
 			containerWidth <= 768
-				? containerWidth * defaultTextContainerSize[0]
-				: containerWidth * defaultTextContainerSize[1];
+				? containerWidth * defaultTextContainerSize.mobile
+				: containerWidth * defaultTextContainerSize.desktop;
 
 		const textWidth = fontTextRef.current.scrollWidth;
 		const currentFontSize = parseFloat(globalThis.getComputedStyle(fontTextRef.current).fontSize);
@@ -91,9 +85,15 @@ export default function FontShowcase({
 			setFontSize(newFontSize);
 			setInitialFontSize(newFontSize);
 		}
-	}, [defaultEditableText, defaultTextContainerSize, autoAdjustFontSize, fontSize]);
+	};
 
 	useEffect(() => {
+		if (defaultFontSize !== undefined) {
+			const newResponsiveFontSize = getResponsiveFontSize();
+			setInitialFontSize(newResponsiveFontSize);
+			setFontSize(newResponsiveFontSize);
+		}
+
 		if (!autoAdjustFontSize || !containerRef.current) return;
 
 		let resizeTimer: NodeJS.Timeout;
@@ -117,7 +117,7 @@ export default function FontShowcase({
 			clearTimeout(resizeTimer);
 			window.removeEventListener('resize', handleResize);
 		};
-	}, [adjustFontSize, autoAdjustFontSize]);
+	}, [adjustFontSize, autoAdjustFontSize, isMobile, defaultFontSize, getResponsiveFontSize]);
 
 	const addFontFeature: string =
 		fontFeatures.length > 0 ? `"${fontFeatures.join(`", "`)}"` : 'normal';
@@ -132,33 +132,25 @@ export default function FontShowcase({
 		}
 	};
 
-	const textStyle = useMemo(
-		() => ({
-			fontSize: `${fontSize}px`,
-			fontWeight: fontWeight,
-			fontStyle: fontStyle,
-			textAlign: textAlign,
-			fontFeatureSettings: addFontFeature,
-			fontFamily: `"Plus Jakarta Sans", "Plus Jakarta Sans Variable", sans-serif`,
-			wordSpacing: defaultWordSpacing || 'normal'
-		}),
-		[fontSize, fontWeight, fontStyle, textAlign, addFontFeature, defaultWordSpacing]
-	);
-
+	const textStyle = {
+		fontSize: `${fontSize}px`,
+		fontWeight: fontWeight,
+		fontStyle: fontStyle,
+		textAlign: textAlign,
+		fontFeatureSettings: addFontFeature,
+		fontFamily: `"Plus Jakarta Sans", "Plus Jakarta Sans Variable", sans-serif`,
+		wordSpacing: defaultWordSpacing || 'normal'
+	};
 	const multipleLines = /\n/.test(defaultEditableText);
 
-	const textClasses = useMemo(
-		() =>
-			cn(
-				`inline-block max-w-full bg-white leading-[1.1] break-words
+	const textClasses = cn(
+		`inline-block max-w-full bg-white leading-[1.1] break-words
       hover:cursor-text focus:outline-none`,
-				!multipleLines ? 'pt-3 pb-4 md:pt-4 md:pb-8' : 'py-5 md:py-10',
-				!multipleLines ? TRACKING_MAP[fontWeight] : 'tracking-tighter',
-				!multipleLines && isAdjusting ? 'whitespace-nowrap' : 'whitespace-pre-wrap',
-				isAdjusting ? 'w-fit' : 'w-full',
-				className
-			),
-		[fontWeight, isAdjusting, className, multipleLines]
+		!multipleLines ? 'pt-3 pb-4 md:pt-4 md:pb-8' : 'py-5 md:py-10',
+		!multipleLines ? TRACKING_MAP[fontWeight] : 'tracking-tighter',
+		!multipleLines && isAdjusting ? 'whitespace-nowrap' : 'whitespace-pre-wrap',
+		isAdjusting ? 'w-fit' : 'w-full',
+		className
 	);
 
 	return (

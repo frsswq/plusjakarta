@@ -3,7 +3,7 @@ import FontShowcase from '../font_showcase/FontShowcase';
 import { twoColText } from '@data/fontShowcaseData';
 
 const longTextClass: string =
-	'max-h-[500px] max-w-full columns-2 gap-x-6 hyphens-auto text-justify overflow-hidden break-words whitespace-pre-wrap tracking-tight leading-normal';
+	'max-h-[250px] md:max-h-[500px] max-w-full columns-2 gap-x-3 md:gap-x-6 hyphens-auto text-justify overflow-hidden break-words whitespace-pre-wrap tracking-tight leading-normal';
 ---
 
 <section>
@@ -41,7 +41,7 @@ const longTextClass: string =
 		defaultEditableText={twoColText}
 		defaultFontWeight="400"
 		defaultTextAlign="justify"
-		defaultFontSize={18}
+		defaultFontSize={{ mobile: 12, desktop: 18 }}
 		className={longTextClass}
 		client:load
 	/>

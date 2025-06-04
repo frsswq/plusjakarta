@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { Toggle } from '../ui/toggle.tsx';
 import { type FontShowcaseToggleProps } from '@typeDefs/commonProps.ts';
 
@@ -30,4 +29,4 @@ const FontShowcaseToggle = ({
 	);
 };
 
-export default memo(FontShowcaseToggle);
+export default FontShowcaseToggle;

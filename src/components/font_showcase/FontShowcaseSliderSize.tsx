@@ -1,10 +1,7 @@
-import { memo } from 'react';
 import { Slider } from '../ui/slider.tsx';
 import { type FontShowcaseSliderSizeProps } from '@typeDefs/commonProps.ts';
 
 import ClarityFontSizeLine from '@icons/ClarityFontSizeLine.tsx';
-
-const SliderMemo = memo(Slider);
 
 const FontShowcaseSliderSize = ({
 	value,
@@ -20,7 +17,7 @@ const FontShowcaseSliderSize = ({
 				antialiased"
 		>
 			<ClarityFontSizeLine className="size-5.5 text-zinc-700 group-hover/slider:text-black" />
-			<SliderMemo
+			<Slider
 				value={[value]}
 				onValueChange={([val]) => onValueChange(val)}
 				onValueCommit={([val]) => onValueCommit([val])}
@@ -39,4 +36,4 @@ const FontShowcaseSliderSize = ({
 	);
 };
 
-export default memo(FontShowcaseSliderSize);
+export default FontShowcaseSliderSize;
