@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@astrojs/react": "^4.3.0",
+    "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-toggle": "^1.1.9",
     "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.5",
     "astro": "^5.8.1",

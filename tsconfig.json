@@ -1,14 +1,23 @@
 {
-  "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", "node_modules"],
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    },
-    "jsx": "react-jsx",
-    "jsxImportSource": "react",
-    "types": ["@types/react", "@types/react-dom"]
-  }
+	"extends": "astro/tsconfigs/strict",
+	"include": [".astro/types.d.ts", "**/*"],
+	"exclude": ["dist", "node_modules"],
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@data/*": ["src/data/*"],
+			"@components/*": ["src/components/*"],
+			"@assets/*": ["src/assets/*"],
+			"@typeDefs/*": ["src/types/*"],
+			"@lib/*": ["src/lib/*"],
+			"@icons/*": ["src/components/icons/*"]
+		},
+		"target": "esnext",
+		"jsx": "react-jsx",
+		"jsxImportSource": "react",
+		"types": ["@types/react", "@types/react-dom"]
+	},
+	"typeAcquisition": {
+		"include": ["node_modules/q5"]
+	}
 }

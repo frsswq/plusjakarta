@@ -5,9 +5,9 @@
 <div id="p5-container" class="mx-auto block"></div>
 
 <script>
-  // @ts-ignore
   import q5 from "q5";
   import { sketch } from "../../scripts/heroTextAnim";
-
-  new q5(sketch, document.getElementById("p5-container"));
+  
+  // lmao
+  new (q5 as any)(sketch, document.getElementById("p5-container"));
 </script>
