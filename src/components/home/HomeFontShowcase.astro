@@ -2,7 +2,7 @@
 import FontShowcase from '../font_showcase/FontShowcase';
 import { twoColText } from '@data/fontShowcaseData';
 
-const longTextClass: string =
+const twoColClass: string =
 	'max-h-[250px] md:max-h-[500px] max-w-full columns-2 gap-x-3 md:gap-x-6 hyphens-auto text-justify overflow-hidden break-words whitespace-pre-wrap tracking-tight leading-normal';
 ---
 
@@ -38,11 +38,17 @@ const longTextClass: string =
 	/>
 	<!-- long text -->
 	<FontShowcase
+		defaultEditableText="Penyelesaian proyek LRT ini menuai banyak kritikan, mulai\ndari pengerjaan yang serampangan, spesifikasi kereta\nyang berbeda-beda, waktu uji coba yang terlalu terburu-\nburu dan diundur beberapa kali. Namun, keberadaan\nLRT tetap menjadi hal yang ditunggu-tunggu oleh banyak\norang, terutama para pekerja yang bertempat tinggal\ndi Bekasi dan Cibubur. Hal ini dikarenakan banyak pekerja\ndi Jakarta yang sudah lelah dengan kemacetan dan ke-\nruwetan jalanan di ibukota."
+		defaultFontWeight="400"
+		className="leading-tight tracking-tight"
+		client:load
+	/>
+	<FontShowcase
 		defaultEditableText={twoColText}
 		defaultFontWeight="400"
 		defaultTextAlign="justify"
 		defaultFontSize={{ mobile: 11, desktop: 18 }}
-		className={longTextClass}
+		className={twoColClass}
 		client:load
 	/>
 </section>

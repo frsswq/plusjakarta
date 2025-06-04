@@ -55,6 +55,14 @@ export default function FontShowcase({
 	const fontTextRef = useRef<HTMLSpanElement>(null);
 	const isDraggingRef = useRef<boolean>(false);
 
+	useEffect(() => {
+		if (defaultFontSize !== undefined) {
+			const newResponsiveFontSize = getResponsiveFontSize();
+			setInitialFontSize(newResponsiveFontSize);
+			setFontSize(newResponsiveFontSize);
+		}
+	}, [isMobile, defaultFontSize, getResponsiveFontSize]);
+
 	const adjustFontSize = () => {
 		if (!containerRef.current || !fontTextRef.current || isDraggingRef.current) return;
 
@@ -88,12 +96,6 @@ export default function FontShowcase({
 	};
 
 	useEffect(() => {
-		if (defaultFontSize !== undefined) {
-			const newResponsiveFontSize = getResponsiveFontSize();
-			setInitialFontSize(newResponsiveFontSize);
-			setFontSize(newResponsiveFontSize);
-		}
-
 		if (!autoAdjustFontSize || !containerRef.current) return;
 
 		let resizeTimer: NodeJS.Timeout;
@@ -117,7 +119,7 @@ export default function FontShowcase({
 			clearTimeout(resizeTimer);
 			window.removeEventListener('resize', handleResize);
 		};
-	}, [adjustFontSize, autoAdjustFontSize, isMobile, defaultFontSize, getResponsiveFontSize]);
+	}, [adjustFontSize, autoAdjustFontSize]);
 
 	const addFontFeature: string =
 		fontFeatures.length > 0 ? `"${fontFeatures.join(`", "`)}"` : 'normal';
