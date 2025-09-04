@@ -1,0 +1,3 @@
+[build]
+  command = "pnpm --filter plus-jakarta... run build"
+  publish = "packages/plus-jakarta/dist"
