@@ -3,17 +3,17 @@ import { useEffect, useRef, useState } from 'react';
 import { Button } from '../ui/button.tsx';
 import { Separator } from '../ui/separator.tsx';
 
-import MynauiTextAlignLeft from '@icons/MynauiTextAlignLeft.tsx';
 import MynauiTextAlignCenter from '@icons/MynauiTextAlignCenter.tsx';
-import TablerItalic from '@icons/TablerItalic.tsx';
+import MynauiTextAlignLeft from '@icons/MynauiTextAlignLeft.tsx';
 import SystemUiconsReset from '@icons/SystemUiconsReset.tsx';
+import TablerItalic from '@icons/TablerItalic.tsx';
 
 import FontShowcaseSelectWeight from './FontShowcaseSelectWeight.tsx';
 import FontShowcaseSliderSize from './FontShowcaseSliderSize.tsx';
 import FontShowcaseToggle from './FontShowcaseToggle.tsx';
 
-import { cn } from '@lib/utils.ts';
 import { useIsMobile } from '@lib/isMobile.tsx';
+import { cn } from '@lib/utils.ts';
 
 import { fontFeaturesLabel, TRACKING_MAP } from '@data/fontShowcaseData.tsx';
 import { type FontShowcaseProps } from '@typeDefs/commonProps';
